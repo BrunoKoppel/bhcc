@@ -1,0 +1,87 @@
+1 <0,58>: Four score and seven years ago our fathers brought forth 
+2 <59,55>: on this continent a new nation, conceived in liberty, 
+3 <115,67>: and dedicated to the proposition that all men are created equal.  
+4 <183,71>: Now we are engaged in a great civil war, testing whether that nation, 
+5 <255,64>: or any nation so conceived and so dedicated, can long endure.  
+6 <320,49>: We are met on a great battle-field of that war. 
+7 <370,76>: We have come to dedicate a portion of that field, as a final resting place 
+8 <447,67>: for those who here gave their lives that that nation might live.  
+9 <515,62>: It is altogether fitting and proper that we should do this.  
+10 <578,69>: But, in a larger sense, we can not dedicate, we can not consecrate, 
+11 <648,65>: we can not hallow this ground.  The brave men, living and dead, 
+12 <714,42>: who struggled here, have consecrated it, 
+13 <757,46>: far above our poor power to add or detract.  
+14 <804,65>: The world will little note, nor long remember what we say here, 
+15 <870,46>: but it can never forget what they did here.  
+16 <917,78>: It is for us the living, rather, to be dedicated here to the unfinished work 
+17 <996,62>: which they who fought here have thus far so nobly advanced.  
+18 <1059,79>: It is rather for us to be here dedicated to the great task remaining before us
+19 <1139,73>: --that from these honored dead we take increased devotion to that cause 
+20 <1213,56>:   for which they gave the last full measure of devotion
+21 <1270,74>: --that we here highly resolve that these dead shall not have died in vain
+22 <1345,65>: --that this nation, under God, shall have a new birth of freedom
+23 <1411,69>: --and that government of the people, by the people, for the people, 
+24 <1481,35>:   shall not perish from the earth.
+25 <1517,15>: Abraham Lincoln
+
+
+ output from one iteration done
+
+1 <0,58>: Four score and seven years ago our fathers brought forth 
+2 <59,55>: on this continent a new nation, conceived in liberty, 
+3 <115,67>: and dedicated to the proposition that all men are created equal.  
+4 <183,71>: Now we are engaged in a great civil war, testing whether that nation, 
+5 <255,64>: or any nation so conceived and so dedicated, can long endure.  
+6 <320,49>: We are met on a great battle-field of that war. 
+7 <370,76>: We have come to dedicate a portion of that field, as a final resting place 
+8 <447,67>: for those who here gave their lives that that nation might live.  
+9 <515,62>: It is altogether fitting and proper that we should do this.  
+10 <578,69>: But, in a larger sense, we can not dedicate, we can not consecrate, 
+11 <648,65>: we can not hallow this ground.  The brave men, living and dead, 
+12 <714,42>: who struggled here, have consecrated it, 
+13 <757,46>: far above our poor power to add or detract.  
+14 <804,65>: The world will little note, nor long remember what we say here, 
+15 <870,46>: but it can never forget what they did here.  
+16 <917,78>: It is for us the living, rather, to be dedicated here to the unfinished work 
+17 <996,62>: which they who fought here have thus far so nobly advanced.  
+18 <1059,79>: It is rather for us to be here dedicated to the great task remaining before us
+19 <1139,73>: --that from these honored dead we take increased devotion to that cause 
+20 <1213,56>:   for which they gave the last full measure of devotion
+21 <1270,74>: --that we here highly resolve that these dead shall not have died in vain
+22 <1345,65>: --that this nation, under God, shall have a new birth of freedom
+23 <1411,69>: --and that government of the people, by the people, for the people, 
+24 <1481,35>:   shall not perish from the earth.
+25 <1517,15>: Abraham Lincoln
+
+
+ output from one iteration done
+
+1 <0,58>: Four score and seven years ago our fathers brought forth 
+2 <59,55>: on this continent a new nation, conceived in liberty, 
+3 <115,67>: and dedicated to the proposition that all men are created equal.  
+4 <183,71>: Now we are engaged in a great civil war, testing whether that nation, 
+5 <255,64>: or any nation so conceived and so dedicated, can long endure.  
+6 <320,49>: We are met on a great battle-field of that war. 
+7 <370,76>: We have come to dedicate a portion of that field, as a final resting place 
+8 <447,67>: for those who here gave their lives that that nation might live.  
+9 <515,62>: It is altogether fitting and proper that we should do this.  
+10 <578,69>: But, in a larger sense, we can not dedicate, we can not consecrate, 
+11 <648,65>: we can not hallow this ground.  The brave men, living and dead, 
+12 <714,42>: who struggled here, have consecrated it, 
+13 <757,46>: far above our poor power to add or detract.  
+14 <804,65>: The world will little note, nor long remember what we say here, 
+15 <870,46>: but it can never forget what they did here.  
+16 <917,78>: It is for us the living, rather, to be dedicated here to the unfinished work 
+17 <996,62>: which they who fought here have thus far so nobly advanced.  
+18 <1059,79>: It is rather for us to be here dedicated to the great task remaining before us
+19 <1139,73>: --that from these honored dead we take increased devotion to that cause 
+20 <1213,56>:   for which they gave the last full measure of devotion
+21 <1270,74>: --that we here highly resolve that these dead shall not have died in vain
+22 <1345,65>: --that this nation, under God, shall have a new birth of freedom
+23 <1411,69>: --and that government of the people, by the people, for the people, 
+24 <1481,35>:   shall not perish from the earth.
+25 <1517,15>: Abraham Lincoln
+
+
+ output from one iteration done
+

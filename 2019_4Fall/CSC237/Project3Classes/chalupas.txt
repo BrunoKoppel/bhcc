@@ -1,0 +1,9 @@
+Item Number    Description                             Cost      Quantity  
+-----------    -----------                             ----      --------  
+    0		chalupas                                40.99     6         
+    1		Cable                                   5         18        
+    2		Extension Cord (14/3, 25 ft)            27.95     6         
+    3		Light switch (15 amp)                   2.79      10        
+    4		Ceiling Fan (52 inch)                   79.95     3         
+    5		Vinyl Electrical Tape (20 ft roll)      0.79      30        
+    6		GFI Tester                              9.35      5         
