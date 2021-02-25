@@ -1,0 +1,7 @@
+﻿  DynamicAllocation.cpp
+C:\Users\bruno\code\school\2021_Spring\CSC284\BrunoKoppel--DynamicallyAllocated\DynamicAllocation\DynamicAllocation\DynamicAllocation.cpp(20,7): warning C4834: discarding return value of function with 'nodiscard' attribute
+C:\Users\bruno\code\school\2021_Spring\CSC284\BrunoKoppel--DynamicallyAllocated\DynamicAllocation\DynamicAllocation\DynamicAllocation.cpp(21,7): warning C4551: function call missing argument list
+C:\Users\bruno\code\school\2021_Spring\CSC284\BrunoKoppel--DynamicallyAllocated\DynamicAllocation\DynamicAllocation\DynamicAllocation.cpp(24,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\bruno\code\school\2021_Spring\CSC284\BrunoKoppel--DynamicallyAllocated\DynamicAllocation\DynamicAllocation\DynamicAllocation.cpp(25,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\bruno\code\school\2021_Spring\CSC284\BrunoKoppel--DynamicallyAllocated\DynamicAllocation\DynamicAllocation\DynamicAllocation.cpp(51,16): warning C4101: 'seed': unreferenced local variable
+  DynamicAllocation.vcxproj -> C:\Users\bruno\code\school\2021_Spring\CSC284\BrunoKoppel--DynamicallyAllocated\DynamicAllocation\Debug\DynamicAllocation.exe

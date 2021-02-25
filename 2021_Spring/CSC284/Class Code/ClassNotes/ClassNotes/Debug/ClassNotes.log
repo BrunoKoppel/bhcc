@@ -1,0 +1,14 @@
+﻿  ClassNotes.cpp
+C:\Users\bruno\code\school\2021_Spring\CSC284\Class Code\ClassNotes\ClassNotes\ClassNotes.cpp(16,22): error C2065: 'value': undeclared identifier
+C:\Users\bruno\code\school\2021_Spring\CSC284\Class Code\ClassNotes\ClassNotes\ClassNotes.cpp(16,8): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+C:\Users\bruno\code\school\2021_Spring\CSC284\Class Code\ClassNotes\ClassNotes\ClassNotes.cpp(23,8): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+  InitializerList.cpp
+C:\Users\bruno\code\school\2021_Spring\CSC284\Class Code\ClassNotes\ClassNotes\InitializerList.cpp(16,8): error C2065: 'x': undeclared identifier
+C:\Users\bruno\code\school\2021_Spring\CSC284\Class Code\ClassNotes\ClassNotes\InitializerList.cpp(16,11): error C2065: 'y': undeclared identifier
+C:\Users\bruno\code\school\2021_Spring\CSC284\Class Code\ClassNotes\ClassNotes\InitializerList.cpp(16,14): error C2065: 'z': undeclared identifier
+C:\Users\bruno\code\school\2021_Spring\CSC284\Class Code\ClassNotes\ClassNotes\InitializerList.cpp(16,17): error C2065: 'q': undeclared identifier
+C:\Users\bruno\code\school\2021_Spring\CSC284\Class Code\ClassNotes\ClassNotes\InitializerList.cpp(16,18): error C3537: you cannot cast to a type that contains 'auto'
+C:\Users\bruno\code\school\2021_Spring\CSC284\Class Code\ClassNotes\ClassNotes\InitializerList.cpp(16,18): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'int'
+C:\Users\bruno\code\school\2021_Spring\CSC284\Class Code\ClassNotes\ClassNotes\InitializerList.cpp(16,7): message : The initializer contains too many elements
+C:\Users\bruno\code\school\2021_Spring\CSC284\Class Code\ClassNotes\ClassNotes\InitializerList.cpp(23,8): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+  Generating Code...

@@ -1,0 +1,4 @@
+﻿  testEnum.cpp
+C:\Users\bruno\code\school\2021_Spring\CSC284\BrunoKoppel--1.2A_Enumerators\BrunoKoppel--1.2A_Enumerators\testEnum.cpp(93): warning C4715: 'returnMonthGivenTheNumber': not all control paths return a value
+C:\Users\bruno\code\school\2021_Spring\CSC284\BrunoKoppel--1.2A_Enumerators\BrunoKoppel--1.2A_Enumerators\testEnum.cpp(52): warning C4715: 'returnWeekDayGivenTheNumber': not all control paths return a value
+  BrunoKoppel--1.2A_Enumerators.vcxproj -> C:\Users\bruno\code\school\2021_Spring\CSC284\BrunoKoppel--1.2A_Enumerators\Debug\BrunoKoppel--1.2A_Enumerators.exe
