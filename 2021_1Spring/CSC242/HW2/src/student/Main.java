@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Main {
 
-    static boolean LLTEST1 = true;
+    static boolean LLTEST1 = false;
     static boolean LLTEST2 = true;
     static boolean LLTEST3 = true;
 
@@ -16,19 +16,19 @@ public class Main {
             System.out.println("Getting the size: " + testOne.size());
 
             testOne.add(1);
-            System.out.println("Getting 1st Value: " + testOne.get(1));
+            System.out.println("Getting 1st Value: " + testOne.get(0));
             System.out.println("Getting the size: " + testOne.size());
 
             testOne.add(2);
-            System.out.println("Getting 2nd Value: " + testOne.get(2));
+            System.out.println("Getting 2nd Value: " + testOne.get(1));
             System.out.println("Getting the size: " + testOne.size());
 
             testOne.add(3);
-            System.out.println("Getting 3rd Value: " + testOne.get(3));
+            System.out.println("Getting 3rd Value: " + testOne.get(2));
             System.out.println("Getting the size: " + testOne.size());
 
             try {
-                System.out.println("Getting 4th Value: " + testOne.get(4));
+                System.out.println("Getting 4th Value: " + testOne.get(3));
             } catch (IndexOutOfBoundsException ex) {
                 System.out.println(ex);
             }
@@ -40,20 +40,22 @@ public class Main {
             System.out.println("Getting the size: " + testOne.size());
 
             Integer[] list = new Integer[]{1, 2, 3, 4};
-            testOne.addAll(1, Arrays.asList(list));
+            testOne.addAll(0, Arrays.asList(list));
             System.out.println("Getting the size: " + testOne.size());
         }
 
         if (LLTEST2){
             LinkedListDS<Integer> testTwo = new LinkedListDS<Integer>();
             Integer[] list = new Integer[]{1, 2, 3, 4};
-            testTwo.addAll(1, Arrays.asList(list));
+            testTwo.addAll(0, Arrays.asList(list));
             System.out.println("Getting the size: " + testTwo.size());
+            System.out.println("Testing Contains All with Right characters => "+ testTwo.containsAll(Arrays.asList(list)));
+
         }
 
         if (LLTEST3){
             LinkedListDS<Integer> testThree = new LinkedListDS<Integer>();
-            testThree.add(1,1);
+            testThree.add(0,1);
             System.out.println("Getting the size: " + testThree.size());
         }
     }

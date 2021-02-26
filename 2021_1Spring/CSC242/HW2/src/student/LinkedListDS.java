@@ -12,7 +12,7 @@ public class LinkedListDS<E> {
 	boolean VERBOSE_ADDALL2 = false;
 	boolean VERBOSE_CLEAR = false;
 	boolean VERBOSE_CONTAINS1 = false;
-	boolean VERBOSE_CONTAINS2 = false;
+	boolean VERBOSE_CONTAINSALL1 = false;
 	boolean VERBOSE_GET1 = false;
 	boolean VERBOSE_GET2 = false;
 	boolean VERBOSE_REMOVE1 = false;
@@ -236,36 +236,44 @@ public class LinkedListDS<E> {
 		Node<E> after = null;
 		Node<E> before = null;
 
-		if (index != size){
-			after = getNode(index);
-			before = after.prev;
+		if (index != this.size){
+			before = getNode(index);
+			after = before.prev;
 		} else
-			before = tail;
+			after = tail;
 
 		Object[] o = c.toArray();
-
 		Node<E> newNode = new Node<E>((E)o[0]);
-		newNode.prev = before;
-		Node<E> prev = newNode;
+
+		newNode.prev = after;
+		Node<E> previous = newNode;
 		Node<E> newHead = newNode;
 
 		for (int pos = 1; pos < csize; pos++){
 			newNode = new Node<E>((E)o[pos]);
-			newNode.prev = prev;
-			prev = newNode;
+			previous.next = newNode;
+			newNode.prev = previous;
+			previous = newNode;
 		}
 
-		size += csize;
-		prev.next = after;
-		if (after != null)
-			after.prev = newNode;
-		else
-			tail = newNode;
+		if (VERBOSE_ADDALL1) System.out.println("Size before resize = " + this.size);
+		this.size += csize;
+		if (VERBOSE_ADDALL1) System.out.println("Size after resize = " + this.size);
 
-		if (before != null)
-			before.next = newHead;
-		else
+
+		if (before != null){
+			previous.prev = newNode;
+			newNode.next = before;
+		} else {
+			tail = newNode;
+		}
+
+		if (after != null) {
+			after.next = newHead;
+		} else {
 			head = newHead;
+		}
+
 		return true;
 	}
 
@@ -390,17 +398,25 @@ public class LinkedListDS<E> {
 		int csize = c.size();
 		int numbersEqualToCollection = 0;
 		for (Object o : c){
-			Node<E> currentNode = head;
+			if (VERBOSE_CONTAINSALL1) System.out.println("Value entered is => " + o);
+			Node currentNode = head;
 			while (currentNode != null){
+
+				if (VERBOSE_CONTAINSALL1) System.out.println("Analyzing value => " + currentNode.data);
+
 				if (currentNode.data.equals(o)){
+					if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
+
 					numbersEqualToCollection++;
 					break;
 				}
 
-				currentNode = currentNode.next;
+				if (VERBOSE_CONTAINSALL1) System.out.println("Next node == " + currentNode.next);
+				if (currentNode.next != null)
+					currentNode = currentNode.next;
 			}
 		}
-		System.out.println("Size of Collection VS NumbersContained [" + csize + "][" + numbersEqualToCollection + "]");
+		if (VERBOSE_CONTAINSALL1) System.out.println("Size of Collection VS NumbersContained [" + csize + "][" + numbersEqualToCollection + "]");
 		return csize == numbersEqualToCollection;
 	}
 
