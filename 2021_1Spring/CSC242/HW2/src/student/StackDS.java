@@ -4,6 +4,11 @@ import java.util.Collection;
 
 public class StackDS<E> {
 
+
+	public StackDS(){
+
+	}
+
 	
 	/**
 	 * Appends the specified element to the end of this DS.

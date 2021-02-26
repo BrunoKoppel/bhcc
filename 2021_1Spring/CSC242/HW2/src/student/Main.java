@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class Main {
 
-    static boolean LLTEST1 = false;
-    static boolean LLTEST2 = false;
+    static boolean LLTEST1 = true;
+    static boolean LLTEST2 = true;
     static boolean LLTEST3 = true;
 
     public static void main(String[] args) {
