@@ -1,9 +1,15 @@
 package student;
 
-import java.util.Collection;
+// http://developer.classpath.org/doc/java/util/LinkedList-source.html
+import java.util.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.lang.reflect.Array;
 
-
-public class LinkedListDS<E> {
+public class LinkedListDS<E> extends AbstractSequentialList<E>
+		implements List<E>, Deque<E>, Cloneable, Serializable {
 
 	boolean VERBOSE_ADD1 = false;
 	boolean VERBOSE_ADD2 = false;
@@ -43,6 +49,76 @@ public class LinkedListDS<E> {
 	}
 
 
+	@Override
+	public void addFirst(E e) {
+
+	}
+
+	@Override
+	public void addLast(E e) {
+
+	}
+
+	@Override
+	public boolean offerFirst(E e) {
+		return false;
+	}
+
+	@Override
+	public boolean offerLast(E e) {
+		return false;
+	}
+
+	@Override
+	public E removeFirst() {
+		return null;
+	}
+
+	@Override
+	public E removeLast() {
+		return null;
+	}
+
+	@Override
+	public E pollFirst() {
+		return null;
+	}
+
+	@Override
+	public E pollLast() {
+		return null;
+	}
+
+	@Override
+	public E getFirst() {
+		return null;
+	}
+
+	@Override
+	public E getLast() {
+		return null;
+	}
+
+	@Override
+	public E peekFirst() {
+		return null;
+	}
+
+	@Override
+	public E peekLast() {
+		return null;
+	}
+
+	@Override
+	public boolean removeFirstOccurrence(Object o) {
+		return false;
+	}
+
+	@Override
+	public boolean removeLastOccurrence(Object o) {
+		return false;
+	}
+
 	/**
 	 * Appends the specified element to the end of this DS.
 	 * @param e
@@ -64,6 +140,31 @@ public class LinkedListDS<E> {
 			head = new Node(e, null, null);
 			tail = head;
 		}
+	}
+
+	@Override
+	public boolean offer(E e) {
+		return false;
+	}
+
+	@Override
+	public E remove() {
+		return null;
+	}
+
+	@Override
+	public E poll() {
+		return null;
+	}
+
+	@Override
+	public E element() {
+		return null;
+	}
+
+	@Override
+	public E peek() {
+		return null;
 	}
 
 	/**
@@ -125,6 +226,16 @@ public class LinkedListDS<E> {
 		}
 	}
 
+	@Override
+	public void push(E e) {
+
+	}
+
+	@Override
+	public E pop() {
+		return null;
+	}
+
 	/**
 	 * Inserts all of the elements in the specified collection into this list
 	 * at the specified position.
@@ -157,6 +268,11 @@ public class LinkedListDS<E> {
 
 			}
 		}
+	}
+
+	@Override
+	public ListIterator<E> listIterator(int index) {
+		return null;
 	}
 
 	/**
@@ -435,5 +551,10 @@ public class LinkedListDS<E> {
 
 		if (VERBOSE_SIZE) System.out.println("Size of => " + size);
 		return size;
+	}
+
+	@Override
+	public Iterator<E> descendingIterator() {
+		return null;
 	}
 }
