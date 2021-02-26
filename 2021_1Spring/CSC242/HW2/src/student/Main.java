@@ -6,8 +6,9 @@ import java.util.ArrayList;
 
 public class Main {
 
-    static boolean LLTEST1 = true;
-    static boolean LLTEST2 = true;
+    static boolean LLTEST1 = false;
+    static boolean LLTEST2 = false;
+    static boolean LLTEST3 = true;
 
     public static void main(String[] args) {
         if (LLTEST1){
@@ -44,7 +45,16 @@ public class Main {
         }
 
         if (LLTEST2){
+            LinkedListDS<Integer> testTwo = new LinkedListDS<Integer>();
+            Integer[] list = new Integer[]{1, 2, 3, 4};
+            testTwo.addAll(1, Arrays.asList(list));
+            System.out.println("Getting the size: " + testTwo.size());
+        }
 
+        if (LLTEST3){
+            LinkedListDS<Integer> testThree = new LinkedListDS<Integer>();
+            testThree.add(1,1);
+            System.out.println("Getting the size: " + testThree.size());
         }
     }
 }

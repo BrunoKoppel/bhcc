@@ -8,7 +8,7 @@ public class LinkedListDS<E> {
 	boolean VERBOSE_ADD1 = false;
 	boolean VERBOSE_ADD2 = false;
 	boolean VERBOSE_ADDALL1 = false;
-	boolean VERBOSE_ADDALL2 = true;
+	boolean VERBOSE_ADDALL2 = false;
 	boolean VERBOSE_CLEAR = false;
 	boolean VERBOSE_CONTAINS1 = false;
 	boolean VERBOSE_CONTAINS2 = false;
@@ -21,7 +21,6 @@ public class LinkedListDS<E> {
 	boolean VERBOSE_SET = false;
 	boolean VERBOSE_SIZE = false;
 
-	int size;
 	Node<E> head;
 	Node<E> tail;
 
@@ -49,22 +48,20 @@ public class LinkedListDS<E> {
 	 * @param e
 	 */
 	public void	add(E e){
-		if (VERBOSE_ADD1) System.out.println("Entering value: " + e);
-		Node newNode = new Node(e);
+		if (VERBOSE_ADD1) System.out.println("Entering value => " + e);
 
 		if (head != null){
 			Node last = head;
-			while (last.nextNode != null){
-				if (VERBOSE_ADD1) System.out.println("Skipping Node = " + last.dataValue);
+			while (last.dataValue != null){
+				if (VERBOSE_ADD1) System.out.println("Skipping Node => " + last.dataValue);
 				last = last.nextNode;
 			}
 
-			last.nextNode = newNode;
-			last.nextNode.prevNode = last;
-			tail = last.nextNode;
-			if (VERBOSE_ADD1) System.out.println("Storing After Node = " + last.dataValue);
+			last = new Node(e, null, last.prevNode);
+			tail = last;
+			if (VERBOSE_ADD1) System.out.println("Storing at Node => " + last.dataValue);
 		} else {
-			head = newNode;
+			head = new Node(e, null, null);
 			tail = head;
 		}
 	}
@@ -77,21 +74,28 @@ public class LinkedListDS<E> {
 	public void add(int index, E element){
 		if (index > this.size()){
 			throw new IndexOutOfBoundsException();
+		} else if (index < 1){
+			throw new IndexOutOfBoundsException();
 		} else {
-			int current = 0;
-			Node newNode = new Node(element);
-			Node last = head;
-			while (current < index - 1){
-				last = last.nextNode;
-				if (VERBOSE_ADD2) System.out.println("At Node = " + current);
-				if (last.nextNode == null){
-
+			if (index == 1){
+				if (VERBOSE_ADD2) System.out.println("Entering value => " + element + " at node [" + 1  + "]");
+				Node head = new Node(element, null, null);;
+				tail = head;
+			} else {
+				int current = 1;
+				Node last = head;
+				while (current < index){
+					if (VERBOSE_ADD2) System.out.println("At Node => " + last.dataValue + " moving towards Node => " + last.dataValue);
+					last = last.nextNode;
+					current++;
 				}
-				current++;
+
+				if (VERBOSE_ADD2) System.out.println("Entering value => " + element + " at node [" + current  + "]");
+				last = new Node(element, last.nextNode, last.prevNode);
+				tail = last.nextNode;
 			}
-			last.nextNode = newNode;
-			last.nextNode.prevNode = newNode;
-			tail = last.nextNode;
+
+
 		}
 	}
 
@@ -132,6 +136,7 @@ public class LinkedListDS<E> {
 		if (index-1 > this.size()){
 			throw new IndexOutOfBoundsException();
 		} else {
+			boolean endOfList = (index -1 == this.size());
 			int current = 1;
 			Node last = head;
 			while (current < index){
@@ -144,16 +149,12 @@ public class LinkedListDS<E> {
 			}
 
 			for (E o : c){
-				if (VERBOSE_ADDALL2) System.out.println("Entering value: " + o);
-				Node newNode = new Node(o);
-				if (current == 1){
-					last = head = newNode;
-				} else {
-					last = newNode;
-					last.prevNode.nextNode = last;
-					tail = last;
+
+				if (VERBOSE_ADDALL2) {
+					System.out.println("Entering value: " + o);
+					System.out.println("Currently at Node : " + last.dataValue);
 				}
-				last = last.nextNode;
+
 			}
 		}
 	}
@@ -424,14 +425,15 @@ public class LinkedListDS<E> {
 	public int size() {
 		int size = 0;
 		Node last = head;
-
-		if (last != null) {
-			do {
+		do {
+			if (last != null){
 				if (VERBOSE_SIZE) System.out.println("Currently at node = " + last.dataValue);
 				size++;
 				last = last.nextNode;
-			} while (last != null);
-		}
+			}
+		} while (last != null);
+
+		if (VERBOSE_SIZE) System.out.println("Size of => " + size);
 		return size;
 	}
 }
