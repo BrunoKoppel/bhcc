@@ -29,13 +29,127 @@ public class StackDS<E> {
 
 	}
 
-	
+	Node<E> getNode(int index){
+		Node<E> currentNode;
+		if (index < size/2){
+			currentNode = head;
+			while(index-- > 0)
+				currentNode = currentNode.next;
+		} else {
+			currentNode = tail;
+			while(++index < size){
+				currentNode = currentNode.prev;
+			}
+		}
+		return currentNode;
+	}
+
+	void removeNode(Node<E> node){
+		if (node != null){
+			size--;
+			if (size == 0)
+				head = tail = null;
+			else {
+				if (node == head){
+					head = node.next;
+					node.next.prev = null;
+				} else if (node == tail) {
+					tail = node.prev;
+					node.prev.next = null;
+				} else {
+					node.next.prev = node.prev;
+					node.prev.next = node.next;
+				}
+			}
+		}
+	}
+
+	public E getFirst() {
+		if (size == 0)
+			throw new IndexOutOfBoundsException();
+		return head.data;
+	}
+
+	public E getLast() {
+		if (size == 0)
+			throw new IndexOutOfBoundsException();
+		return tail.data;
+	}
+
+	public E removeFirst() {
+		if (size == 0)
+			throw new IndexOutOfBoundsException();
+		size--;
+		E r = head.data;
+
+		if (head.next != null)
+			head.next.prev = null;
+		else
+			tail = null;
+
+		head = head.next;
+
+		return r;
+	}
+
+	public E removeLast() {
+		if (size == 0)
+			throw new IndexOutOfBoundsException();
+		size--;
+
+		E r = tail.data;
+
+		if (tail.prev != null)
+			tail.prev.next = null;
+		else
+			head = null;
+
+		tail = tail.prev;
+
+		return r;
+	}
+
+	public void addFirst(E e) {
+		Node<E> newNode = new Node(e);
+
+		if (size == 0)
+			head = tail = newNode;
+		else{
+			newNode.next = head;
+			head.prev = newNode;
+			head = newNode;
+		}
+		size++;
+	}
+
+	private void addLastNode(Node<E> newNode){
+		if (size == 0)
+			head = tail = newNode;
+		else
+		{
+			newNode.prev = tail;
+			tail.next = newNode;
+			tail = newNode;
+		}
+		size++;
+	}
+
+	private void checkBoundsInclusive(int index){
+		if (index < 0 || index > size)
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+	}
+
+	private void checkBoundsExclusive(int index){
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+	}
+
 	/**
 	 * Appends the specified element to the end of this DS.
 	 * @param e
 	 */
 	public void	add(E e){
-
+		addLastNode(new Node<E>(e));
 	}
 
 	/**
@@ -44,7 +158,22 @@ public class StackDS<E> {
 	 * @param element
 	 */
 	public void add(int index, E element){
+		checkBoundsInclusive(index);
+		Node<E> newNode = new Node<E>(element);
 
+		if (index < size){
+			Node<E> after = getNode(index);
+			newNode.next = after;
+			newNode.prev = after.prev;
+			if (after.prev == null)
+				head = newNode;
+			else
+				after.prev.next = newNode;
+			after.prev = newNode;
+			size++;
+		}
+		else
+			addLastNode(newNode);
 	}
 
 	/**
@@ -101,7 +230,7 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public E get(int index){
-		return this.get(index);
+		return getNode(index).data;
 	}
 
 	/**

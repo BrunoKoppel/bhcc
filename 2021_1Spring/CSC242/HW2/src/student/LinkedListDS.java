@@ -94,6 +94,36 @@ public class LinkedListDS<E> {
 		addAll(c);
 	}
 
+	/**
+	 * Returns the index of the first occurrence of the specified element in
+	 * this DS, or -1 if this list does not contain the element.
+	 * @param o
+	 * @return
+	 */
+	public int indexOf(Object o){
+		int index = 0;
+		Node<E> currentNode = head;
+		while(currentNode != null){
+			if (currentNode.data.equals(o))
+				return index;
+			index++;
+			currentNode = currentNode.next;
+		}
+		return -1;
+	}
+
+	public int lastIndexOf(Object o){
+		int index = size - 1;
+		Node<E> currentNode = tail;
+		while (currentNode != null){
+			if (currentNode.data.equals(o))
+				return index;
+			index--;
+			currentNode = currentNode.prev;
+		}
+		return -1;
+	}
+
 	public E getFirst() {
 		if (size == 0)
 			throw new IndexOutOfBoundsException();
@@ -168,48 +198,32 @@ public class LinkedListDS<E> {
 		size++;
 	}
 
-
-	/**
-	 * Returns true if this DS contains the specified element.
-	 * @param o
-	 * @return
-	 */
-	public boolean contains(Object o){
-		Node<E> currentNode = head;
-		while (currentNode != null){
-			if (currentNode.data.equals(o))
-				return true;
-			currentNode = currentNode.next;
-		}
-		return false;
-	}
-
-	/**
-	 * Returns the number of elements in this DS.
-	 * @return
-	 */
-	public int size() {
-		return size;
-	}
-
 	public void add(E e){
 		addLastNode(new Node<E>(e));
 	}
 
 	/**
-	 * Removes the first occurrence of the specified element from this DS,
-	 * if it is present.
-	 * @param o
-	 * @return
+	 * Inserts the specified element at the specified position in this DS.
+	 * @param index
+	 * @param element
 	 */
-	public void remove(Object o) {
-		Node<E> currentNode = head;
-		while(currentNode != null){
-			if (currentNode.data.equals(o)){
-				removeNode(currentNode);
-			}
-			currentNode = currentNode.next;
+	public void add(int index, E element){
+		checkBoundsInclusive(index);
+		Node<E> newNode = new Node<E>(element);
+
+		if (index < size){
+			Node<E> after = getNode(index);
+			newNode.next = after;
+			newNode.prev = after.prev;
+			if (after.prev == null)
+				head = newNode;
+			else
+				after.prev.next = newNode;
+			after.prev = newNode;
+			size++;
 		}
+		else
+			addLastNode(newNode);
 	}
 
 	/**
@@ -281,13 +295,18 @@ public class LinkedListDS<E> {
 	}
 
 	/**
-	 * Removes all of the elements from this DS.
+	 * Removes the first occurrence of the specified element from this DS,
+	 * if it is present.
+	 * @param o
+	 * @return
 	 */
-	public void clear(){
-		if (size > 0){
-			head = null;
-			tail = null;
-			size = 0;
+	public void remove(Object o) {
+		Node<E> currentNode = head;
+		while(currentNode != null){
+			if (currentNode.data.equals(o)){
+				removeNode(currentNode);
+			}
+			currentNode = currentNode.next;
 		}
 	}
 
@@ -315,28 +334,24 @@ public class LinkedListDS<E> {
 		newNode.data = element;
 	}
 
-	/**
-	 * Inserts the specified element at the specified position in this DS.
-	 * @param index
-	 * @param element
-	 */
-	public void add(int index, E element){
-		checkBoundsInclusive(index);
-		Node<E> newNode = new Node<E>(element);
 
-		if (index < size){
-			Node<E> after = getNode(index);
-			newNode.next = after;
-			newNode.prev = after.prev;
-			if (after.prev == null)
-				head = newNode;
-			else
-				after.prev.next = newNode;
-			after.prev = newNode;
-			size++;
+	/**
+	 * Returns true if this list contains no elements.
+	 * @return
+	 */
+	public boolean isEmpty(){
+		return head == null;
+	}
+
+	/**
+	 * Removes all of the elements from this DS.
+	 */
+	public void clear(){
+		if (size > 0){
+			head = null;
+			tail = null;
+			size = 0;
 		}
-		else
-			addLastNode(newNode);
 	}
 
 	/**
@@ -353,75 +368,10 @@ public class LinkedListDS<E> {
 		return node.data;
 	}
 
-	/**
-	 * Returns the index of the first occurrence of the specified element in
-	 * this DS, or -1 if this list does not contain the element.
-	 * @param o
-	 * @return
-	 */
-	public int indexOf(Object o){
-		int index = 0;
-		Node<E> currentNode = head;
-		while(currentNode != null){
-			if (currentNode.data.equals(o))
-				return index;
-			index++;
-			currentNode = currentNode.next;
-		}
-		return -1;
-	}
 
-	public int lastIndexOf(Object o){
-		int index = size - 1;
-		Node<E> currentNode = tail;
-		while (currentNode != null){
-			if (currentNode.data.equals(o))
-				return index;
-			index--;
-			currentNode = currentNode.prev;
-		}
-		return -1;
-	}
 
-	/**
-	 * Returns true if this list contains no elements.
-	 * @return
-	 */
-	public boolean isEmpty(){
-		return head == null;
-	}
 
-	/**
-	 * Returns true if this list contains all of the elements of the specified
-	 * collection.
-	 * @param c
-	 * @return
-	 */
-	public boolean containsAll(Collection<?> c){
-		int csize = c.size();
-		int numbersEqualToCollection = 0;
-		for (Object o : c){
-			if (VERBOSE_CONTAINSALL1) System.out.println("Value entered is => " + o);
-			Node currentNode = head;
-			while (currentNode != null){
 
-				if (VERBOSE_CONTAINSALL1) System.out.println("Analyzing value => " + currentNode.data);
-
-				if (currentNode.data.equals(o)){
-					if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
-
-					numbersEqualToCollection++;
-					break;
-				}
-
-				if (VERBOSE_CONTAINSALL1) System.out.println("Next node == " + currentNode.next);
-				if (currentNode.next != null)
-					currentNode = currentNode.next;
-			}
-		}
-		if (VERBOSE_CONTAINSALL1) System.out.println("Size of Collection VS NumbersContained [" + csize + "][" + numbersEqualToCollection + "]");
-		return csize == numbersEqualToCollection;
-	}
 
 	/**
 	 * Removes from this DS all of its elements that are contained in the
@@ -466,5 +416,60 @@ public class LinkedListDS<E> {
 
 			currentNode = currentNode.next;
 		}
+	}
+
+	/**
+	 * Returns true if this DS contains the specified element.
+	 * @param o
+	 * @return
+	 */
+	public boolean contains(Object o){
+		Node<E> currentNode = head;
+		while (currentNode != null){
+			if (currentNode.data.equals(o))
+				return true;
+			currentNode = currentNode.next;
+		}
+		return false;
+	}
+
+	/**
+	 * Returns true if this list contains all of the elements of the specified
+	 * collection.
+	 * @param c
+	 * @return
+	 */
+	public boolean containsAll(Collection<?> c){
+		int csize = c.size();
+		int numbersEqualToCollection = 0;
+		for (Object o : c){
+			if (VERBOSE_CONTAINSALL1) System.out.println("Value entered is => " + o);
+			Node currentNode = head;
+			while (currentNode != null){
+
+				if (VERBOSE_CONTAINSALL1) System.out.println("Analyzing value => " + currentNode.data);
+
+				if (currentNode.data.equals(o)){
+					if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
+
+					numbersEqualToCollection++;
+					break;
+				}
+
+				if (VERBOSE_CONTAINSALL1) System.out.println("Next node == " + currentNode.next);
+				if (currentNode.next != null)
+					currentNode = currentNode.next;
+			}
+		}
+		if (VERBOSE_CONTAINSALL1) System.out.println("Size of Collection VS NumbersContained [" + csize + "][" + numbersEqualToCollection + "]");
+		return csize == numbersEqualToCollection;
+	}
+
+	/**
+	 * Returns the number of elements in this DS.
+	 * @return
+	 */
+	public int size() {
+		return size;
 	}
 }
