@@ -4,6 +4,7 @@ import java.util.Collection;
 
 public class StackDS<E> {
 
+	boolean VERBOSE_CONTAINSALL1 = false;
 
 	transient Node<E> head;
 	transient Node<E> tail;
@@ -201,7 +202,11 @@ public class StackDS<E> {
 	 * Removes all of the elements from this DS.
 	 */
 	public void clear(){
-
+		if (size > 0){
+			head = null;
+			tail = null;
+			size = 0;
+		}
 	}
 
 	/**
@@ -210,7 +215,13 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public boolean contains(Object o){
-		return this.contains(o);
+		Node<E> currentNode = head;
+		while (currentNode != null){
+			if (currentNode.data.equals(o))
+				return true;
+			currentNode = currentNode.next;
+		}
+		return false;
 	}
 
 	/**
@@ -220,7 +231,29 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public boolean containsAll(Collection<?> c){
-		return containsAll(c);
+		int csize = c.size();
+		int numbersEqualToCollection = 0;
+		for (Object o : c){
+			if (VERBOSE_CONTAINSALL1) System.out.println("Value entered is => " + o);
+			Node currentNode = head;
+			while (currentNode != null){
+
+				if (VERBOSE_CONTAINSALL1) System.out.println("Analyzing value => " + currentNode.data);
+
+				if (currentNode.data.equals(o)){
+					if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
+
+					numbersEqualToCollection++;
+					break;
+				}
+
+				if (VERBOSE_CONTAINSALL1) System.out.println("Next node == " + currentNode.next);
+				if (currentNode.next != null)
+					currentNode = currentNode.next;
+			}
+		}
+		if (VERBOSE_CONTAINSALL1) System.out.println("Size of Collection VS NumbersContained [" + csize + "][" + numbersEqualToCollection + "]");
+		return csize == numbersEqualToCollection;
 	}
 
 
@@ -230,6 +263,7 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public E get(int index){
+		checkBoundsExclusive(index);
 		return getNode(index).data;
 	}
 
@@ -240,7 +274,15 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public int indexOf(Object o){
-		return this.indexOf(o);
+		int index = 0;
+		Node<E> currentNode = head;
+		while(currentNode != null){
+			if (currentNode.data.equals(o))
+				return index;
+			index++;
+			currentNode = currentNode.next;
+		}
+		return -1;
 	}
 
 	/**
@@ -248,7 +290,7 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public boolean	isEmpty(){
-		return this.isEmpty();
+		return head == null;
 	}
 
 	/**
@@ -267,7 +309,13 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public void remove(Object o){
-
+		Node<E> currentNode = head;
+		while(currentNode != null){
+			if (currentNode.data.equals(o)){
+				removeNode(currentNode);
+			}
+			currentNode = currentNode.next;
+		}
 	}
 
 	/**
@@ -298,7 +346,10 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public void set(int index, E element){
-
+		checkBoundsExclusive(index);
+		Node<E> newNode = getNode(index);
+		E old = newNode.data;
+		newNode.data = element;
 	}
 
 	/**
