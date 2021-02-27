@@ -5,6 +5,26 @@ import java.util.Collection;
 public class StackDS<E> {
 
 
+	transient Node<E> head;
+	transient Node<E> tail;
+	transient int size = 0;
+
+	public static final class Node<E>{
+		E data;
+		Node next;
+		Node prev;
+
+		Node(E e){
+			data = e;
+		}
+
+		Node(E e, Node next, Node prev){
+			this.data = e;
+			this.prev = prev;
+			this.next = next;
+		}
+	}
+
 	public StackDS(){
 
 	}

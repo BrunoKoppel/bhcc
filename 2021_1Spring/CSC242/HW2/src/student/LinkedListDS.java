@@ -6,6 +6,7 @@ import java.util.Collection;
 
 public class LinkedListDS<E> {
 
+
 	boolean VERBOSE_ADD1 = false;
 	boolean VERBOSE_ADD2 = false;
 	boolean VERBOSE_ADDALL1 = false;
@@ -58,19 +59,21 @@ public class LinkedListDS<E> {
 	}
 
 	void removeNode(Node<E> node){
-		size--;
-		if (size == 0)
-			head = tail = null;
-		else {
-			if (node == head){
-				head = node.next;
-				node.next.prev = null;
-			} else if (node == tail) {
-				tail = node.prev;
-				node.prev.next = null;
-			} else {
-				node.next.prev = node.prev;
-				node.prev.next = node.next;
+		if (node != null){
+			size--;
+			if (size == 0)
+				head = tail = null;
+			else {
+				if (node == head){
+					head = node.next;
+					node.next.prev = null;
+				} else if (node == tail) {
+					tail = node.prev;
+					node.prev.next = null;
+				} else {
+					node.next.prev = node.prev;
+					node.prev.next = node.next;
+				}
 			}
 		}
 	}
