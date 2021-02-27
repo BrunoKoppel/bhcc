@@ -289,7 +289,7 @@ public class StackDS<E> {
 	 * Returns true if this list contains no elements.
 	 * @return
 	 */
-	public boolean	isEmpty(){
+	public boolean isEmpty(){
 		return head == null;
 	}
 
@@ -299,7 +299,12 @@ public class StackDS<E> {
 	 * @return
 	 */
 	 public E remove(int index){
-	 	return this.remove(index);
+		 System.out.println("Hello From Remove at Index");
+
+		 checkBoundsExclusive(index);
+		 Node<E> node = getNode(index);
+		 removeNode(node);
+		 return node.data;
 	 }
 
 	/**
@@ -325,7 +330,17 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public void	removeAll(Collection<?> c){
-
+		System.out.println("Hello From Remove All");
+		for (Object o : c){
+			Node<E> currentNode = head;
+			while (currentNode != null){
+				if (currentNode.data.equals(o)){
+					Node<E> nodeToEliminate = currentNode;
+					removeNode(nodeToEliminate);
+				}
+				currentNode = currentNode.next;
+			}
+		}
 	}
 
 	/**
@@ -335,7 +350,22 @@ public class StackDS<E> {
 	 * @return
 	 */
 	 public void retainAll(Collection<?> c){
-	 	this.retainAll(c);
+		 System.out.println("Hello From Retain All");
+		 Node<E> currentNode = head;
+		 while (currentNode != null){
+			 boolean isCurrentNodePresent = false;
+			 for (Object o : c){
+				 if (currentNode.data.equals(o))
+					 isCurrentNodePresent = true;
+			 }
+
+			 if (!isCurrentNodePresent){
+				 Node<E> nodeToEliminate = currentNode;
+				 removeNode(nodeToEliminate);
+			 }
+
+			 currentNode = currentNode.next;
+		 }
 	 }
 
 	/**
@@ -357,7 +387,7 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public int	size(){
-		return this.size();
+		return this.size;
 	}
 	
 	/**
@@ -374,6 +404,9 @@ public class StackDS<E> {
 	 * Looks at the object at the top of this stack without removing it from the stack.
 	 */
 	public E peek(){
+		if (this.getClass().equals(Stack)){
+
+		}
 		return this.peek();
 	}
 
