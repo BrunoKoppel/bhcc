@@ -66,10 +66,10 @@ public class LinkedListDS<E> {
 			else {
 				if (node == head){
 					head = node.next;
-					node.next.prev = null;
+					head.prev = null;
 				} else if (node == tail) {
 					tail = node.prev;
-					node.prev.next = null;
+					node.next = null;
 				} else {
 					node.next.prev = node.prev;
 					node.prev.next = node.next;
@@ -179,7 +179,7 @@ public class LinkedListDS<E> {
 			head.prev = newNode;
 			head = newNode;
 		}
-		size++;
+		this.size++;
 	}
 
 	public void addLast(E e) {
@@ -195,7 +195,7 @@ public class LinkedListDS<E> {
 			tail.next = newNode;
 			tail = newNode;
 		}
-		size++;
+		this.size++;
 	}
 
 	public void add(E e){
@@ -303,13 +303,19 @@ public class LinkedListDS<E> {
 	public void remove(Object o) {
 		Node<E> currentNode = head;
 		while(currentNode != null){
+
 			if (currentNode.data != null){
+
 				if (currentNode.data.equals(o)){
 					removeNode(currentNode);
 				}
+
+				currentNode = currentNode.next;
+			} else {
+
 			}
 
-			currentNode = currentNode.next;
+
 		}
 	}
 
@@ -386,14 +392,18 @@ public class LinkedListDS<E> {
 		System.out.println("Hello From Remove All");
 		for (Object o : c){
 			Node<E> currentNode = head;
+
 			while (currentNode != null){
 				if (currentNode.data != null){
 					if (currentNode.data.equals(o)){
 						Node<E> nodeToEliminate = currentNode;
 						removeNode(nodeToEliminate);
 					}
+
+					currentNode = currentNode.next;
+				} else {
+
 				}
-				currentNode = currentNode.next;
 			}
 		}
 	}
@@ -408,15 +418,17 @@ public class LinkedListDS<E> {
 		System.out.println("Hello From Retain All");
 		Node<E> currentNode = head;
 		while (currentNode != null){
-			boolean isCurrentNodePresent = false;
+			boolean isCurrentNodePresentAtCollection = false;
+
 			for (Object o : c){
 				if (currentNode.data != null){
-					if (currentNode.data.equals(o))
-						isCurrentNodePresent = true;
+					if (currentNode.data.equals(o)){
+						isCurrentNodePresentAtCollection = true;
+					}
 				}
 			}
 
-			if (!isCurrentNodePresent){
+			if (!isCurrentNodePresentAtCollection){
 				Node<E> nodeToEliminate = currentNode;
 				removeNode(nodeToEliminate);
 			}
@@ -434,11 +446,14 @@ public class LinkedListDS<E> {
 		Node<E> currentNode = head;
 		while (currentNode != null){
 			if (currentNode.data != null){
-				if (currentNode.data.equals(o))
+				if (currentNode.data.equals(o)){
 					return true;
-			}
+				} else {
 
-			currentNode = currentNode.next;
+				}
+
+				currentNode = currentNode.next;
+			}
 		}
 		return false;
 	}
@@ -468,14 +483,14 @@ public class LinkedListDS<E> {
 						numbersEqualToCollection++;
 						break;
 					}
+					currentNode = currentNode.next;
 				} else {
 					if (VERBOSE_CONTAINSALL1) System.out.println("Value is null !");
 				}
 
 
 				if (VERBOSE_CONTAINSALL1) System.out.println("Next node == " + currentNode.next);
-				if (currentNode.next != null)
-					currentNode = currentNode.next;
+
 			}
 		}
 		if (VERBOSE_CONTAINSALL1) System.out.println("Size of Collection VS NumbersContained [" + csize + "][" + numbersEqualToCollection + "]");
