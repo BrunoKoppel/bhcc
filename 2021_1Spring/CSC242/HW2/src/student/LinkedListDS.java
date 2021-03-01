@@ -303,9 +303,12 @@ public class LinkedListDS<E> {
 	public void remove(Object o) {
 		Node<E> currentNode = head;
 		while(currentNode != null){
-			if (currentNode.data.equals(o)){
-				removeNode(currentNode);
+			if (currentNode.data != null){
+				if (currentNode.data.equals(o)){
+					removeNode(currentNode);
+				}
 			}
+
 			currentNode = currentNode.next;
 		}
 	}
@@ -384,9 +387,11 @@ public class LinkedListDS<E> {
 		for (Object o : c){
 			Node<E> currentNode = head;
 			while (currentNode != null){
-				if (currentNode.data.equals(o)){
-					Node<E> nodeToEliminate = currentNode;
-					removeNode(nodeToEliminate);
+				if (currentNode.data != null){
+					if (currentNode.data.equals(o)){
+						Node<E> nodeToEliminate = currentNode;
+						removeNode(nodeToEliminate);
+					}
 				}
 				currentNode = currentNode.next;
 			}
@@ -405,8 +410,10 @@ public class LinkedListDS<E> {
 		while (currentNode != null){
 			boolean isCurrentNodePresent = false;
 			for (Object o : c){
-				if (currentNode.data.equals(o))
-					isCurrentNodePresent = true;
+				if (currentNode.data != null){
+					if (currentNode.data.equals(o))
+						isCurrentNodePresent = true;
+				}
 			}
 
 			if (!isCurrentNodePresent){
@@ -426,8 +433,11 @@ public class LinkedListDS<E> {
 	public boolean contains(Object o){
 		Node<E> currentNode = head;
 		while (currentNode != null){
-			if (currentNode.data.equals(o))
-				return true;
+			if (currentNode.data != null){
+				if (currentNode.data.equals(o))
+					return true;
+			}
+
 			currentNode = currentNode.next;
 		}
 		return false;
@@ -449,12 +459,19 @@ public class LinkedListDS<E> {
 
 				if (VERBOSE_CONTAINSALL1) System.out.println("Analyzing value => " + currentNode.data);
 
-				if (currentNode.data.equals(o)){
-					if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
+				if (currentNode.data != null){
+					if (VERBOSE_CONTAINSALL1) System.out.println("Value isn't null !");
 
-					numbersEqualToCollection++;
-					break;
+					if (currentNode.data.equals(o)){
+						if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
+
+						numbersEqualToCollection++;
+						break;
+					}
+				} else {
+					if (VERBOSE_CONTAINSALL1) System.out.println("Value is null !");
 				}
+
 
 				if (VERBOSE_CONTAINSALL1) System.out.println("Next node == " + currentNode.next);
 				if (currentNode.next != null)
