@@ -4,13 +4,36 @@ import java.util.Map;
 
 public class MapDS <K, V> {
 
-	int size;
+	transient Node<K, V> head;
+	transient Node<K, V> tail;
+	transient int size = 0;
+
+	public static final class Node<K, V>{
+		K key;
+		V data;
+		Node next;
+		Node prev;
+
+		Node(K k, V v){
+			key = k;
+			data = v;
+		}
+
+		Node(K k, V v, Node nextNode, Node prevNode){
+			key = k;
+			data = v;
+			next = nextNode;
+			prev = prevNode;
+		}
+	}
+
+
 
 	/**
 	 * Removes all of the mappings from this map.
 	 */
 	public void clear(){
-
+		head = tail = null;
 	}
 
 	/**

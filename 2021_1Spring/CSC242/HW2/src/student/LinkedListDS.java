@@ -10,7 +10,7 @@ public class LinkedListDS<E> {
 	boolean VERBOSE_ADD1 = false;
 	boolean VERBOSE_ADD2 = false;
 	boolean VERBOSE_ADDALL1 = false;
-	boolean VERBOSE_ADDALL2 = false;
+	boolean VERBOSE_ADDALL2 = true;
 	boolean VERBOSE_CLEAR = false;
 	boolean VERBOSE_CONTAINS1 = false;
 	boolean VERBOSE_CONTAINSALL1 = false;
@@ -47,12 +47,19 @@ public class LinkedListDS<E> {
 		Node<E> currentNode;
 		if (index < size/2){
 			currentNode = head;
-			while(index-- > 0)
+			if (VERBOSE_GET1) System.out.println("Get 1A Node [" + index + "] => " + currentNode.data);
+			while(index-- > 0){
+				if (VERBOSE_GET1) System.out.println("Get 1B Node [" + index + "] => " + currentNode.data);
 				currentNode = currentNode.next;
+				if (VERBOSE_GET1) System.out.println("Get 1C Node [" + index + "] => " + currentNode.data);
+			}
 		} else {
 			currentNode = tail;
+			if (VERBOSE_GET1) System.out.println("Get 2A Node [" + index + "] => " + currentNode.data);
 			while(++index < size){
+				if (VERBOSE_GET1) System.out.println("Get 2B Node [" + index + "] => " + currentNode.data);
 				currentNode = currentNode.prev;
+				if (VERBOSE_GET1) System.out.println("Get 2C Node [" + index + "] => " + currentNode.data);
 			}
 		}
 		return currentNode;
@@ -195,8 +202,8 @@ public class LinkedListDS<E> {
 	private void addLastNode(Node<E> newNode){
 		if (size == 0)
 			head = tail = newNode;
-		else
-		{
+		else {
+			tail.next = newNode;
 			newNode.prev = tail;
 			tail = newNode;
 		}
@@ -261,27 +268,41 @@ public class LinkedListDS<E> {
 		if (csize == 0)
 			return false;
 
-		Node<E> after = null;
-		Node<E> before = null;
+		Node<E> after;
+		Node<E> before;
 
 		if (index != this.size){
+			if(VERBOSE_ADDALL2) System.out.println("Get node for before");
 			before = getNode(index);
+			if(VERBOSE_ADDALL2) System.out.println("Got the Node");
 			after = before.prev;
-		} else
+		} else {
+			before = null;
 			after = tail;
+		}
+
+		if(VERBOSE_ADDALL2){
+			System.out.println("Value of Before => " + before.data);
+			System.out.println("Value of After => " + after.data);
+		}
 
 		Object[] o = c.toArray();
-		Node<E> newNode = new Node<E>((E)o[0]);
 
-		newNode.prev = after;
-		Node<E> previous = newNode;
-		Node<E> newHead = newNode;
+		Node<E> newHead = null;
+		Node<E> newTail = null;
+		Node<E> previousNode = after;
+		for (int pos = 0; pos < csize; pos++){
+			Node<E> newNode = new Node<E>((E)o[pos]);
 
-		for (int pos = 1; pos < csize; pos++){
-			newNode = new Node<E>((E)o[pos]);
-			previous.next = newNode;
-			newNode.prev = previous;
-			previous = newNode;
+			previousNode.next = newNode;
+			newNode.prev = previousNode;
+			previousNode = newNode;
+
+			if (pos == 0)
+				newHead = newNode;
+
+			if (pos == csize - 1)
+				newTail = newNode;
 		}
 
 		if (VERBOSE_ADDALL1) System.out.println("Size before resize = " + this.size);
@@ -290,13 +311,14 @@ public class LinkedListDS<E> {
 
 
 		if (before != null){
-			previous.prev = newNode;
-			newNode.next = before;
+			newTail.next = before;
+			before.prev = newTail;
 		} else {
-			tail = newNode;
+			tail = newTail;
 		}
 
 		if (after != null) {
+			newHead.prev = after;
 			after.next = newHead;
 		} else {
 			head = newHead;
@@ -480,7 +502,7 @@ public class LinkedListDS<E> {
 	 * @param c
 	 * @return
 	 */
-	public int containsAll(Collection<?> c){
+	public boolean containsAll(Collection<?> c){
 		int csize = c.size();
 		int numbersEqualToCollection = 0;
 		for (Object o : c){
@@ -490,7 +512,7 @@ public class LinkedListDS<E> {
 				numbersEqualToCollection++;
 		}
 		if (VERBOSE_CONTAINSALL1) System.out.println("Size of Collection VS NumbersContained [" + csize + "][" + numbersEqualToCollection + "]");
-		return numbersEqualToCollection;
+		return csize == numbersEqualToCollection;
 	}
 
 	/**

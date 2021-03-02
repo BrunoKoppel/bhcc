@@ -47,15 +47,38 @@ public class Main {
         if (LLTEST2){
             LinkedListDS<Integer> testTwo = new LinkedListDS<Integer>();
             Integer[] list = new Integer[500];
+            System.out.println("Creating list of 500 objects");
             for (int i = 0; i < 500; i++){
                 list[i] = i;
             }
-            for (int a = 0; a < 100; a++){
-                testTwo.add(a);
+
+            System.out.println("Print values of array");
+            for (int i = 0; i < testTwo.size(); i++){
+                System.out.println("Value at Node [" + i + "] => " + testTwo.get(i));
+            }
+
+            System.out.println("Creating list of 100 objects");
+            for (int i = 0; i < 100; i++){
+                testTwo.add(i);
+                System.out.println("Value of recently created Node [" + i + "] => " + testTwo.getNode(i));
+                System.out.println("Value right After creating Node [" + i + "] => " + testTwo.get(i));
             }
             System.out.println("Getting the size: " + testTwo.size());
+
+            System.out.println("Print values of array");
+            for (int i = 0; i < testTwo.size(); i++){
+                System.out.println("Value at Node [" + i + "] => " + testTwo.get(i));
+            }
+
+            System.out.println("Inserting array into Linked List");
             testTwo.addAll(50, Arrays.asList(list));
             System.out.println("Getting the size: " + testTwo.size());
+
+
+            System.out.println("Print values of array");
+            for (int i = 0; i < testTwo.size(); i++){
+                System.out.println("Value at Node [" + i + "] => " + testTwo.get(i));
+            }
 
             System.out.println("Testing Contains All with Right characters => "+ testTwo.containsAll(Arrays.asList(list)));
 
