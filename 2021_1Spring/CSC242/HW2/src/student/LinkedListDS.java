@@ -3,6 +3,7 @@ package student;
 // http://developer.classpath.org/doc/java/util/LinkedList-source.html
 
 import java.util.Collection;
+import java.util.Objects;
 
 public class LinkedListDS<E> {
 
@@ -66,10 +67,10 @@ public class LinkedListDS<E> {
 			else {
 				if (node == head){
 					head = node.next;
-					head.prev = null;
+					node = null;
 				} else if (node == tail) {
-					tail = node.prev;
-					node.next = null;
+					tail = tail.prev;
+					node = null;
 				} else {
 					node.next.prev = node.prev;
 					node.prev.next = node.next;
@@ -105,7 +106,7 @@ public class LinkedListDS<E> {
 		Node<E> currentNode = head;
 		while(currentNode != null){
 			if (currentNode != null){
-				if (currentNode.data.equals(o))
+				if (Objects.equals(currentNode.data, o))
 					return index;
 
 				index++;
@@ -121,7 +122,7 @@ public class LinkedListDS<E> {
 		int index = size - 1;
 		Node<E> currentNode = tail;
 		while (currentNode != null){
-			if (currentNode.data.equals(o))
+			if (Objects.equals(currentNode.data, o))
 				return index;
 			index--;
 			currentNode = currentNode.prev;
@@ -311,7 +312,7 @@ public class LinkedListDS<E> {
 
 			if (currentNode.data != null){
 
-				if (currentNode.data.equals(o)){
+				if (Objects.equals(currentNode.data, o)){
 					removeNode(currentNode);
 				}
 
@@ -400,9 +401,8 @@ public class LinkedListDS<E> {
 
 			while (currentNode != null){
 				if (currentNode.data != null){
-					if (currentNode.data.equals(o)){
-						Node<E> nodeToEliminate = currentNode;
-						removeNode(nodeToEliminate);
+					if (Objects.equals(currentNode.data, o)){
+						removeNode(currentNode);
 					}
 
 					currentNode = currentNode.next;
@@ -427,16 +427,14 @@ public class LinkedListDS<E> {
 
 			for (Object o : c){
 				if (currentNode.data != null){
-					if (currentNode.data.equals(o)){
+					if (Objects.equals(currentNode.data, o)){
 						isCurrentNodePresentAtCollection = true;
 					}
 				}
 			}
 
 			if (!isCurrentNodePresentAtCollection){
-				Node<E> nodeToEliminate = currentNode;
-				removeNode(nodeToEliminate);
-				this.size--;
+				removeNode(currentNode);
 			}
 
 			currentNode = currentNode.next;
@@ -452,13 +450,13 @@ public class LinkedListDS<E> {
 		Node<E> currentNode = head;
 		while (currentNode != null){
 			if (currentNode.data != null){
-				if (currentNode.data.equals(o)){
+				if (Objects.equals(currentNode.data, o)){
 					return true;
-				} else {
-
 				}
 
 				currentNode = currentNode.next;
+			} else {
+				break;
 			}
 		}
 		return false;
@@ -483,7 +481,7 @@ public class LinkedListDS<E> {
 				if (currentNode.data != null){
 					if (VERBOSE_CONTAINSALL1) System.out.println("Value isn't null !");
 
-					if (currentNode.data.equals(o)){
+					if (Objects.equals(currentNode.data, o)){
 						if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
 
 						numbersEqualToCollection++;
@@ -494,10 +492,7 @@ public class LinkedListDS<E> {
 					if (VERBOSE_CONTAINSALL1) System.out.println("Value is null !");
 					break;
 				}
-
-
 				if (VERBOSE_CONTAINSALL1) System.out.println("Next node == " + currentNode.next);
-
 			}
 		}
 		if (VERBOSE_CONTAINSALL1) System.out.println("Size of Collection VS NumbersContained [" + csize + "][" + numbersEqualToCollection + "]");
