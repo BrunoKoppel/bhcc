@@ -404,8 +404,7 @@ public class StackDS<E> {
 	 * Looks at the object at the top of this stack without removing it from the stack.
 	 */
 	public E peek(){
-
-		return this.peek();
+		return head.data;
 	}
 
 	/**
@@ -417,7 +416,9 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public E poll() {
-		return this.poll();
+		Node<E> currentNode = head;
+		removeFirst();
+		return currentNode.data;
 	}
 	
 	/**
@@ -427,7 +428,9 @@ public class StackDS<E> {
 	 * Retrieves and removes the head of this queue or the top of the stack.
 	 */
 	public E remove(){
-		return this.remove();
+		Node<E> currentNode = head;
+		removeFirst();
+		return currentNode.data;
 	}
 	
 	/**
@@ -439,7 +442,9 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public E pop(){
-		return this.pop();
+		Node<E> currentNode = head;
+		removeLast();
+		return currentNode.data;
 	}
 	
 	/**
@@ -450,6 +455,7 @@ public class StackDS<E> {
 	 * @param item
 	 */
 	public void push(E item){
-
+		Node<E> newNode = new Node(item);
+		addLastNode(newNode);
 	}
 }
