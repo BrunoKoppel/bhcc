@@ -65,11 +65,11 @@ public class LinkedListDS<E> {
 				head = tail = null;
 			else {
 				if (node == head){
-					head = node.next;
-					node = null;
+					head = head.next;
+					head.prev = null;
 				} else if (node == tail) {
 					tail = tail.prev;
-					node = null;
+					tail.next = null;
 				} else {
 					node.next.prev = node.prev;
 					node.prev.next = node.next;
@@ -105,11 +105,12 @@ public class LinkedListDS<E> {
 		Node<E> currentNode = head;
 		while(currentNode != null){
 			if (currentNode != null){
-				if (currentNode.data.equals(o))
+				if (currentNode.data.equals(o)){
 					return index;
+				}
+					index++;
+					currentNode = currentNode.next;
 
-				index++;
-				currentNode = currentNode.next;
 			} else {
 				break;
 			}
@@ -221,6 +222,7 @@ public class LinkedListDS<E> {
 
 			if (placeholderNode == head){
 				head = newNode;
+				placeholderNode.prev = head;
 				newNode.prev = null;
 			} else {
 				placeholderNode.prev.next = newNode;
@@ -452,13 +454,20 @@ public class LinkedListDS<E> {
 	public boolean contains(Object o){
 		Node<E> currentNode = head;
 		while (currentNode != null){
+			if (VERBOSE_CONTAINSALL1) System.out.println("Analyzing value => " + currentNode.data);
+
 			if (currentNode.data != null){
+				if (VERBOSE_CONTAINSALL1) System.out.println("Value isn't null !");
+
 				if (currentNode.data.equals(o)){
+					if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
+
 					return true;
 				}
 
 				currentNode = currentNode.next;
 			} else {
+				if (VERBOSE_CONTAINSALL1) System.out.println("Value is null !");
 				break;
 			}
 		}
@@ -471,35 +480,17 @@ public class LinkedListDS<E> {
 	 * @param c
 	 * @return
 	 */
-	public boolean containsAll(Collection<?> c){
+	public int containsAll(Collection<?> c){
 		int csize = c.size();
 		int numbersEqualToCollection = 0;
 		for (Object o : c){
 			if (VERBOSE_CONTAINSALL1) System.out.println("Value entered is => " + o);
-			Node currentNode = head;
-			while (currentNode != null){
-
-				if (VERBOSE_CONTAINSALL1) System.out.println("Analyzing value => " + currentNode.data);
-
-				if (currentNode.data != null){
-					if (VERBOSE_CONTAINSALL1) System.out.println("Value isn't null !");
-
-					if (currentNode.data.equals(o)){
-						if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
-
-						numbersEqualToCollection++;
-						break;
-					}
-					currentNode = currentNode.next;
-				} else {
-					if (VERBOSE_CONTAINSALL1) System.out.println("Value is null !");
-					break;
-				}
-				if (VERBOSE_CONTAINSALL1) System.out.println("Next node == " + currentNode.next);
-			}
+			boolean isNumberInLinkedList = contains(o);
+			if (isNumberInLinkedList)
+				numbersEqualToCollection++;
 		}
 		if (VERBOSE_CONTAINSALL1) System.out.println("Size of Collection VS NumbersContained [" + csize + "][" + numbersEqualToCollection + "]");
-		return csize == numbersEqualToCollection;
+		return numbersEqualToCollection;
 	}
 
 	/**
