@@ -3,7 +3,6 @@ package student;
 // http://developer.classpath.org/doc/java/util/LinkedList-source.html
 
 import java.util.Collection;
-import java.util.Objects;
 
 public class LinkedListDS<E> {
 
@@ -106,7 +105,7 @@ public class LinkedListDS<E> {
 		Node<E> currentNode = head;
 		while(currentNode != null){
 			if (currentNode != null){
-				if (Objects.equals(currentNode.data, o))
+				if (currentNode.data.equals(o))
 					return index;
 
 				index++;
@@ -122,7 +121,7 @@ public class LinkedListDS<E> {
 		int index = size - 1;
 		Node<E> currentNode = tail;
 		while (currentNode != null){
-			if (Objects.equals(currentNode.data, o))
+			if (currentNode.data.equals(o))
 				return index;
 			index--;
 			currentNode = currentNode.prev;
@@ -198,7 +197,6 @@ public class LinkedListDS<E> {
 		else
 		{
 			newNode.prev = tail;
-			tail.next = newNode;
 			tail = newNode;
 		}
 		this.size++;
@@ -218,18 +216,23 @@ public class LinkedListDS<E> {
 		Node<E> newNode = new Node<E>(element);
 
 		if (index < size){
-			Node<E> after = getNode(index);
-			newNode.next = after;
-			newNode.prev = after.prev;
-			if (after.prev == null)
+			Node<E> placeholderNode = getNode(index);
+			newNode.next = placeholderNode;
+
+			if (placeholderNode == head){
 				head = newNode;
-			else
-				after.prev.next = newNode;
-			after.prev = newNode;
-			size++;
+				newNode.prev = null;
+			} else {
+				placeholderNode.prev.next = newNode;
+				newNode.prev = placeholderNode.prev;
+				placeholderNode.prev = newNode;
+			}
+			this.size++;
 		}
 		else
 			addLastNode(newNode);
+
+
 	}
 
 	/**
@@ -312,7 +315,7 @@ public class LinkedListDS<E> {
 
 			if (currentNode.data != null){
 
-				if (Objects.equals(currentNode.data, o)){
+				if (currentNode.data.equals(o)){
 					removeNode(currentNode);
 				}
 
@@ -401,7 +404,7 @@ public class LinkedListDS<E> {
 
 			while (currentNode != null){
 				if (currentNode.data != null){
-					if (Objects.equals(currentNode.data, o)){
+					if (currentNode.data.equals(o)){
 						removeNode(currentNode);
 					}
 
@@ -427,7 +430,7 @@ public class LinkedListDS<E> {
 
 			for (Object o : c){
 				if (currentNode.data != null){
-					if (Objects.equals(currentNode.data, o)){
+					if (currentNode.data.equals(o)){
 						isCurrentNodePresentAtCollection = true;
 					}
 				}
@@ -450,7 +453,7 @@ public class LinkedListDS<E> {
 		Node<E> currentNode = head;
 		while (currentNode != null){
 			if (currentNode.data != null){
-				if (Objects.equals(currentNode.data, o)){
+				if (currentNode.data.equals(o)){
 					return true;
 				}
 
@@ -481,7 +484,7 @@ public class LinkedListDS<E> {
 				if (currentNode.data != null){
 					if (VERBOSE_CONTAINSALL1) System.out.println("Value isn't null !");
 
-					if (Objects.equals(currentNode.data, o)){
+					if (currentNode.data.equals(o)){
 						if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
 
 						numbersEqualToCollection++;
