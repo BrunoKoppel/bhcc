@@ -404,7 +404,7 @@ public class StackDS<E> {
 	 * Looks at the object at the top of this stack without removing it from the stack.
 	 */
 	public E peek(){
-		return head.data;
+		return tail.data;
 	}
 
 	/**
@@ -442,7 +442,7 @@ public class StackDS<E> {
 	 * @return
 	 */
 	public E pop(){
-		Node<E> currentNode = head;
+		Node<E> currentNode = tail;
 		removeLast();
 		return currentNode.data;
 	}

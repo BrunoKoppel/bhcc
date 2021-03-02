@@ -104,10 +104,15 @@ public class LinkedListDS<E> {
 		int index = 0;
 		Node<E> currentNode = head;
 		while(currentNode != null){
-			if (currentNode.data.equals(o))
-				return index;
-			index++;
-			currentNode = currentNode.next;
+			if (currentNode != null){
+				if (currentNode.data.equals(o))
+					return index;
+
+				index++;
+				currentNode = currentNode.next;
+			} else {
+				break;
+			}
 		}
 		return -1;
 	}
@@ -312,7 +317,7 @@ public class LinkedListDS<E> {
 
 				currentNode = currentNode.next;
 			} else {
-
+				break;
 			}
 
 
@@ -402,7 +407,7 @@ public class LinkedListDS<E> {
 
 					currentNode = currentNode.next;
 				} else {
-
+					break;
 				}
 			}
 		}
@@ -431,6 +436,7 @@ public class LinkedListDS<E> {
 			if (!isCurrentNodePresentAtCollection){
 				Node<E> nodeToEliminate = currentNode;
 				removeNode(nodeToEliminate);
+				this.size--;
 			}
 
 			currentNode = currentNode.next;
@@ -486,6 +492,7 @@ public class LinkedListDS<E> {
 					currentNode = currentNode.next;
 				} else {
 					if (VERBOSE_CONTAINSALL1) System.out.println("Value is null !");
+					break;
 				}
 
 

@@ -3,6 +3,9 @@ package student;
 import java.util.Map;
 
 public class MapDS <K, V> {
+
+	int size;
+
 	/**
 	 * Removes all of the mappings from this map.
 	 */
@@ -16,7 +19,7 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean containsKey(K key){
-		return this.containsKey(key);
+		return false;
 	}
 
 	/**
@@ -25,7 +28,7 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean	containsValue(V value){
-		return this.containsValue(value);
+		return false;
 	}
 
 	/**
@@ -35,7 +38,7 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public V get(Object key){
-		return this.get(key);
+		return null;
 	}
 
 	/**
@@ -43,7 +46,7 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean isEmpty(){
-		return this.isEmpty();
+		return false;
 	}
 
 	/**
@@ -109,7 +112,7 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public int	size(){
-		return this.size();
+		return this.size;
 	}
 
 }
