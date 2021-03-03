@@ -5,13 +5,14 @@ import java.util.Map;
 
 public class MapDS <K, V> {
 
-	boolean VERBOSE_PUT = true;
+	boolean VERBOSE_PUT = false;
+
+	
 
 	int size = 0;
 	valueNode[] hashMap = new valueNode[1000];
 
 	public MapDS(){
-		valueNode[] hashMap = new valueNode[1000];
 	}
 
 	public final class valueNode<K, V>{

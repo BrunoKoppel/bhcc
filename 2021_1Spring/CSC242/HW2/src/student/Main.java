@@ -95,6 +95,7 @@ public class Main {
             MapDS<Integer, String> testOne = new MapDS<Integer, String>();
             testOne.put(0,"Bruno");
             System.out.println("Getting the size: " + testOne.size());
+            System.out.println("Is Map empty => " + testOne.isEmpty());
         }
     }
 }
