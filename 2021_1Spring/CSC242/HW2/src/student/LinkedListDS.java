@@ -2,10 +2,11 @@ package student;
 
 // http://developer.classpath.org/doc/java/util/LinkedList-source.html
 
+
 import java.util.Collection;
+import java.util.Objects;
 
 public class LinkedListDS<E> {
-
 
 	boolean VERBOSE_ADD1 = false;
 	boolean VERBOSE_ADD2 = false;
@@ -110,26 +111,17 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public int indexOf(Object o){
-		if (o != null){
-			int index = 0;
-			Node<E> currentNode = head;
-			while(currentNode != null){
-				if (currentNode.data != null){
-					if (currentNode.data.equals(o)){
-						return index;
-					}
-
-					index++;
-					currentNode = currentNode.next;
-
-				} else {
-					break;
-				}
+		int index = 0;
+		Node<E> currentNode = head;
+		while(currentNode != null){
+			if (Objects.equals(currentNode.data, o)){
+				return index;
 			}
-			return index;
-		} else {
-			throw new NullPointerException();
+
+			index++;
+			currentNode = currentNode.next;
 		}
+		return -1;
 	}
 
 	public int lastIndexOf(Object o){
@@ -218,10 +210,9 @@ public class LinkedListDS<E> {
 	}
 
 	public void add(E e){
-		if (e != null)
+		if (!Objects.equals(e, null)){
 			addLastNode(new Node<E>(e));
-		else
-			throw new NullPointerException();
+		}
 	}
 
 	/**
@@ -230,7 +221,7 @@ public class LinkedListDS<E> {
 	 * @param element
 	 */
 	public void add(int index, E element){
-		if (element != null){
+		if (!Objects.equals(element, null)){
 			checkBoundsInclusive(index);
 			Node<E> newNode = new Node<E>(element);
 
@@ -251,9 +242,7 @@ public class LinkedListDS<E> {
 			}
 			else
 				addLastNode(newNode);
-		} else
-			throw new NullPointerException();
-
+		}
 	}
 
 	/**
@@ -360,7 +349,7 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public void remove(Object o) {
-		if (o != null){
+		if (!Objects.equals(o, null)){
 			Node<E> currentNode = head;
 			while(currentNode != null){
 
@@ -375,8 +364,6 @@ public class LinkedListDS<E> {
 					break;
 				}
 			}
-		} else {
-			throw new NullPointerException();
 		}
 	}
 
@@ -399,7 +386,7 @@ public class LinkedListDS<E> {
 	 */
 	public void set(int index, E element){
 		checkBoundsExclusive(index);
-		if (element != null){
+		if (!Objects.equals(element, null)){
 			Node<E> newNode = getNode(index);
 			E old = newNode.data;
 			newNode.data = element;
@@ -439,11 +426,6 @@ public class LinkedListDS<E> {
 		return node.data;
 	}
 
-
-
-
-
-
 	/**
 	 * Removes from this DS all of its elements that are contained in the
 	 * specified collection.
@@ -480,24 +462,17 @@ public class LinkedListDS<E> {
 	 */
 	public void retainAll(Collection<?> c){
 		Node<E> currentNode = head;
-		while (currentNode != null){
-			boolean isCurrentNodePresentAtCollection = false;
-
+		boolean isObjectInCollection = false;
+		while (!Objects.equals(currentNode, null)){
 			for (Object o : c){
-				if (o != null){
-					if (currentNode.data != null){
-						if (currentNode.data.equals(o)){
-							isCurrentNodePresentAtCollection = true;
-							if (!isCurrentNodePresentAtCollection){
-								removeNode(currentNode);
-								isCurrentNodePresentAtCollection = false;
-							}
-						}
-					}
-				} else
-					throw new NullPointerException();
+				if (Objects.equals(currentNode.data, o))
+					isObjectInCollection = true;
 			}
 
+			if(!isObjectInCollection){
+				Node<E> nodeToEliminate = currentNode;
+				removeNode(nodeToEliminate);
+			}
 			currentNode = currentNode.next;
 		}
 	}
@@ -508,29 +483,14 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public boolean contains(Object o){
-		if (o != null){
-			Node<E> currentNode = head;
-			while (currentNode != null){
-				if (VERBOSE_CONTAINSALL1) System.out.println("Analyzing value => " + currentNode.data);
-
-				if (currentNode.data != null){
-					if (VERBOSE_CONTAINSALL1) System.out.println("Value isn't null !");
-
-					if (currentNode.data.equals(o)){
-						if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
-
-						return true;
-					}
-
-					currentNode = currentNode.next;
-				} else {
-					if (VERBOSE_CONTAINSALL1) System.out.println("Value is null !");
-					break;
-				}
+		Node<E> currentNode = head;
+		while (currentNode != null){
+			if (VERBOSE_CONTAINSALL1) System.out.println("Analyzing value => " + currentNode.data);
+			if (Objects.equals(currentNode, o)){
+				if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
+				return true;
 			}
-
-		} else {
-			throw new NullPointerException();
+			currentNode = currentNode.next;
 		}
 		return false;
 	}
@@ -545,17 +505,12 @@ public class LinkedListDS<E> {
 		int csize = c.size();
 		int numbersEqualToCollection = 0;
 		for (Object o : c){
-			if (o != null){
-				if (VERBOSE_CONTAINSALL1) System.out.println("Value entered is => " + o);
-				boolean isNumberInLinkedList = contains(o);
-				if (isNumberInLinkedList)
-					numbersEqualToCollection++;
-			} else
-				throw new NullPointerException();
-
+			if (!contains(o)){
+				return false;
+			}
 		}
 		if (VERBOSE_CONTAINSALL1) System.out.println("Size of Collection VS NumbersContained [" + csize + "][" + numbersEqualToCollection + "]");
-		return csize == numbersEqualToCollection;
+		return true;
 	}
 
 	/**

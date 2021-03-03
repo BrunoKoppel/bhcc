@@ -2,35 +2,28 @@ package student;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class MapDS <K, V> {
 
 	boolean VERBOSE_PUT = false;
 
-
-
+	int arrayLength = 1000;
 	int size = 0;
-	valueNode[] hashMap = new valueNode[1000];
+	LinkedListDS<valueNode<K, V>>[] hashMap = new LinkedListDS[arrayLength];
 
 	public MapDS(){
 	}
 
+
+
 	public final class valueNode<K, V>{
 		K key;
 		V value;
-		valueNode next;
-		valueNode prev;
 
 		valueNode(K k, V v){
 			key = k;
 			value = v;
-		}
-
-		valueNode(K k, V v, valueNode nextNode, valueNode prevNode){
-			key = k;
-			value = v;
-			next = nextNode;
-			prev = prevNode;
 		}
 	}
 
@@ -45,13 +38,8 @@ public class MapDS <K, V> {
 	}
 
 	public void addNode(K key, V value){
-		valueNode<K, V> newNode = new valueNode<K, V>(key, value);
+		//valueNode<K, V> newNode = new valueNode<K, V>(key, value);
 		//int location = hashKey(value, hashMap.length);
-		if (hashMap[(int)key] != null){
-			 hashMap[(int)key].next = newNode;
-		} else {
-			hashMap[(int)key] = newNode;
-		}
 	}
 
 	public void removeNode(K key){
@@ -62,7 +50,7 @@ public class MapDS <K, V> {
 	 * Removes all of the mappings from this map.
 	 */
 	public void clear(){
-		for (int i = 0; i < hashMap.length; i++){
+		for (int i = 0; i < arrayLength; i++){
 			hashMap[i] = null;
 		}
 	}
@@ -74,7 +62,8 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean containsKey(K key){
-		return hashMap[(int)key] != null;
+		int location = generateHashKey(key, arrayLength);
+		return hashMap[location] != null;
 	}
 
 
@@ -84,9 +73,11 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean containsValue(V value){
-		for (int i = 0; i < hashMap.length; i++){
-			if(hashMap[i].value == value){
-				return true;
+		for (int i = 0; i < arrayLength; i++){
+			for (int y = 0; i < hashMap[i].size; y++){
+				if (Objects.equals(hashMap[i].getNode(y).data.value, value)){
+					return true;
+				}
 			}
 		}
 		return false;
@@ -101,7 +92,7 @@ public class MapDS <K, V> {
 	 */
 	public V get(Object key){
 		int location = generateHashKey((K) key, hashMap.length);
-		return (V) hashMap[location].value;
+		return (V) hashMap[location].getNode(0).data.value;
 	}
 
 
@@ -110,7 +101,7 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean isEmpty(){
-		for (int i = 0; i < hashMap.length; i++){
+		for (int i = 0; i < arrayLength; i++){
 			if(hashMap[i] != null){
 				return false;
 			}
@@ -125,26 +116,20 @@ public class MapDS <K, V> {
 	 * @param value
 	 */
 	public void put(K key, V value){
-		if (value == null){
-			throw new NullPointerException();
-		}
+		if (!Objects.equals(value, null)){
+			valueNode newNode = new valueNode(key, value);
+			if (VERBOSE_PUT) {
+				System.out.println("Key => " + key);
+				System.out.println("Value => " + value);
+				System.out.println("Length of HashMap => " + hashMap.length);
+			}
+			int location = generateHashKey(key, hashMap.length);
 
-		valueNode newNode = new valueNode(key, value);
-		if (VERBOSE_PUT) {
-			System.out.println("Key => " + key);
-			System.out.println("Value => " + value);
-			System.out.println("Length of HashMap => " + hashMap.length);
-		}
-		int location = generateHashKey(key, hashMap.length);
+			if (VERBOSE_PUT) System.out.println("Location => " + location);
 
-		if (VERBOSE_PUT) {
-			System.out.println("Location => " + location);
-		}
-
-		if (hashMap[location] == null){
+			hashMap[location].add(newNode);
 			size++;
 		}
-		hashMap[location] = newNode;
 	}
 
 
@@ -154,23 +139,14 @@ public class MapDS <K, V> {
 	 */
 	public void putAll(Map<? extends K,? extends V> m){
 		Collection<K> keys = (Collection<K>) m.keySet();
-		Collection<V> values = (Collection<V>) m.values();
 		Object[] arrayKeys = keys.toArray();
-		Object[] arrayValues = values.toArray();
 
-		for (int i = 0; i < values.size(); i++){
-			if (arrayValues[i] == null){
-				throw new NullPointerException();
-			}
-
-			valueNode newNode = new valueNode(arrayKeys[i], arrayValues[i]);
-			int location = generateHashKey((K) arrayKeys[i], hashMap.length);
-			if (hashMap[location] == null){
-				size++;
-			}
-			hashMap[location] = newNode;
+		for (int i = 0; i < arrayKeys.length; i++){
+			int location = generateHashKey((K)arrayKeys[i], arrayLength);
+			valueNode newNode = new valueNode((K)arrayKeys[i], m.get((K)arrayKeys[i]));
+			hashMap[location].add(newNode);
+			size++;
 		}
-
 	}
 
 
@@ -180,11 +156,10 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void remove(Object key){
-		int location = generateHashKey((K) key, hashMap.length);
-		if (hashMap[location] != null){
-			size--;
-			hashMap[location] = null;
-		}
+		int location = generateHashKey((K) key, arrayLength);
+		int sizeToDelete = hashMap[location].size;
+		hashMap[location].clear();
+		size -= sizeToDelete;
 	}
 
 
@@ -196,10 +171,14 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void remove(Object key, Object value){
-		int location = generateHashKey((K) key, hashMap.length);
-		if (hashMap[location].value == value){
-			size--;
-			hashMap[location] = null;
+		valueNode nodeToDelete = new valueNode(key, value);
+		int location = generateHashKey((K) key, arrayLength);
+		for (int i = hashMap[location].size; i >= 0; i--){
+			V valueOfNode = hashMap[location].getNode(i).data.value;
+			if (Objects.equals(valueOfNode, value)){
+				hashMap[location].remove(i);
+				size--;
+			}
 		}
 	}
 
@@ -211,14 +190,11 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void replace(K key, V value){
-		int location = generateHashKey((K) key, hashMap.length);
-		if (value == null){
-			throw new NullPointerException();
-		}
-
-		if (hashMap[location] != null){
-			valueNode newNode = new valueNode(key, value);
-			hashMap[location] = newNode;
+		valueNode newNode = new valueNode(key, value);
+		int location = generateHashKey((K) key, arrayLength);
+		if (!Objects.equals(hashMap[location], null)){
+			hashMap[location].clear();
+			hashMap[location].add(newNode);
 		}
 	}
 
@@ -231,16 +207,14 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void replace(K key, V oldValue, V newValue){
-		int location = generateHashKey((K) key, hashMap.length);
+		valueNode newNode = new valueNode(key, newValue);
+		int location = generateHashKey((K) key, arrayLength);
 
-		if (oldValue == null || newValue == null){
-			throw new NullPointerException();
-		}
-
-		if (hashMap[location] != null){
-			if (hashMap[location].value == oldValue){
-				valueNode newNode = new valueNode(key, newValue);
-				hashMap[location] = newNode;
+		if (!Objects.equals(oldValue, null) && !Objects.equals(newValue, null)){
+			for (int i = 0; i < hashMap[location].size; i++){
+				if (Objects.equals(hashMap[location].getNode(i).data.value,oldValue)){
+					hashMap[location].set(i, newNode);
+				}
 			}
 		}
 	}
