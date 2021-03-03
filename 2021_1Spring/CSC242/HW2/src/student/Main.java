@@ -93,6 +93,8 @@ public class Main {
 
         if (LLTEST4){
             MapDS<Integer, String> testOne = new MapDS<Integer, String>();
+            System.out.println("Is Map empty => " + testOne.isEmpty());
+
             testOne.put(0,"Bruno");
             System.out.println("Getting the size: " + testOne.size());
             System.out.println("Is Map empty => " + testOne.isEmpty());

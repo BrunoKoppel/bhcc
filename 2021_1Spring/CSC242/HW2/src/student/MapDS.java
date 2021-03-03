@@ -7,7 +7,7 @@ public class MapDS <K, V> {
 
 	boolean VERBOSE_PUT = false;
 
-	
+
 
 	int size = 0;
 	valueNode[] hashMap = new valueNode[1000];
@@ -125,6 +125,10 @@ public class MapDS <K, V> {
 	 * @param value
 	 */
 	public void put(K key, V value){
+		if (value == null){
+			throw new NullPointerException();
+		}
+
 		valueNode newNode = new valueNode(key, value);
 		if (VERBOSE_PUT) {
 			System.out.println("Key => " + key);
@@ -155,6 +159,10 @@ public class MapDS <K, V> {
 		Object[] arrayValues = values.toArray();
 
 		for (int i = 0; i < values.size(); i++){
+			if (arrayValues[i] == null){
+				throw new NullPointerException();
+			}
+
 			valueNode newNode = new valueNode(arrayKeys[i], arrayValues[i]);
 			int location = generateHashKey((K) arrayKeys[i], hashMap.length);
 			if (hashMap[location] == null){
@@ -204,6 +212,10 @@ public class MapDS <K, V> {
 	 */
 	public void replace(K key, V value){
 		int location = generateHashKey((K) key, hashMap.length);
+		if (value == null){
+			throw new NullPointerException();
+		}
+
 		if (hashMap[location] != null){
 			valueNode newNode = new valueNode(key, value);
 			hashMap[location] = newNode;
@@ -220,6 +232,11 @@ public class MapDS <K, V> {
 	 */
 	public void replace(K key, V oldValue, V newValue){
 		int location = generateHashKey((K) key, hashMap.length);
+
+		if (oldValue == null || newValue == null){
+			throw new NullPointerException();
+		}
+
 		if (hashMap[location] != null){
 			if (hashMap[location].value == oldValue){
 				valueNode newNode = new valueNode(key, newValue);
