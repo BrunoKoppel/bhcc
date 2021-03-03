@@ -57,8 +57,10 @@ public class LinkedListDS<E> {
 			currentNode = tail;
 			if (VERBOSE_GET1) System.out.println("Get 2A Node [" + index + "] => " + currentNode.data);
 			while(++index < size){
+
 				if (VERBOSE_GET1) System.out.println("Get 2B Node [" + index + "] => " + currentNode.data);
 				currentNode = currentNode.prev;
+
 				if (VERBOSE_GET1) System.out.println("Get 2C Node [" + index + "] => " + currentNode.data);
 			}
 		}
