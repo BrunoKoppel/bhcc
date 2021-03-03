@@ -5,8 +5,10 @@ import java.util.Map;
 
 public class MapDS <K, V> {
 
+	boolean VERBOSE_PUT = true;
+
 	int size = 0;
-	valueNode[] hashMap;
+	valueNode[] hashMap = new valueNode[1000];
 
 	public MapDS(){
 		valueNode[] hashMap = new valueNode[1000];
@@ -108,7 +110,7 @@ public class MapDS <K, V> {
 	 */
 	public boolean isEmpty(){
 		for (int i = 0; i < hashMap.length; i++){
-			if(hashMap[i].value != null){
+			if(hashMap[i] != null){
 				return false;
 			}
 		}
@@ -123,7 +125,17 @@ public class MapDS <K, V> {
 	 */
 	public void put(K key, V value){
 		valueNode newNode = new valueNode(key, value);
+		if (VERBOSE_PUT) {
+			System.out.println("Key => " + key);
+			System.out.println("Value => " + value);
+			System.out.println("Length of HashMap => " + hashMap.length);
+		}
 		int location = generateHashKey(key, hashMap.length);
+
+		if (VERBOSE_PUT) {
+			System.out.println("Location => " + location);
+		}
+
 		if (hashMap[location] == null){
 			size++;
 		}
