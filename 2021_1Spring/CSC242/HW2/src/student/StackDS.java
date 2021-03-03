@@ -6,9 +6,9 @@ public class StackDS<E> {
 
 	boolean VERBOSE_CONTAINSALL1 = false;
 
-	transient Node<E> head;
-	transient Node<E> tail;
-	transient int size = 0;
+	Node<E> head;
+	Node<E> tail;
+	int size = 0;
 
 	public static final class Node<E>{
 		E data;

@@ -1,78 +1,67 @@
 package student;
 
-import java.util.AbstractMap;
+import java.util.Collection;
 import java.util.Map;
 
 public class MapDS <K, V> {
 
-	transient keyNode<K> keyHead;
-	transient keyNode<K> keyTail;
-	transient valueNode<V> valueHead;
-	transient valueNode<V> valueTail;
-	transient int size = 0;
+	int size = 0;
+	valueNode[] hashMap;
 
-	public static final class keyNode<K>{
+	public MapDS(){
+		valueNode[] hashMap = new valueNode[1000];
+	}
+
+	public final class valueNode<K, V>{
 		K key;
-		valueNode
-		keyNode next;
-		keyNode prev;
+		V value;
+		valueNode next;
+		valueNode prev;
 
-
-		keyNode(K k){
+		valueNode(K k, V v){
 			key = k;
+			value = v;
 		}
 
-		keyNode(K k, keyNode nextNode, keyNode prevNode){
+		valueNode(K k, V v, valueNode nextNode, valueNode prevNode){
 			key = k;
+			value = v;
 			next = nextNode;
 			prev = prevNode;
 		}
 	}
 
-	public static final class valueNode<V>{
-		V value;
-		keyNode next;
-		keyNode prev;
+	public void insert(valueNode[] array,K key, V value){
+		int location = generateHashKey(key, array.length);
+		array[location].value = value;
+	}
 
-
-		valueNode(V v){
-			value = v;
-		}
-
-		valueNode(V v, keyNode nextNode, keyNode prevNode){
-			value = v;
-			next = nextNode;
-			prev = prevNode;
-		}
+	public int generateHashKey(K key, int arrayLength){
+		int rawKey = key.hashCode();
+		return Math.abs(rawKey % arrayLength);
 	}
 
 	public void addNode(K key, V value){
-		Node<K, V> newNode = new Node<K, V>(key, value);
-		if (size == 0){
-			head = tail = newNode;
+		valueNode<K, V> newNode = new valueNode<K, V>(key, value);
+		//int location = hashKey(value, hashMap.length);
+		if (hashMap[(int)key] != null){
+			 hashMap[(int)key].next = newNode;
 		} else {
-			tail.next = newNode;
-		}
-	}
-
-	public void addNode(Node<K, V> newNode){
-		if (size == 0){
-			head = tail = newNode;
-		} else {
-			tail.next = newNode;
-			newNode.prev = newNode;
+			hashMap[(int)key] = newNode;
 		}
 	}
 
 	public void removeNode(K key){
-		
+
 	}
 
 	/**
 	 * Removes all of the mappings from this map.
 	 */
 	public void clear(){
-		head = tail = null;
+		for (int i = 0; i < hashMap.length; i++){
+			hashMap[i] = null;
+		}
 	}
 
 
@@ -82,15 +71,7 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean containsKey(K key){
-		Node<K, V> currentNode = head;
-		while(currentNode != null){
-			if (currentNode.key == key){
-				return true;
-			} 
-			
-			currentNode = currentNode.next;
-		}
-		return false;
+		return hashMap[(int)key] != null;
 	}
 
 
@@ -100,13 +81,10 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean containsValue(V value){
-		Node<K, V> currentNode = head;
-		while(currentNode != null){
-			if (currentNode.value == value){
+		for (int i = 0; i < hashMap.length; i++){
+			if(hashMap[i].value == value){
 				return true;
 			}
-
-			currentNode = currentNode.next;
 		}
 		return false;
 	}
@@ -119,15 +97,8 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public V get(Object key){
-		Node<K, V> currentNode = head;
-		while(currentNode != null){
-			if (currentNode.key == key){
-				return currentNode.value;
-			}
-
-			currentNode = currentNode.next;
-		}
-		return null;
+		int location = generateHashKey((K) key, hashMap.length);
+		return (V) hashMap[location].value;
 	}
 
 
@@ -136,7 +107,12 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean isEmpty(){
-		return head == null;
+		for (int i = 0; i < hashMap.length; i++){
+			if(hashMap[i].value != null){
+				return false;
+			}
+		}
+		return true;
 	}
 
 
@@ -146,23 +122,12 @@ public class MapDS <K, V> {
 	 * @param value
 	 */
 	public void put(K key, V value){
-		boolean keyInHash = false;
-		Node<K, V> newNode = new Node<K, V>(key, value);
-		Node<K, V> currentNode = head;
-		while(currentNode != null){
-			if (currentNode.key == key){
-				keyInHash = true;
-				break;
-			}
-
-			currentNode = currentNode.next;
+		valueNode newNode = new valueNode(key, value);
+		int location = generateHashKey(key, hashMap.length);
+		if (hashMap[location] == null){
+			size++;
 		}
-
-		if (keyInHash){
-			replace(key, value);
-		} else {
-			addNode(newNode);
-		}
+		hashMap[location] = newNode;
 	}
 
 
@@ -171,6 +136,19 @@ public class MapDS <K, V> {
 	 * @param m
 	 */
 	public void putAll(Map<? extends K,? extends V> m){
+		Collection<K> keys = (Collection<K>) m.keySet();
+		Collection<V> values = (Collection<V>) m.values();
+		Object[] arrayKeys = keys.toArray();
+		Object[] arrayValues = values.toArray();
+
+		for (int i = 0; i < values.size(); i++){
+			valueNode newNode = new valueNode(arrayKeys[i], arrayValues[i]);
+			int location = generateHashKey((K) arrayKeys[i], hashMap.length);
+			if (hashMap[location] == null){
+				size++;
+			}
+			hashMap[location] = newNode;
+		}
 
 	}
 
@@ -181,7 +159,11 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void remove(Object key){
-
+		int location = generateHashKey((K) key, hashMap.length);
+		if (hashMap[location] != null){
+			size--;
+			hashMap[location] = null;
+		}
 	}
 
 
@@ -193,7 +175,11 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void remove(Object key, Object value){
-
+		int location = generateHashKey((K) key, hashMap.length);
+		if (hashMap[location].value == value){
+			size--;
+			hashMap[location] = null;
+		}
 	}
 
 
@@ -204,12 +190,10 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void replace(K key, V value){
-		Node<K, V> currentNode = head;
-		while(currentNode != null){
-			if(key == currentNode.key)
-				currentNode.value = value;
-
-			currentNode = currentNode.next;
+		int location = generateHashKey((K) key, hashMap.length);
+		if (hashMap[location] != null){
+			valueNode newNode = new valueNode(key, value);
+			hashMap[location] = newNode;
 		}
 	}
 
@@ -222,13 +206,12 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void replace(K key, V oldValue, V newValue){
-		Node<K, V> currentNode = getInitialNode(key);
-		while (currentNode.paralel != null){
-			if (currentNode.value == oldValue){
-				currentNode.value = newValue;
+		int location = generateHashKey((K) key, hashMap.length);
+		if (hashMap[location] != null){
+			if (hashMap[location].value == oldValue){
+				valueNode newNode = new valueNode(key, newValue);
+				hashMap[location] = newNode;
 			}
-
-			currentNode = currentNode.paralel;
 		}
 	}
 
@@ -239,17 +222,5 @@ public class MapDS <K, V> {
 	 */
 	public int size(){
 		return this.size;
-	}
-
-	public keyNode getNode(K key){
-		keyNode<K> currentNode = keyHead;
-		while(currentNode != null){
-			if(key == currentNode.key){
-				return currentNode;
-			}
-
-			currentNode = currentNode.next;
-		}
-		return null;
 	}
 }

@@ -23,9 +23,9 @@ public class LinkedListDS<E> {
 	boolean VERBOSE_SET = false;
 	boolean VERBOSE_SIZE = false;
 
-	transient Node<E> head;
-	transient Node<E> tail;
-	transient int size = 0;
+	Node<E> head;
+	Node<E> tail;
+	int size = 0;
 
 	public static final class Node<E>{
 		E data;
@@ -214,9 +214,7 @@ public class LinkedListDS<E> {
 	}
 
 	public void add(E e){
-		if (e != null){
-			addLastNode(new Node<E>(e));
-		}
+		addLastNode(new Node<E>(e));
 	}
 
 	/**
@@ -225,28 +223,26 @@ public class LinkedListDS<E> {
 	 * @param element
 	 */
 	public void add(int index, E element){
-		if (element != null){
-			checkBoundsInclusive(index);
-			Node<E> newNode = new Node<E>(element);
+		checkBoundsInclusive(index);
+		Node<E> newNode = new Node<E>(element);
 
-			if (index < size){
-				Node<E> placeholderNode = getNode(index);
-				newNode.next = placeholderNode;
+		if (index < size){
+			Node<E> placeholderNode = getNode(index);
+			newNode.next = placeholderNode;
 
-				if (placeholderNode == head){
-					head = newNode;
-					placeholderNode.prev = head;
-					newNode.prev = null;
-				} else {
-					placeholderNode.prev.next = newNode;
-					newNode.prev = placeholderNode.prev;
-					placeholderNode.prev = newNode;
-				}
-				this.size++;
+			if (placeholderNode == head){
+				head = newNode;
+				placeholderNode.prev = head;
+				newNode.prev = null;
+			} else {
+				placeholderNode.prev.next = newNode;
+				newNode.prev = placeholderNode.prev;
+				placeholderNode.prev = newNode;
 			}
-			else
-				addLastNode(newNode);
+			this.size++;
 		}
+		else
+			addLastNode(newNode);
 	}
 
 	/**
@@ -297,18 +293,16 @@ public class LinkedListDS<E> {
 		Node<E> newTail = null;
 		Node<E> previousNode = after;
 		for (int pos = 0; pos < csize; pos++){
-			if ((E)o[pos] != null){
-				Node<E> newNode = new Node<E>((E)o[pos]);
+			Node<E> newNode = new Node<E>((E)o[pos]);
 
-				previousNode.next = newNode;
-				newNode.prev = previousNode;
-				previousNode = newNode;
-				if (pos == 0)
-					newHead = newNode;
+			previousNode.next = newNode;
+			newNode.prev = previousNode;
+			previousNode = newNode;
+			if (pos == 0)
+				newHead = newNode;
 
-				if (pos == csize - 1)
-					newTail = newNode;
-			}
+			if (pos == csize - 1)
+				newTail = newNode;
 		}
 
 		if (VERBOSE_ADDALL1) System.out.println("Size before resize = " + this.size);
@@ -408,8 +402,6 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public E remove(int index){
-		System.out.println("Hello From Remove at Index");
-
 		checkBoundsExclusive(index);
 		Node<E> node = getNode(index);
 		removeNode(node);
@@ -428,7 +420,6 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public void removeAll(Collection<?> c){
-		System.out.println("Hello From Remove All");
 		for (Object o : c){
 			Node<E> currentNode = head;
 
@@ -453,7 +444,6 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public void retainAll(Collection<?> c){
-		System.out.println("Hello From Retain All");
 		Node<E> currentNode = head;
 		while (currentNode != null){
 			boolean isCurrentNodePresentAtCollection = false;
@@ -496,7 +486,7 @@ public class LinkedListDS<E> {
 				currentNode = currentNode.next;
 			} else {
 				if (VERBOSE_CONTAINSALL1) System.out.println("Value is null !");
-//				break;
+				break;
 			}
 		}
 		return false;
