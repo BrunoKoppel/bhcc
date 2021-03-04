@@ -33,22 +33,22 @@ public class Main {
 
             System.out.println("Getting Index of value 1 => " + testOne.indexOf(null));
 
-//
-//            try {
-//                System.out.println("Getting 4th Value: " + testOne.get(3));
-//            } catch (IndexOutOfBoundsException ex) {
-//                System.out.println(ex);
-//            }
-//
-//            System.out.println("Getting the size: " + testOne.size());
-//
-//            System.out.println("Clearing the Linked List: ");
-//            testOne.clear();
-//            System.out.println("Getting the size: " + testOne.size());
-//
-//            Integer[] list = new Integer[]{1, 2, 3, 4};
-//            testOne.addAll(0, Arrays.asList(list));
-//            System.out.println("Getting the size: " + testOne.size());
+
+            try {
+                System.out.println("Getting 4th Value: " + testOne.get(3));
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println(ex);
+            }
+
+            System.out.println("Getting the size: " + testOne.size());
+
+            System.out.println("Clearing the Linked List: ");
+            testOne.clear();
+            System.out.println("Getting the size: " + testOne.size());
+
+            Integer[] list = new Integer[]{1, 2, 3, 4};
+            testOne.addAll(0, Arrays.asList(list));
+            System.out.println("Getting the size: " + testOne.size());
         }
 
         if (LLTEST2){
