@@ -9,10 +9,10 @@ public class Main {
 
     static boolean LLTEST1 = false;
     static boolean LLTEST2 = false;
-    static boolean LLTEST3 = true;
+    static boolean LLTEST3 = false;
     static boolean LLTEST4 = false;
 
-    static boolean HMTEST1 = false;
+    static boolean HMTEST1 = true;
 
     public static void main(String[] args) {
         if (LLTEST1){
@@ -140,18 +140,34 @@ public class Main {
 
         if (HMTEST1){
             Map<Integer, String> one = new HashMap<>();
+            System.out.println("JAVA HASHMAP");
+            System.out.println("Size of Map is: " + one.size());
+            System.out.println("Is Map empty?  " + one.isEmpty());
+
             one.put(1, "Monday");
+            System.out.println("What's at key 1 in HashMap = " + one.get(1));
             one.put(2, "Tuesday");
             one.put(3, "Wednesday");
             one.put(4, "Thursday");
             one.put(5, "Friday");
             one.put(6, "Saturday");
             one.put(7, "Sunday");
+            one.put(1, "Extra Day");
+            System.out.println("What's at key 1 in HashMap = " + one.get(1));
 
             MapDS two = new MapDS();
+            System.out.println("\nBKO's HASHMAP");
+            System.out.println("Size of Map is: " + two.size());
+            System.out.println("Is Map empty?  " + two.isEmpty());
 
+            two.put(1,"Monday");
+            System.out.println("What's at key 1 in MapDS = " + two.get(1));
+            System.out.println("Size of Map is: " + two.size());
+
+            System.out.println("\nPUT ALL Function");
             two.putAll(one);
-            System.out.println("Size of map is: " + two.size());
+            System.out.println("Size of Map is: " + two.size());
+            System.out.println("Is Map empty?  " + two.isEmpty());
         }
     }
 }

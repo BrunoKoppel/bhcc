@@ -43,6 +43,22 @@ public class LinkedListDS<E> {
 		}
 	}
 
+	public LinkedListDS(){}
+
+	public LinkedListDS(Collection<? extends E> c){
+		addAll(c);
+	}
+
+	private void checkBoundsInclusive(int index){
+		if (index < 0 || index > size)
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+	}
+
+	private void checkBoundsExclusive(int index){
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+	}
+
 	public boolean objEquals(Object a, Object b){
 		return (a == b) || (a != null && a.equals(b));
 	}
@@ -91,22 +107,6 @@ public class LinkedListDS<E> {
 		}
 	}
 
-	private void checkBoundsInclusive(int index){
-		if (index < 0 || index > size)
-			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-	}
-
-	private void checkBoundsExclusive(int index){
-		if (index < 0 || index >= size)
-			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-	}
-
-	public LinkedListDS(){}
-
-	public LinkedListDS(Collection<? extends E> c){
-		addAll(c);
-	}
-
 	/**
 	 * Returns the index of the first occurrence of the specified element in
 	 * this DS, or -1 if this list does not contain the element.
@@ -125,76 +125,6 @@ public class LinkedListDS<E> {
 			currentNode = currentNode.next;
 		}
 		return -1;
-	}
-
-	public int lastIndexOf(Object o){
-		int index = size - 1;
-		Node<E> currentNode = tail;
-		while (currentNode != null){
-			if (currentNode.data.equals(o))
-				return index;
-			index--;
-			currentNode = currentNode.prev;
-		}
-		return -1;
-	}
-
-	public E getFirst() {
-		if (size == 0)
-			throw new IndexOutOfBoundsException();
-		return head.data;
-	}
-
-	public E getLast() {
-		if (size == 0)
-			throw new IndexOutOfBoundsException();
-		return tail.data;
-	}
-
-	public E removeFirst() {
-		if (size == 0)
-			throw new IndexOutOfBoundsException();
-		size--;
-		E r = head.data;
-
-		if (head.next != null)
-			head.next.prev = null;
-		else
-			tail = null;
-
-		head = head.next;
-
-		return r;
-	}
-
-	public E removeLast() {
-		if (size == 0)
-			throw new IndexOutOfBoundsException();
-		size--;
-
-		E r = tail.data;
-
-		if (tail.prev != null)
-			tail.prev.next = null;
-		else
-			head = null;
-
-		tail = tail.prev;
-
-		return r;
-	}
-
-	public void addFirst(E e) {
-		Node<E> newNode = new Node(e);
-
-		if (size == 0)
-			head = tail = newNode;
-		else{
-			newNode.next = head;
-			head.prev = newNode;
-			head = newNode;
-		}
-		this.size++;
 	}
 
 	public void add(E e){
@@ -258,34 +188,18 @@ public class LinkedListDS<E> {
 	public boolean addAll(int index, Collection<? extends E> c){
 		checkBoundsInclusive(index);
 		int csize = c.size();
-
 		Object[] o = c.toArray();
-
 
 		for (int pos = 0; pos < csize; pos++){
 			add(index + pos, (E)o[pos]);
 		}
 
 		if (VERBOSE_ADDALL1) System.out.println("Size before resize = " + this.size);
-		this.size += csize;
 		if (VERBOSE_ADDALL1) System.out.println("Size after resize = " + this.size);
-
 		return true;
 	}
 
-	/**
-	 * Removes the first occurrence of the specified element from this DS,
-	 * if it is present.
-	 * @param o
-	 * @return
-	 */
-	public void remove(Object o) {
-		if (!objEquals(o, null)){
-			if(contains(o)){
-				removeNode(getNode(indexOf(o)));
-			}
-		}
-	}
+
 
 	/**
 	 * Returns the element at the specified position in this DS.
@@ -342,6 +256,15 @@ public class LinkedListDS<E> {
 	}
 
 	/**
+	 * Removes the first occurrence of the specified element from this DS,
+	 * if it is present.
+	 * @param o
+	 * @return
+	 */
+	public void remove(Object o) {
+		removeNode(getNode(indexOf(o)));
+	}
+	/**
 	 * Removes from this DS all of its elements that are contained in the
 	 * specified collection.
 	 * @param c
@@ -349,7 +272,9 @@ public class LinkedListDS<E> {
 	 */
 	public void removeAll(Collection<?> c){
 		for (Object o : c){
-			remove(o);
+			while(contains(o)){
+				removeNode(getNode(indexOf(o)));
+			}
 		}
 	}
 
@@ -360,14 +285,25 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public void retainAll(Collection<?> c){
-		Node<E> currentNode = head;
-		while (!objEquals(currentNode, null)){
+		int index = 0;
+		boolean numberPresent = false;
+		while (index < this.size()){
 			for (Object o : c){
-				if (!contains(o)){
-					remove(o);
+				if(objEquals(getNode(index).data,o)){
+					numberPresent = true;
 				}
 			}
+
+			if (numberPresent){
+				index++;
+				numberPresent = false;
+			}
+			else
+				removeNode(getNode(index));
+
 		}
+
+
 	}
 
 	/**

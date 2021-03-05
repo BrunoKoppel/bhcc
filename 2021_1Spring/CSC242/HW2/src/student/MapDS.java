@@ -5,13 +5,18 @@ import java.util.Map;
 
 public class MapDS <K, V> {
 
-	boolean VERBOSE_PUT = false;
+	boolean VERBOSE_PUT = true;
 
 	int arrayLength = 1000;
 	int size = 0;
 	LinkedListDS<valueNode<K, V>>[] hashMap = new LinkedListDS[arrayLength];
 
 	public MapDS(){
+		for (int i = 0; i < arrayLength; i++)
+			hashMap[i] = new LinkedListDS<valueNode<K,V>>();
+	}
+
+	public MapDS(K k, V v){
 		for (int i = 0; i < arrayLength; i++)
 			hashMap[i] = new LinkedListDS<valueNode<K,V>>();
 	}
@@ -91,10 +96,8 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean isEmpty(){
-		if (!objEquals(this, null))
-			return true;
 		for (int i = 0; i < arrayLength; i++){
-			if(!objEquals(hashMap[i], null)){
+			if(!objEquals(hashMap[i].getNode(i), null)){
 				return false;
 			}
 		}
@@ -109,22 +112,29 @@ public class MapDS <K, V> {
 	 */
 	public void put(K key, V value){
 		valueNode newNode = new valueNode(key, value);
+
 		if (VERBOSE_PUT) {
-			System.out.println("Node created => " + newNode);
-			System.out.println("Key => " + key);
-			System.out.println("Value => " + value);
+			System.out.println("\n\nPutting Node into HashMap");
+			System.out.println("Node created => [" + newNode.key + "][" + newNode.value + "]");
 			System.out.println("Length of HashMap => " + hashMap.length);
 		}
-		int location = generateHashKey(key, hashMap.length);
+
+		int location = generateHashKey(key, arrayLength);
 
 		if (VERBOSE_PUT){
 			System.out.println("Location => " + location);
 			System.out.println("Size at Location = " + hashMap[location].size());
-			System.out.println("Node = " + hashMap[location]);
+			System.out.println("Location for NewNode = " + hashMap[location].getNode(0));
 		}
 
 		hashMap[location].add(newNode);
-		size++;
+
+		if (VERBOSE_PUT){
+			System.out.println("NewNode in location = " + hashMap[location].getNode(0));
+			System.out.println("Values of NewNode in location [" + hashMap[location].getNode(0).data.key + "][" + hashMap[location].getNode(0).data.value + "]");
+			System.out.println("Size at Location = " + hashMap[location].size());
+			System.out.println("End of Put Function\n");
+		}
 	}
 
 
@@ -217,6 +227,10 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public int size(){
-		return this.size;
+		int sizeSum = 0;
+		for (int i = 0; i < arrayLength; i++){
+			sizeSum += hashMap[i].size();
+		}
+		return sizeSum;
 	}
 }
