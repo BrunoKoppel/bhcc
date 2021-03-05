@@ -1,15 +1,18 @@
 package student;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Main {
 
-    static boolean LLTEST1 = true;
+    static boolean LLTEST1 = false;
     static boolean LLTEST2 = false;
-    static boolean LLTEST3 = false;
+    static boolean LLTEST3 = true;
     static boolean LLTEST4 = false;
+
+    static boolean HMTEST1 = false;
 
     public static void main(String[] args) {
         if (LLTEST1){
@@ -92,9 +95,28 @@ public class Main {
         }
 
         if (LLTEST3){
-            LinkedListDS<Integer> testThree = new LinkedListDS<Integer>();
-            testThree.add(0,1);
-            System.out.println("Getting the size: " + testThree.size());
+            LinkedListDS<String> list = new LinkedListDS<String>();
+
+            // Use add() method to add elements
+            // into the List
+            list.add("Welcome");
+            list.add("To");
+            list.add("Geeks");
+            list.add("4");
+            list.add("Geeks");
+
+            // Displaying the List
+            System.out.println("List: " + list);
+
+            // Creating another empty List
+            LinkedList<String> listTemp = new LinkedList<>();
+
+            listTemp.add("Geeks");
+            listTemp.add("4");
+            listTemp.add("Geeks");
+
+            System.out.println("Are all the contents equal? "
+                    + list.containsAll(listTemp));
         }
 
         if (LLTEST4){
@@ -104,6 +126,22 @@ public class Main {
             testOne.put(0,"Bruno");
             System.out.println("Getting the size: " + testOne.size());
             System.out.println("Is Map empty => " + testOne.isEmpty());
+        }
+
+        if (HMTEST1){
+            Map<Integer, String> one = new HashMap<>();
+            one.put(1, "Monday");
+            one.put(2, "Tuesday");
+            one.put(3, "Wednesday");
+            one.put(4, "Thursday");
+            one.put(5, "Friday");
+            one.put(6, "Saturday");
+            one.put(7, "Sunday");
+
+            MapDS two = new MapDS();
+
+            two.putAll(one);
+            System.out.println("Size of map is: " + two.size());
         }
     }
 }

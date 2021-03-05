@@ -197,11 +197,8 @@ public class LinkedListDS<E> {
 		this.size++;
 	}
 
-	public void addLast(E e) {
-		addLastNode(new Node<E>(e));
-	}
-
-	private void addLastNode(Node<E> newNode){
+	public void add(E e){
+		Node<E> newNode = new Node<E>(e);
 		if (size == 0)
 			head = tail = newNode;
 		else {
@@ -210,10 +207,6 @@ public class LinkedListDS<E> {
 			tail = newNode;
 		}
 		this.size++;
-	}
-
-	public void add(E e){
-		addLastNode(new Node<E>(e));
 	}
 
 	/**
@@ -238,10 +231,11 @@ public class LinkedListDS<E> {
 				newNode.prev = placeholderNode.prev;
 				placeholderNode.prev = newNode;
 			}
-			this.size++;
+
 		}
 		else
-			addLastNode(newNode);
+			add(element);
+		this.size++;
 	}
 
 	/**
@@ -422,7 +416,7 @@ public class LinkedListDS<E> {
 	 */
 	public void removeAll(Collection<?> c){
 		for (Object o : c){
-			if (objEquals(o, null)){
+			if (!objEquals(o, null)){
 				Node<E> currentNode = head;
 				while (!objEquals(currentNode, null)){
 					if (objEquals(currentNode.data, o)){
@@ -448,15 +442,9 @@ public class LinkedListDS<E> {
 		boolean isObjectInCollection = false;
 		while (!objEquals(currentNode, null)){
 			for (Object o : c){
-				if (objEquals(currentNode.data, o))
-					isObjectInCollection = true;
-			}
-
-			if(!isObjectInCollection){
-				Node<E> nodeToEliminate = currentNode;
-				currentNode = currentNode.next;
-
-				removeNode(nodeToEliminate);
+				if (!contains(o))
+					currentNode = currentNode.next;
+					removeNode(currentNode.prev);
 			}
 		}
 	}
@@ -467,16 +455,7 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public boolean contains(Object o){
-		Node<E> currentNode = head;
-		while (objEquals(currentNode, null)){
-			if (VERBOSE_CONTAINSALL1) System.out.println("Analyzing value => " + currentNode.data);
-			if (objEquals(currentNode.data, o)){
-				if (VERBOSE_CONTAINSALL1) System.out.println("Value is in Collection !!");
-				return true;
-			}
-			currentNode = currentNode.next;
-		}
-		return false;
+		return indexOf(o) != -1;
 	}
 
 	/**
@@ -487,9 +466,13 @@ public class LinkedListDS<E> {
 	 */
 	public boolean containsAll(Collection<?> c){
 		int csize = c.size();
+		if (csize == 0){
+			return false;
+		}
+		Object[] array = c.toArray();
 		int numbersEqualToCollection = 0;
-		for (Object o : c){
-			if (!contains(o)){
+		for (int i = 0; i < csize; i++){
+			if (!contains(array[i])){
 				return false;
 			}
 		}
@@ -502,9 +485,6 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public int size() {
-		if (size == 999){
-			return 998;
-		}
 		return size;
 	}
 }

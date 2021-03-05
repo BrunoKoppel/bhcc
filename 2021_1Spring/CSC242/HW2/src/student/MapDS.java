@@ -12,9 +12,9 @@ public class MapDS <K, V> {
 	LinkedListDS<valueNode<K, V>>[] hashMap = new LinkedListDS[arrayLength];
 
 	public MapDS(){
+		for (int i = 0; i < arrayLength; i++)
+			hashMap[i] = new LinkedListDS<valueNode<K,V>>();
 	}
-
-
 
 	public final class valueNode<K, V>{
 		K key;
@@ -30,23 +30,9 @@ public class MapDS <K, V> {
 		return (a == b) || (a != null && a.equals(b));
 	}
 
-	public void insert(valueNode[] array,K key, V value){
-		int location = generateHashKey(key, array.length);
-		array[location].value = value;
-	}
-
 	public int generateHashKey(K key, int arrayLength){
 		int rawKey = key.hashCode();
 		return Math.abs(rawKey % arrayLength);
-	}
-
-	public void addNode(K key, V value){
-		//valueNode<K, V> newNode = new valueNode<K, V>(key, value);
-		//int location = hashKey(value, hashMap.length);
-	}
-
-	public void removeNode(K key){
-
 	}
 
 	/**
@@ -105,8 +91,10 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean isEmpty(){
+		if (!objEquals(this, null))
+			return true;
 		for (int i = 0; i < arrayLength; i++){
-			if(hashMap[i] != null){
+			if(!objEquals(hashMap[i], null)){
 				return false;
 			}
 		}
@@ -122,13 +110,18 @@ public class MapDS <K, V> {
 	public void put(K key, V value){
 		valueNode newNode = new valueNode(key, value);
 		if (VERBOSE_PUT) {
+			System.out.println("Node created => " + newNode);
 			System.out.println("Key => " + key);
 			System.out.println("Value => " + value);
 			System.out.println("Length of HashMap => " + hashMap.length);
 		}
 		int location = generateHashKey(key, hashMap.length);
 
-		if (VERBOSE_PUT) System.out.println("Location => " + location);
+		if (VERBOSE_PUT){
+			System.out.println("Location => " + location);
+			System.out.println("Size at Location = " + hashMap[location].size());
+			System.out.println("Node = " + hashMap[location]);
+		}
 
 		hashMap[location].add(newNode);
 		size++;
