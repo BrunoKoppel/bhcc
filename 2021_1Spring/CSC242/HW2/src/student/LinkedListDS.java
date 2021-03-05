@@ -116,7 +116,7 @@ public class LinkedListDS<E> {
 	public int indexOf(Object o){
 		int index = 0;
 		Node<E> currentNode = head;
-		while(currentNode != null){
+		while(!objEquals(currentNode, null)){
 			if (objEquals(currentNode.data, o)){
 				return index;
 			}
@@ -231,11 +231,11 @@ public class LinkedListDS<E> {
 				newNode.prev = placeholderNode.prev;
 				placeholderNode.prev = newNode;
 			}
+			this.size++;
 
 		}
 		else
 			add(element);
-		this.size++;
 	}
 
 	/**
@@ -345,11 +345,11 @@ public class LinkedListDS<E> {
 			while(!objEquals(currentNode,null)){
 				if (!objEquals(currentNode.data, null)){
 					Node<E> nodeToEliminate = currentNode;
-					currentNode = currentNode.next;
 					if (objEquals(nodeToEliminate,o)){
 						removeNode(nodeToEliminate);
 					}
 				}
+				currentNode = currentNode.next;
 			}
 		}
 	}
@@ -467,7 +467,7 @@ public class LinkedListDS<E> {
 	public boolean containsAll(Collection<?> c){
 		int csize = c.size();
 		if (csize == 0){
-			return false;
+			return true;
 		}
 		Object[] array = c.toArray();
 		int numbersEqualToCollection = 0;

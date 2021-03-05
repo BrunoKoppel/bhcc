@@ -109,14 +109,24 @@ public class Main {
             System.out.println("List: " + list);
 
             // Creating another empty List
-            LinkedList<String> listTemp = new LinkedList<>();
+            LinkedList<String> listTemp1 = new LinkedList<>();
 
-            listTemp.add("Geeks");
-            listTemp.add("4");
-            listTemp.add("Geeks");
+            listTemp1.add("Geeks");
+            listTemp1.add("4");
+            listTemp1.add("Geeks");
 
             System.out.println("Are all the contents equal? "
-                    + list.containsAll(listTemp));
+                    + list.containsAll(listTemp1));
+
+            LinkedList<String> listTemp2 = new LinkedList<>();
+
+            listTemp2.add("Geeks");
+            listTemp2.add("4");
+            listTemp2.add("Geeks");
+
+
+            System.out.println("Are all the contents equal? "
+                    + list.containsAll(listTemp2));
         }
 
         if (LLTEST4){
