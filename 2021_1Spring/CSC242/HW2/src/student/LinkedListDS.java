@@ -192,17 +192,19 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public boolean addAll(int index, Collection<? extends E> c){
-		checkBoundsInclusive(index);
-		int csize = c.size();
-		Object[] o = c.toArray();
+		if (checkBoundsInclusive(index)){
+			int csize = c.size();
+			Object[] o = c.toArray();
 
-		for (int pos = 0; pos < csize; pos++){
-			add(index + pos, (E)o[pos]);
+			for (int pos = 0; pos < csize; pos++){
+				add(index + pos, (E)o[pos]);
+			}
+
+			if (VERBOSE_ADDALL1) System.out.println("Size before resize = " + this.size);
+			if (VERBOSE_ADDALL1) System.out.println("Size after resize = " + this.size);
+			return true;
 		}
-
-		if (VERBOSE_ADDALL1) System.out.println("Size before resize = " + this.size);
-		if (VERBOSE_ADDALL1) System.out.println("Size after resize = " + this.size);
-		return true;
+		return false;
 	}
 
 
@@ -213,8 +215,10 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public E get(int index){
-		checkBoundsExclusive(index);
-		return getNode(index).data;
+		if (checkBoundsExclusive(index)){
+			return getNode(index).data;
+		}
+		return null;
 	}
 
 	/**
@@ -225,10 +229,11 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public void set(int index, E element){
-		checkBoundsExclusive(index);
-		Node<E> newNode = getNode(index);
-		E old = newNode.data;
-		newNode.data = element;
+		if(checkBoundsExclusive(index)){
+			Node<E> newNode = getNode(index);
+			E old = newNode.data;
+			newNode.data = element;
+		}
 	}
 
 
@@ -255,10 +260,12 @@ public class LinkedListDS<E> {
 	 * @return
 	 */
 	public E remove(int index){
-		checkBoundsExclusive(index);
-		Node<E> node = getNode(index);
-		removeNode(node);
-		return node.data;
+		if (checkBoundsExclusive(index)){
+			Node<E> node = getNode(index);
+			removeNode(node);
+			return node.data;
+		}
+		return null;
 	}
 
 	/**
