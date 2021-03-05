@@ -5,21 +5,14 @@ import java.util.Map;
 
 public class MapDS <K, V> {
 
-	boolean VERBOSE_PUT = true;
+	boolean VERBOSE_PUT = false;
 
-	int arrayLength = 1000;
 	int size = 0;
-	LinkedListDS<valueNode<K, V>>[] hashMap = new LinkedListDS[arrayLength];
 
-	public MapDS(){
-		for (int i = 0; i < arrayLength; i++)
-			hashMap[i] = new LinkedListDS<valueNode<K,V>>();
-	}
+	LinkedListDS<K> keys = new LinkedListDS();
+	LinkedListDS<V> values = new LinkedListDS();
 
-	public MapDS(K k, V v){
-		for (int i = 0; i < arrayLength; i++)
-			hashMap[i] = new LinkedListDS<valueNode<K,V>>();
-	}
+	public MapDS(){}
 
 	public final class valueNode<K, V>{
 		K key;
@@ -45,9 +38,8 @@ public class MapDS <K, V> {
 	 */
 	public void clear(){
 		size = 0;
-		for (int i = 0; i < arrayLength; i++){
-			hashMap[i] = null;
-		}
+		keys.clear();
+		values.clear();
 	}
 
 
@@ -57,8 +49,7 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean containsKey(K key){
-		int location = generateHashKey(key, arrayLength);
-		return objEquals(hashMap[location],null);
+		return keys.contains(key);
 	}
 
 
@@ -68,14 +59,7 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean containsValue(V value){
-		for (int i = 0; i < arrayLength; i++){
-			for (int y = 0; i < hashMap[i].size; y++){
-				if (objEquals(hashMap[i].getNode(y).data.value, value)){
-					return true;
-				}
-			}
-		}
-		return false;
+		return values.contains(value);
 	}
 
 
@@ -86,8 +70,8 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public V get(Object key){
-		int location = generateHashKey((K) key, hashMap.length);
-		return (V) hashMap[location].getNode(0).data.value;
+		int index = keys.indexOf(key);
+		return values.get(index);
 	}
 
 
@@ -96,12 +80,7 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public boolean isEmpty(){
-		for (int i = 0; i < arrayLength; i++){
-			if(!objEquals(hashMap[i].getNode(i), null)){
-				return false;
-			}
-		}
-		return true;
+		return keys.isEmpty();
 	}
 
 
@@ -111,30 +90,9 @@ public class MapDS <K, V> {
 	 * @param value
 	 */
 	public void put(K key, V value){
-		valueNode newNode = new valueNode(key, value);
-
-		if (VERBOSE_PUT) {
-			System.out.println("\n\nPutting Node into HashMap");
-			System.out.println("Node created => [" + newNode.key + "][" + newNode.value + "]");
-			System.out.println("Length of HashMap => " + hashMap.length);
-		}
-
-		int location = generateHashKey(key, arrayLength);
-
-		if (VERBOSE_PUT){
-			System.out.println("Location => " + location);
-			System.out.println("Size at Location = " + hashMap[location].size());
-			System.out.println("Location for NewNode = " + hashMap[location].getNode(0));
-		}
-
-		hashMap[location].add(newNode);
-
-		if (VERBOSE_PUT){
-			System.out.println("NewNode in location = " + hashMap[location].getNode(0));
-			System.out.println("Values of NewNode in location [" + hashMap[location].getNode(0).data.key + "][" + hashMap[location].getNode(0).data.value + "]");
-			System.out.println("Size at Location = " + hashMap[location].size());
-			System.out.println("End of Put Function\n");
-		}
+		keys.add(key);
+		values.add(value);
+		keys.tail.pointer = values.tail;
 	}
 
 
@@ -143,11 +101,12 @@ public class MapDS <K, V> {
 	 * @param m
 	 */
 	public void putAll(Map<? extends K,? extends V> m){
-		Collection<K> keys = (Collection<K>) m.keySet();
-		Object[] arrayKeys = keys.toArray();
+		Collection<K> keyTool = (Collection<K>) m.keySet();
+		Object[] arrayKeys = keyTool.toArray();
 
 		for (int i = 0; i < arrayKeys.length; i++){
-			put((K)arrayKeys[i], m.get((K)arrayKeys[i]));
+			keys.add((K)arrayKeys[i]);
+			values.add(m.get(arrayKeys[i]));
 		}
 	}
 
@@ -158,10 +117,11 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void remove(Object key){
-		int location = generateHashKey((K) key, arrayLength);
-		int sizeToDelete = hashMap[location].size;
-		hashMap[location].clear();
-		size -= sizeToDelete;
+		while(keys.contains(key)){
+			int index = keys.indexOf(key);
+			keys.remove(index);
+			values.remove(index);
+		}
 	}
 
 
@@ -173,13 +133,11 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void remove(Object key, Object value){
-		valueNode nodeToDelete = new valueNode(key, value);
-		int location = generateHashKey((K) key, arrayLength);
-		for (int i = hashMap[location].size; i >= 0; i--){
-			V valueOfNode = hashMap[location].getNode(i).data.value;
-			if (objEquals(valueOfNode, value)){
-				hashMap[location].remove(i);
-				size--;
+		int index = keys.indexOf(key);
+		if (!objEquals(values.get(index), null)){
+			if (values.get(index) == value){
+				keys.remove(index);
+				values.remove(index);
 			}
 		}
 	}
@@ -192,11 +150,10 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void replace(K key, V value){
-		valueNode newNode = new valueNode(key, value);
-		int location = generateHashKey((K) key, arrayLength);
-		if (!objEquals(hashMap[location], null)){
-			hashMap[location].clear();
-			hashMap[location].add(newNode);
+		if (keys.contains(key)){
+			int index = keys.indexOf(key);
+			keys.set(index, key);
+			values.set(index, value);
 		}
 	}
 
@@ -209,15 +166,9 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public void replace(K key, V oldValue, V newValue){
-		valueNode newNode = new valueNode(key, newValue);
-		int location = generateHashKey((K) key, arrayLength);
-
-		if (!objEquals(oldValue, null) && !objEquals(newValue, null)){
-			for (int i = 0; i < hashMap[location].size; i++){
-				if (objEquals(hashMap[location].getNode(i).data.value,oldValue)){
-					hashMap[location].set(i, newNode);
-				}
-			}
+		if (containsKey(key)){
+			if (keys.getNode(keys.indexOf(key)).pointer.data == oldValue)
+				replace(key, newValue);
 		}
 	}
 
@@ -227,10 +178,6 @@ public class MapDS <K, V> {
 	 * @return
 	 */
 	public int size(){
-		int sizeSum = 0;
-		for (int i = 0; i < arrayLength; i++){
-			sizeSum += hashMap[i].size();
-		}
-		return sizeSum;
+		return keys.size();
 	}
 }

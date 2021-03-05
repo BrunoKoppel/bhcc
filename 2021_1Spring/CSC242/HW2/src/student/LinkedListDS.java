@@ -29,6 +29,7 @@ public class LinkedListDS<E> {
 
 	public static final class Node<E>{
 		E data;
+		Node<?> pointer;
 		Node next;
 		Node prev;
 
@@ -49,14 +50,18 @@ public class LinkedListDS<E> {
 		addAll(c);
 	}
 
-	private void checkBoundsInclusive(int index){
+	private boolean checkBoundsInclusive(int index){
 		if (index < 0 || index > size)
-			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+			return false;
+//			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+		return true;
 	}
 
-	private void checkBoundsExclusive(int index){
+	private boolean checkBoundsExclusive(int index){
 		if (index < 0 || index >= size)
-			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+			return false;
+//			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+		return true;
 	}
 
 	public boolean objEquals(Object a, Object b){
@@ -145,27 +150,28 @@ public class LinkedListDS<E> {
 	 * @param element
 	 */
 	public void add(int index, E element){
-		checkBoundsInclusive(index);
-		Node<E> newNode = new Node<E>(element);
+		if (checkBoundsInclusive(index)){
+			Node<E> newNode = new Node<E>(element);
 
-		if (index < size){
-			Node<E> placeholderNode = getNode(index);
-			newNode.next = placeholderNode;
+			if (index < size){
+				Node<E> placeholderNode = getNode(index);
+				newNode.next = placeholderNode;
 
-			if (placeholderNode == head){
-				head = newNode;
-				placeholderNode.prev = head;
-				newNode.prev = null;
-			} else {
-				placeholderNode.prev.next = newNode;
-				newNode.prev = placeholderNode.prev;
-				placeholderNode.prev = newNode;
+				if (placeholderNode == head){
+					head = newNode;
+					placeholderNode.prev = head;
+					newNode.prev = null;
+				} else {
+					placeholderNode.prev.next = newNode;
+					newNode.prev = placeholderNode.prev;
+					placeholderNode.prev = newNode;
+				}
+				this.size++;
+
 			}
-			this.size++;
-
+			else
+				add(element);
 		}
-		else
-			add(element);
 	}
 
 	/**
