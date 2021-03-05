@@ -259,76 +259,16 @@ public class LinkedListDS<E> {
 		checkBoundsInclusive(index);
 		int csize = c.size();
 
-		if (csize == 0)
-			return false;
-
-		Node<E> after;
-		Node<E> before;
-
-		if (index != this.size){
-			if(VERBOSE_ADDALL2) System.out.println("Get node for before");
-			before = getNode(index);
-			if(VERBOSE_ADDALL2) System.out.println("Got the Node");
-			after = before.prev;
-		} else {
-			before = null;
-			after = tail;
-		}
-
-		if(VERBOSE_ADDALL2){
-			System.out.println("Value of Before => " + before.data);
-			System.out.println("Value of After => " + after.data);
-		}
-
 		Object[] o = c.toArray();
-//		Object[] ro = new Object[o.length];
-//		int x = 0;
-//		for (int y = 0; y < o.length; y++){
-//			if ((E)o[y] != null){
-//				ro[x] = (E)o[y];
-//				x++;
-//			}
-//		}
-//		Object[] on = new Object[x];
-//		for(int y = 0; y < on.length; y++){
-//			on[y] = ro[y];
-//		}
 
-//		csize = on.length;
 
-		Node<E> newHead = null;
-		Node<E> newTail = null;
-		Node<E> previousNode = after;
 		for (int pos = 0; pos < csize; pos++){
-			Node<E> newNode = new Node<E>((E)o[pos]);
-			previousNode.next = newNode;
-			newNode.prev = previousNode;
-			previousNode = newNode;
-			if (pos == 0)
-				newHead = newNode;
-
-			if (pos == csize - 1)
-				newTail = newNode;
+			add(index + pos, (E)o[pos]);
 		}
 
 		if (VERBOSE_ADDALL1) System.out.println("Size before resize = " + this.size);
 		this.size += csize;
 		if (VERBOSE_ADDALL1) System.out.println("Size after resize = " + this.size);
-
-
-		if (before != null){
-			newTail.next = before;
-			before.prev = newTail;
-		} else {
-			tail = newTail;
-		}
-
-		if (after != null) {
-			newHead.prev = after;
-			after.next = newHead;
-		} else {
-			head = newHead;
-		}
 
 		return true;
 	}
@@ -341,15 +281,8 @@ public class LinkedListDS<E> {
 	 */
 	public void remove(Object o) {
 		if (!objEquals(o, null)){
-			Node<E> currentNode = head;
-			while(!objEquals(currentNode,null)){
-				if (!objEquals(currentNode.data, null)){
-					Node<E> nodeToEliminate = currentNode;
-					if (objEquals(nodeToEliminate,o)){
-						removeNode(nodeToEliminate);
-					}
-				}
-				currentNode = currentNode.next;
+			if(contains(o)){
+				removeNode(getNode(indexOf(o)));
 			}
 		}
 	}
@@ -416,18 +349,7 @@ public class LinkedListDS<E> {
 	 */
 	public void removeAll(Collection<?> c){
 		for (Object o : c){
-			if (!objEquals(o, null)){
-				Node<E> currentNode = head;
-				while (!objEquals(currentNode, null)){
-					if (objEquals(currentNode.data, o)){
-						Node<E> nodeToEliminate = currentNode;
-						currentNode = currentNode.next;
-						removeNode(nodeToEliminate);
-					} else {
-						currentNode = currentNode.next;
-					}
-				}
-			}
+			remove(o);
 		}
 	}
 
@@ -439,12 +361,11 @@ public class LinkedListDS<E> {
 	 */
 	public void retainAll(Collection<?> c){
 		Node<E> currentNode = head;
-		boolean isObjectInCollection = false;
 		while (!objEquals(currentNode, null)){
 			for (Object o : c){
-				if (!contains(o))
-					currentNode = currentNode.next;
-					removeNode(currentNode.prev);
+				if (!contains(o)){
+					remove(o);
+				}
 			}
 		}
 	}
@@ -466,17 +387,12 @@ public class LinkedListDS<E> {
 	 */
 	public boolean containsAll(Collection<?> c){
 		int csize = c.size();
-		if (csize == 0){
-			return true;
-		}
 		Object[] array = c.toArray();
-		int numbersEqualToCollection = 0;
 		for (int i = 0; i < csize; i++){
 			if (!contains(array[i])){
 				return false;
 			}
 		}
-		if (VERBOSE_CONTAINSALL1) System.out.println("Size of Collection VS NumbersContained [" + csize + "][" + numbersEqualToCollection + "]");
 		return true;
 	}
 
