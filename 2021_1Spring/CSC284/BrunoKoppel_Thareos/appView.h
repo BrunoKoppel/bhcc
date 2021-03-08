@@ -1,21 +1,21 @@
-#ifndef APPVIEW_H
-#define APPVIEW_H
+//#ifndef APPVIEW_H
+//#define APPVIEW_H
 
-#include <QAppView>
+//#include <QAppView>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class AppView; }
-QT_END_NAMESPACE
+//QT_BEGIN_NAMESPACE
+//namespace Ui { class AppView; }
+//QT_END_NAMESPACE
 
-class AppView : public QAppView
-{
-    Q_OBJECT
+//class AppView : public QAppView
+//{
+//    Q_OBJECT
 
-public:
-    AppView(QWidget *parent = nullptr);
-    ~AppView();
+//public:
+//    AppView(QWidget *parent = nullptr);
+//    ~AppView();
 
-private:
-    Ui::AppView *ui;
-};
-#endif // APPVIEW_H
+//private:
+//    Ui::AppView *ui;
+//};
+//#endif // APPVIEW_H
