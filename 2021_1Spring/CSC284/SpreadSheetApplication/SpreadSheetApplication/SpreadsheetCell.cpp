@@ -1,6 +1,6 @@
 #include "SpreadsheetCell.h"
-
 using namespace std;
+
 
 SpreadsheetCell::SpreadsheetCell(double initialValue)
 	: mValue(initialValue)
