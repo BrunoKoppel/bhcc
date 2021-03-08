@@ -34,6 +34,9 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        appView.cpp
+        appView.h
+        appView.ui
         ${TS_FILES}
 )
 

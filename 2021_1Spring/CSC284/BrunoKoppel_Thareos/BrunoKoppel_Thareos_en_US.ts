@@ -4,6 +4,7 @@
 <context>
     <name>MainWindow</name>
     <message>
+        <location filename="appView.ui" line="21"/>
         <location filename="mainwindow.ui" line="21"/>
         <source>Thareos</source>
         <translation type="unfinished"></translation>
@@ -16,6 +17,34 @@
     <message>
         <location filename="mainwindow.ui" line="50"/>
         <source>Login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="83"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="99"/>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="appView.ui" line="35"/>
+        <location filename="mainwindow.ui" line="117"/>
+        <source>Menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="appView.ui" line="46"/>
+        <location filename="mainwindow.ui" line="128"/>
+        <source>Log Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="appView.ui" line="51"/>
+        <location filename="mainwindow.ui" line="133"/>
+        <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
