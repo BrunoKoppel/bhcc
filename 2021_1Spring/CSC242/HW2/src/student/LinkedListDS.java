@@ -72,21 +72,13 @@ public class LinkedListDS<E> {
 		Node<E> currentNode;
 		if (index < size/2){
 			currentNode = head;
-			if (VERBOSE_GET1) System.out.println("Get 1A Node [" + index + "] => " + currentNode.data);
 			while(index-- > 0){
-				if (VERBOSE_GET1) System.out.println("Get 1B Node [" + index + "] => " + currentNode.data);
 				currentNode = currentNode.next;
-				if (VERBOSE_GET1) System.out.println("Get 1C Node [" + index + "] => " + currentNode.data);
 			}
 		} else {
 			currentNode = tail;
-			if (VERBOSE_GET1) System.out.println("Get 2A Node [" + index + "] => " + currentNode.data);
 			while(++index < size){
-
-				if (VERBOSE_GET1) System.out.println("Get 2B Node [" + index + "] => " + currentNode.data);
 				currentNode = currentNode.prev;
-
-				if (VERBOSE_GET1) System.out.println("Get 2C Node [" + index + "] => " + currentNode.data);
 			}
 		}
 		return currentNode;
