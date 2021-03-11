@@ -6,7 +6,8 @@ public class Main {
 
         Trie one = new Trie();
         one.insert("Mother");
-        System.out.println(one.contains("Mother"));
+        one.printTrie(one.parent);
+//        System.out.println(one.contains("Mother"));
 
     }
 }
