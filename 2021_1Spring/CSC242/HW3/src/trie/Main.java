@@ -9,6 +9,7 @@ public class Main {
         String s4 = "amazon";
         String s5 = "pre-requisite";
         String s6 = "prescholar";
+        String s8 = "0x0unaffordable";
 
         Trie one = new Trie();
         one.insert(s1);
@@ -16,13 +17,13 @@ public class Main {
         one.insert(s3);
         one.insert(s4);
         one.insert(s5);
-        one.insert(s6);
+        one.insert(s8);
         System.out.println(one.contains(s1));
         System.out.println(one.contains(s2));
         System.out.println(one.contains(s3));
         System.out.println(one.contains(s4));
         System.out.println(one.contains(s5));
-        System.out.println(one.contains(s6));
+        System.out.println(one.contains(s8));
         System.out.println(one.getAllWords(""));
         System.out.println(one.getAllEvenWords("Mo"));
         System.out.println(one.getAllOddWords("Mo"));
