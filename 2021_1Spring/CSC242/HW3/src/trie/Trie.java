@@ -112,6 +112,8 @@ public class Trie {
 			}
 		}
 
+
+		
 //		System.out.println("Going with letter " + currentNode.letter);
 		recursiveSearch(setOfWords, currentNode, prefix, level);
 		if (mode == 0){
