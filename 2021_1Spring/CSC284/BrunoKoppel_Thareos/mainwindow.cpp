@@ -6,8 +6,7 @@
 
 bool isUserNameFieldPopulated = false;
 bool isPassWordFieldPopulated = false;
-QString path= QCoreApplication::applicationDirPath() + QString("/loginData.csv");
-QFile file(path);
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -53,23 +52,56 @@ void MainWindow::on_passwordLineEdit_textChanged(const QString &arg1)
 
 void MainWindow::on_appLoginButton_clicked()
 {
-
+    ReadAccountFromDataFile(ui->usernameLineEdit->text(), ui->passwordLineEdit->text());
 }
-
-
 
 void MainWindow::on_appCreateAccountButton_clicked()
 {
-    if(!file.open(QIODevice::WriteOnly)){
-            file.close();
-        } else {
-            QTextStream out(&file);
-            out << ui->usernameLineEdit->text();
-            out << ui->passwordLineEdit->text();
-            file.close();
-        }
+    AddAccountToDataFile(ui->usernameLineEdit->text(), ui->passwordLineEdit->text(), 5);
 }
 
+void MainWindow::AddAccountToDataFile(QString username, QString password, int userLevel){
+    QString path = QCoreApplication::applicationDirPath() + QString("/loginData.txt");
+    QFile file(path);
+    qDebug() << path;
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)){
+        qDebug() << "File not created";
+        file.close();
+    } else {
+        QTextStream out(&file);
+        out << username << ",";
+        out << password << ",";
+        out << userLevel;
+        out << "\n";
+        qDebug() << "File Created";
+        file.close();
+    }
+}
+
+void MainWindow::ReadAccountFromDataFile(QString username, QString password){
+    QString path = QCoreApplication::applicationDirPath() + QString("/loginData.txt");
+    QFile inputFile(path);
+    qDebug() << path;
+    qDebug() << username;
+    qDebug() << password;
+    if (inputFile.open(QIODevice::ReadOnly))
+    {
+       qDebug() << "File Found";
+       QTextStream in(&inputFile);
+       while (!in.atEnd())
+       {
+          QString line = in.readLine();
+          qDebug() << line;
+          if (line == username){
+              qDebug() << "Found User";
+          }
+       }
+       qDebug() << "No User Found";
+       inputFile.close();
+    } else {
+        qDebug() << "File Not Found";
+    }
+}
 
 void MainWindow::on_actionExit_triggered()
 {

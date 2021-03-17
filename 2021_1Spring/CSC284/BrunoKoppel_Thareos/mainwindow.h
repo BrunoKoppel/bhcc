@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFile>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -31,5 +32,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     void testButtonFunc();
+    void AddAccountToDataFile(QString username, QString password, int userLevel);
+    void ReadAccountFromDataFile(QString username, QString password);
 };
 #endif // MAINWINDOW_H
