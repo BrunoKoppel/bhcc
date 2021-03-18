@@ -37,6 +37,8 @@ set(PROJECT_SOURCES
         appView.cpp
         appView.h
         appView.ui
+        user.cpp
+        user.h
         ${TS_FILES}
 )
 
