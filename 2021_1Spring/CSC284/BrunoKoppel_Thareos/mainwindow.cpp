@@ -71,8 +71,8 @@ void MainWindow::ReadAccountFromDataFile(QString username, QString password){
        while (!in.atEnd())
        {
            QString line = in.readLine();
-           User newUser = adminUser.generateUserFromLoginData(line);
-           newUser.debugUser();
+//           User newUser = adminUser.generateUserFromLoginData(line);
+//           newUser.debugUser();
        }
        qDebug() << "No User Found";
        inputFile.close();

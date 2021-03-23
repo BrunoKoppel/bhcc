@@ -2,7 +2,7 @@
 #define USER_H
 
 #include <QString>
-#include <QRegExp>
+//#include <QRegExp>
 #include <QDebug>
 
 class User
