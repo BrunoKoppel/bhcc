@@ -2,27 +2,26 @@ package trie;
 
 import java.util.*;
 
+
+
 class Node{
 	char letter;
 	boolean isEndOfWord = false;
 	Node parent = null;
-	Node[] children = new Node[256];
+	LinkedList<Node> children = new LinkedList<Node>();
 
 	Node(){ }
-
 	Node(char newLetter){
 		letter = newLetter;
 	}
 }
 
 public class Trie {
-
+	boolean VERBOSE = true;
 	Node root;
-//	Set<String> setOfWords;
 
 	public Trie(){
 		root = new Node();
-//		setOfWords = new HashSet<String>();
 	};
 
 	public int letterToInt(char letter){
@@ -47,27 +46,6 @@ public class Trie {
 		return (a == b) || (a != null && a.equals(b));
 	}
 
-	public Node addNode(Node currentNode, char letter){
-		int index = letterToInt(letter);
-		currentNode.children[index] = new Node(letter);
-		return currentNode.children[index];
-	}
-
-	public Node getNode(Node currentNode, char letter){
-		int index = letterToInt(letter);
-		return currentNode.children[index];
-	}
-
-	public void printTrie(Node [] array, int level){
-		for (int i = 0; i < array.length; i++){
-			if (!objEquals(array[i], null)){
-				System.out.println("Level ["+level+"], Node [" + i + "] => " + printNode(array[i]));
-				level++;
-				printTrie(array[i].children, level);
-			}
-		}
-	}
-
 	public String printNode(Node node){
 		if (!objEquals(node, null)){
 			return("Data of node is => " + node.letter);
@@ -77,48 +55,33 @@ public class Trie {
 	}
 
 	public void recursiveSearch(Set<String> setOfWords, Node currentNode, String prefix, int level){
-//		System.out.println("LEVEL " + level);
-		for (int i = 0; i < currentNode.children.length; i++){
-//			System.out.println("Iterating = " + i);
-			if (!objEquals(currentNode.children[i],null)) {
-//				System.out.println("Current String Stack = " + prefix + " Checking at letter " + currentNode.children[i].letter);
-				if (currentNode.children[i].isEndOfWord){
-//					System.out.println("Letter => " + currentNode.children[i].letter);
-//					System.out.println("Adding = " + prefix + currentNode.children[i].letter);
-					setOfWords.add(prefix + currentNode.children[i].letter);
-				}
+		for (int i = 0; i < currentNode.children.size(); i++){
+			if(!objEquals(currentNode.children.get(i), null))
+				recursiveSearch(setOfWords, currentNode.children.get(i), prefix + currentNode.children.get(i).letter, level+1);
 
-				recursiveSearch(setOfWords, currentNode.children[i], prefix + currentNode.children[i].letter, level + 1);
-			}
+			if(currentNode.children.get(i).isEndOfWord)
+				setOfWords.add(prefix + currentNode.children.get(i).letter);
 		}
 	}
 
 	public Set<String> returnWords(int mode, String prefix){
 		Set<String> setOfWords = new HashSet<>();
-		for (int i = 0; i < prefix.length(); i++){
-			System.out.println(prefix.charAt(i));
-		}
-		if (objEquals(prefix, "") || objEquals(prefix.charAt(0), null))
-			return setOfWords;
-
-
 		Node currentNode = root;
 		int level = 0;
 
-		for(int i = 0; i < prefix.length(); i++){
-			if (testIndex(i)) {
-//			System.out.println(index);
-//				printNode(currentNode);
+		if (!containsPrefix(prefix))
+			return setOfWords;
 
-				if (!objEquals(currentNode.children[i], null)){
-					currentNode = currentNode.children[i];
-					level++;
-				}
-			}
+		for(int i = 0; i < prefix.length(); i++){
+			char currentChar = prefix.charAt(i);
+			int nodeIndex = currentNode.children.indexOf(currentChar);
+			currentNode = currentNode.children.get(nodeIndex);
+			level++;
 		}
-		
-//		System.out.println("Going with letter " + currentNode.letter);
+
 		recursiveSearch(setOfWords, currentNode, prefix, level);
+
+
 		if (mode == 0){
 			return setOfWords;
 		}
@@ -138,34 +101,40 @@ public class Trie {
 		return newSetOfWords;
 	}
 
+
 	/**
 	 * Inserts the specified string into the Trie. The Last node associated to the
 	 * of the last char of the specified string will be marked as an end-of-word node.
 	 * @param word
 	 */
 	public void insert(String word){
-		char[] array = word.toCharArray();
+		if (VERBOSE) System.out.println("INSERT");
 		Node currentNode = root;
-//		System.out.println("INSERT");
 
-		for(int i = 0; i < array.length; i++){
-			if (testIndex(i)){
-//			System.out.println(index);
-//			printNode(currentNode);
-
-				if (objEquals(currentNode.children[i], null)){
-					currentNode.children[i] = new Node(array[i]);
-					currentNode.children[i].parent = currentNode;
-				} else
-					currentNode.children[i].letter = array[i];
-
-				currentNode = currentNode.children[i];
-//			printNode(currentNode);
+		for(int i = 0; i < word.length(); i++){
+			char currentChar = word.charAt(i);
+			if (objEquals(currentNode.children.contains(currentChar), false)){
+				Node newNode = new Node(currentChar);
+				currentNode.children.add(newNode);
 			}
+
+			if (VERBOSE) {
+				System.out.println("Children Nodes");
+				for (int x = 0; x < currentNode.children.size(); x++) {
+					System.out.println(currentNode.children.get(x).letter);
+				}
+
+				System.out.println("Children Nodes Index OF");
+				for (int x = 0; x < currentNode.children.size(); x++) {
+					System.out.println(currentNode.children.indexOf());
+				}
+			}
+
+			int nodeIndex = currentNode.children.indexOf(currentChar);
+			currentNode = currentNode.children.get(nodeIndex);
 		}
 
 		currentNode.isEndOfWord = true;
-//		setOfWords.add(word);
 	}
 
 	/**
@@ -176,22 +145,17 @@ public class Trie {
 	 * @return
 	 */
 	public boolean contains(String word){
-//		System.out.println("CONTAINS");
-//		return setOfWords.contains(word);
-
-		char[] array = word.toCharArray();
+		System.out.println("CONTAINS");
 		Node currentNode = root;
 
-		for(int i = 0; i < array.length; i++){
-			if (testIndex(i)){
-				//			System.out.println(index);
-//			printNode(currentNode);
-
-				if (objEquals(currentNode.children[i], null))
-					return false;
-
-				currentNode = currentNode.children[i];
+		for(int i = 0; i < word.length(); i++){
+			char currentChar = word.charAt(i);
+			if (objEquals(currentNode.children.contains(currentChar), false)){
+				return false;
 			}
+
+			int nodeIndex = currentNode.children.indexOf(currentChar);
+			currentNode = currentNode.children.get(nodeIndex);
 		}
 		return currentNode.isEndOfWord;
 	}
@@ -203,23 +167,19 @@ public class Trie {
 	 * @return
 	 */
 	public boolean containsPrefix(String prefix){
-		char[] array = prefix.toCharArray();
+		System.out.println("CONTAINS PREFIX");
 		Node currentNode = root;
-//		System.out.println("CONTAINS PREFIX");
 
-		for(int i = 0; i < array.length; i++){
-			if (testIndex(i)) {
-//			System.out.println(index);
-//			printNode(currentNode);
-
-				if (objEquals(currentNode.children[i], null))
-					return false;
-
-				currentNode = currentNode.children[i];
+		for(int i = 0; i < prefix.length(); i++){
+			char currentChar = prefix.charAt(i);
+			if (objEquals(currentNode.children.contains(currentChar), false)){
+				return false;
 			}
+
+			int nodeIndex = currentNode.children.indexOf(currentChar);
+			currentNode = currentNode.children.get(nodeIndex);
 		}
-		return currentNode.isEndOfWord;
-		//return true;
+		return true;
 	}
 
 	/**
