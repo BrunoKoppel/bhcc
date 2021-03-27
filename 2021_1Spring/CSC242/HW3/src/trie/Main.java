@@ -41,6 +41,8 @@ public class Main {
         System.out.println(one.contains(s14));
         System.out.println(one.contains(s15));
         System.out.println(one.contains(s16));
+        System.out.println(one.containsPrefix("000"));
+        System.out.println(one.containsPrefix("Mo"));
         System.out.println(one.getAllWords(""));
         System.out.println(one.getAllWords(null + ""));
         System.out.println(one.getAllEvenWords("Mo"));
