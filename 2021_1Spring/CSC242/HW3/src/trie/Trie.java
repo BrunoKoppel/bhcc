@@ -23,6 +23,7 @@ public class Trie {
 
 	public Trie(){
 		root = new Node();
+
 	};
 
 	public int letterToInt(char letter){
