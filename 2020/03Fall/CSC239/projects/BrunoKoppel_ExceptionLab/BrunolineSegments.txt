@@ -1,0 +1,27 @@
+
+
+Distance of first line segment: 7.0710678118654755
+Distance of second line segment: 7.0710678118654755
+Slope of first line segment: 1.0
+Slope of second line segment: -1.0
+Intersection of the first line and second line segments: 
+(2.5,2.5)
+Are the first and second line segments perpendicular? true
+
+
+Distance of first line segment: 5.385164807134504
+Distance of second line segment: 5.385164807134504
+Slope of first line segment: 2.5
+Slope of second line segment: 2.5
+Intersection of the first line and second line segments: 
+(-Infinity,-Infinity)
+Are the first and second line segments perpendicular? false
+
+
+Distance of first line segment: 5.830951894845301
+Distance of second line segment: 5.0990195135927845
+Slope of first line segment: 0.6
+Slope of second line segment: 0.2
+Intersection of the first line and second line segments: 
+(11.5,6.8999999999999995)
+Are the first and second line segments perpendicular? false

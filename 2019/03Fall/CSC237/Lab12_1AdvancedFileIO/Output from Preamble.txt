@@ -1,0 +1,27 @@
+1 <0,75>: We the People of the United States, in Order to form a more perfect Union,
+2 <76,80>: establish Justice, insure domestic Tranquility, provide for the common defense,
+3 <157,78>: promote the general Welfare, and secure the Blessings of Liberty to ourselves
+4 <236,65>: and our Posterity, do ordain and establish this Constitution for
+5 <302,29>: the United States of America.
+
+
+ output from one iteration done
+
+1 <0,75>: We the People of the United States, in Order to form a more perfect Union,
+2 <76,80>: establish Justice, insure domestic Tranquility, provide for the common defense,
+3 <157,78>: promote the general Welfare, and secure the Blessings of Liberty to ourselves
+4 <236,65>: and our Posterity, do ordain and establish this Constitution for
+5 <302,29>: the United States of America.
+
+
+ output from one iteration done
+
+1 <0,75>: We the People of the United States, in Order to form a more perfect Union,
+2 <76,80>: establish Justice, insure domestic Tranquility, provide for the common defense,
+3 <157,78>: promote the general Welfare, and secure the Blessings of Liberty to ourselves
+4 <236,65>: and our Posterity, do ordain and establish this Constitution for
+5 <302,29>: the United States of America.
+
+
+ output from one iteration done
+
