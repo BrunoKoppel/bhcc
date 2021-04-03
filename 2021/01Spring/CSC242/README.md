@@ -62,6 +62,6 @@
   - Parallel Streams
   - Object Ordering
 
-# Module 8: 
+# Module 8: Ghost Project
 
   - Final Project: Ghost Competition
