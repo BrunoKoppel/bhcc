@@ -11,8 +11,7 @@ User adminUser("Admin", "123", 10, true);
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+    , ui(new Ui::MainWindow){
     ui->setupUi(this);
     ui->appLoginButton->setEnabled(false);
     ui->appCreateAccountButton->setEnabled(false);
@@ -20,13 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
 //    connect(ui->MainWindow::pushButton, &QPushButton::clicked, this, &QMainWindow::close);
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete ui;
 }
 
-void MainWindow::on_usernameLineEdit_textChanged(const QString &arg1)
-{
+void MainWindow::on_usernameLineEdit_textChanged(const QString &arg1){
     if (arg1 != ""){
         isUserNameFieldPopulated = true;
     } else {
@@ -36,8 +33,7 @@ void MainWindow::on_usernameLineEdit_textChanged(const QString &arg1)
     ui->appLoginButton->setEnabled(isUserNameFieldPopulated && isPassWordFieldPopulated);
 }
 
-void MainWindow::on_passwordLineEdit_textChanged(const QString &arg1)
-{
+void MainWindow::on_passwordLineEdit_textChanged(const QString &arg1){
     if (arg1 != ""){
         isPassWordFieldPopulated = true;
     } else {
@@ -48,38 +44,57 @@ void MainWindow::on_passwordLineEdit_textChanged(const QString &arg1)
     ui->appCreateAccountButton->setEnabled(isUserNameFieldPopulated && isPassWordFieldPopulated);
 }
 
-void MainWindow::on_appLoginButton_clicked()
-{
+void MainWindow::on_appLoginButton_clicked(){
     ReadAccountFromDataFile(ui->usernameLineEdit->text(), ui->passwordLineEdit->text());
 }
 
-void MainWindow::on_appCreateAccountButton_clicked()
-{
+
+void MainWindow::on_appCreateAccountButton_clicked(){
     AddAccountToDataFile(ui->usernameLineEdit->text(), ui->passwordLineEdit->text(), 0, false);
 }
+
+
+
+/*
+ReadAccountFromDataFile
+
+This function takes the username and password as parameters from the app and logs the user into the app
+*/
 
 void MainWindow::ReadAccountFromDataFile(QString username, QString password){
     QString path = QCoreApplication::applicationDirPath() + QString("/loginData.txt");
     QFile inputFile(path);
     qDebug() << path;
+    qDebug() << "Parameters input by User:";
     qDebug() << username;
     qDebug() << password;
-    if (inputFile.open(QIODevice::ReadOnly))
-    {
-       qDebug() << "File Found";
+
+    if (inputFile.open(QIODevice::ReadOnly)){
+       qDebug() << "File Found, Reading File Contents";
        QTextStream in(&inputFile);
-       while (!in.atEnd())
-       {
+       while (!in.atEnd()){
            QString line = in.readLine();
-//           User newUser = adminUser.generateUserFromLoginData(line);
-//           newUser.debugUser();
+           qDebug() << "file contents: \t\t" << line;
+           User newUser = adminUser.generateUserFromLoginData(line);
+
+           qDebug() << "User just created accessed from mainWindow";
+           newUser.debugUser();
        }
+
        qDebug() << "No User Found";
        inputFile.close();
     } else {
-        qDebug() << "File Not Found";
+       qDebug() << "File Not Found";
     }
 }
+
+
+
+/*
+AddAccountToDataFile
+
+Adds the username and password into the log file as a new account
+*/
 
 void MainWindow::AddAccountToDataFile(QString username, QString password, int userLevel, bool isAdmin){
     QString path = QCoreApplication::applicationDirPath() + QString("/loginData.txt");
@@ -102,13 +117,13 @@ void MainWindow::AddAccountToDataFile(QString username, QString password, int us
     }
 }
 
-void MainWindow::on_actionExit_triggered()
-{
+
+void MainWindow::on_actionExit_triggered(){
     MainWindow::close();
 }
 
-void MainWindow::testButtonFunc()
-{
+
+void MainWindow::testButtonFunc(){
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
     QString buttonText = buttonSender->text(); // retrive the text from the button clicked
 }
