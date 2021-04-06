@@ -130,7 +130,46 @@ procedure BFS(G, v) is
 - In graph theory, the shortest path problem is the problem of finding a path between two vertices (or nodes) in a graph such that the sum of the weights of its constituent edges is minimized.
 - The problem of finding the shortest path between two intersections on a road map may be modeled as a special case of the shortest path problem in graphs, where the vertices correspond to intersections and the edges correspond to road segments, ech weighted by the length of the segment.
 
+### Definition
+
+- The shortest path problem can be defined for graphs whether undirected, directed, or mixed.
+- It's defined here for undirected graphs; for directed graphs the definition of path requries that consecutive vertices be connected by an appropriate directed edge.
+- Two vertices are adjacnet when they are both incident to a common edge.
+- A path in an undirected graph is a sequence of vertices P = (v_1, v_2, ... , v_n) ∊ V x V x ... x V such that v_i is adjacent to v_i+1 for 1 ≤ i < n.
+- Such a path P is called a path of length n - 1 from v_1 to v_n. (The v_i variables; their numbering here relates to their position in the sequence and needs not to relate to any canonical labeling of the vertices.)
+  
+- Let e_ij be the edge incident to both v_i and v_j:
+  - Given a real-valued weight function ⨍ : E -> R, and an undirected (simple) graph G, the shortest path from v to v' is the path P = (v_1, v_2, ... , v_n) (where v_1 = v and v_n = v') that over all posssible n minimizes the sum ∑ 𝑓(e_i,i+1) starting at i = 1, until n-1.
+  - Where each edgein the graph has unit weight or 𝑓: E -> {1}, this is equivalent to finding the path with fewest edges.
+
+- The problem is also sometimes called the *single-pair shortest path problem*, to distinguish it from the following variations:
+  - The *single-source shortest path problem*, in which we have to find the shortest paths from a source vertex v to all other vertices in the graph.
+  - The *single-destination path problem*, in which we have to find shortest paths from all vertices in the directed graph to a single destination vertex v. This can be reduced to the single-source shortest path problem by reversing the arcs in the directed graph.
+  - The *all-pairs shortest path problem*, in which we have to find shortest paths between every pair of vertices v, v' in the graph.
+  - These generalizations have significatntly more efficient algorithms than the simplistic approach of runing a single-pair shortest path algorithm on all relevant pairs of vertices.
+
+### Paths in Graphs
+
+- Consider a digraph G = (V, E) with edge-weight function w: E -> R.
+- The weight of path p = v_1 -> v_2 -> ... -> v_k is defined to be:
+- w(p) = ∑ w(v_i, v_i+1) starting at i = 1, until k - 1.
+- Where every node is connected to the next node, until it reaches the end node.
+
+### Shortest Paths
+
+- A shortest path from u to v is a path of minimum weight from u to v. The shortest-path weight from u to v is defined to 
+  - 𝜹(u,v) = min{w(p):p is a path from u to v}
+  - *Note* 𝜹(u,v) = ∞ if no path from u to v exists.
+
+#### Optimal Substructure
+
+**Theorem** The subpath of the shortest path is a shortest path.
+
+#### Triangle inequality
+
 ### Dijkstra's Algorithm
+
+- saf
 
 ### Bellman-Ford's Algorithm
 
