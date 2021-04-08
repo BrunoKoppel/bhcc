@@ -31,9 +31,12 @@ set(TS_FILES BrunoKoppel_Thareos_en_US.ts)
 
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        mainWindow.cpp
+        mainWindow.h
+        mainWindow.ui
+        loginWindow.cpp
+        loginWindow.h
+        loginWindow.ui
         appView.cpp
         appView.h
         appView.ui
