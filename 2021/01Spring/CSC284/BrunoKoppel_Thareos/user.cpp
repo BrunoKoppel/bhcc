@@ -16,17 +16,6 @@ User::User(QString newUsername, QString newPassword, int newUserClass, bool isAd
     this->isAdmin = isAdminSwitch;
 }
 
-User User::generateUserFromLoginData(QString lineFromFile){
-    QRegExp rx("[,]");
-    QStringList list = lineFromFile.split(rx, QString::SkipEmptyParts);
-    qDebug() << "Data received for user:";
-    qDebug() << list.at(0) << ", " << list.at(1) << ", " << list.at(2).toInt() << ", " << list.at(3).toInt() ;
-
-    User newUser(list.at(0),list.at(1),list.at(2).toInt(),list.at(3).toInt());
-    qDebug() << "User just created";
-    newUser.debugUser();
-}
-
 void User::setUserName(QString newUsername){
     this->username = newUsername;
 }

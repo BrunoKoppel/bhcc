@@ -11,7 +11,6 @@ public:
     User();
     User(QString newUsername, QString newPassword, int newUserClass, bool isAdminSwitch);
 
-    User generateUserFromLoginData(QString lineFromFile);
     void debugUser();
 
     void setUserName(QString newUsername);

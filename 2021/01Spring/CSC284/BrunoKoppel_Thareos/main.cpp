@@ -1,10 +1,11 @@
 #include "loginwindow.h"
+#include "checklistwindow.h"
 #include "user.h"
 #include <QApplication>
 #include <QDebug>
 #include <QString>
 
-User adminUser("Admin", "123", 10, true);
+User adminUser("SuperAdmin", "#Ko", 10, true);
 QString userLoggedIn = "";
 
 void startApplication(QString user);
@@ -16,11 +17,15 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    if (userLoggedIn == ""){
-        userLoggedIn = startLogInProcess();
-    }
+//    if (userLoggedIn == ""){
+//        userLoggedIn = startLogInProcess();
+//        qDebug() << "User in main is: " << userLoggedIn;
+//    }
 
-    startApplication(userLoggedIn);
+    qDebug() << "Hello from here";
+
+//    startApplication(userLoggedIn);
+    startApplication("Bruno");
 
     return a.exec();
 
@@ -28,11 +33,15 @@ int main(int argc, char *argv[])
 
 QString startLogInProcess(){
     LoginWindow login;
+    login.setAdminUser(adminUser);
     login.setModal(true);
     login.exec();
     return login.userLoggedIn;
 }
 
 void startApplication(QString user){
-
+    qDebug() << "Starting application for user: " << user;
+    CheckListWindow app;
+    app.setUserLoggedIn(user);
+    app.show();
 }
