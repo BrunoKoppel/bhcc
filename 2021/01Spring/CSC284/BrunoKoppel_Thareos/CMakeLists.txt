@@ -31,15 +31,15 @@ set(TS_FILES BrunoKoppel_Thareos_en_US.ts)
 
 set(PROJECT_SOURCES
         main.cpp
-        mainWindow.cpp
-        mainWindow.h
-        mainWindow.ui
-        loginWindow.cpp
-        loginWindow.h
-        loginWindow.ui
-        appView.cpp
-        appView.h
-        appView.ui
+#        mainWindow.cpp
+#        mainWindow.h
+#        mainWindow.ui
+        loginwindow.cpp
+        loginwindow.h
+        loginwindow.ui
+#        appView.cpp
+#        appView.h
+#        appView.ui
         user.cpp
         user.h
         ${TS_FILES}

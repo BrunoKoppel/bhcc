@@ -1,38 +1,27 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 
-#include <QWidget>
-#include <QFile>
+#include <QDialog>
+#include <QString>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class loginWindow; }
-QT_END_NAMESPACE
+namespace Ui {
+class LoginWindow;
+}
 
-class loginWindow : public QWidget
+class LoginWindow : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit loginWindow(QWidget *parent = nullptr);
-    ~loginWindow();
+    explicit LoginWindow(QWidget *parent = nullptr);
+    QString userLoggedIn;
+    ~LoginWindow();
 
 private slots:
-    void on_usernameLineEdit_textChanged(const QString &arg1);
-    void on_passwordLineEdit_textChanged(const QString &arg1);
-
-    void on_appLoginButton_clicked();
-    void on_appCreateAccountButton_clicked();
-
-    void on_actionExit_triggered();
+    void on_lineEdit_2_textChanged(const QString &arg1);
 
 private:
-    Ui::loginWindow *ui;
-    void testButtonFunc();
-    void ReadAccountFromDataFile(QString username, QString password);
-    void AddAccountToDataFile(QString username, QString password, int userLevel, bool isAdmin);
-
-signals:
-
+    Ui::LoginWindow *ui;
 };
 
 #endif // LOGINWINDOW_H
