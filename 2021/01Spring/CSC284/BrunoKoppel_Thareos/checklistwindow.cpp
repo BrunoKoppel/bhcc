@@ -1,6 +1,7 @@
 #include "checklistwindow.h"
 #include "ui_checklistwindow.h"
 
+
 CheckListWindow::CheckListWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CheckListWindow)
@@ -16,4 +17,11 @@ CheckListWindow::~CheckListWindow()
 
 void CheckListWindow::setUserLoggedIn(QString name){
     ui->label->setText(name);
+}
+
+void CheckListWindow::on_addTaskButton_clicked()
+{
+    QGroupBox *taskArea = new QGroupBox();
+    taskArea->setTitle("minha venda");
+    ui->
 }

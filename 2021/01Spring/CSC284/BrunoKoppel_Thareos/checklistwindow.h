@@ -2,6 +2,8 @@
 #define CHECKLISTWINDOW_H
 
 #include <QMainWindow>
+#include <QGroupBox>
+#include <QScrollArea>
 #include "user.h"
 
 namespace Ui {
@@ -17,6 +19,9 @@ public:
     void setUserLoggedIn(QString name);
     ~CheckListWindow();
 
+
+private slots:
+    void on_addTaskButton_clicked();
 
 private:
     Ui::CheckListWindow *ui;

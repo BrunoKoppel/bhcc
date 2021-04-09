@@ -37,9 +37,9 @@ set(PROJECT_SOURCES
         loginwindow.cpp
         loginwindow.h
         loginwindow.ui
-#        appView.cpp
-#        appView.h
-#        appView.ui
+        task.cpp
+        task.h
+        task.ui
         user.cpp
         user.h
         ${TS_FILES}
