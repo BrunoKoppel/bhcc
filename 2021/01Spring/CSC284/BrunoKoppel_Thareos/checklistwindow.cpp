@@ -21,7 +21,5 @@ void CheckListWindow::setUserLoggedIn(QString name){
 
 void CheckListWindow::on_addTaskButton_clicked()
 {
-    QGroupBox *taskArea = new QGroupBox();
-    taskArea->setTitle("minha venda");
     ui->
 }
