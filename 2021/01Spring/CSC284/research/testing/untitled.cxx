@@ -26,29 +26,45 @@
 
 using namespace std;
 
-class  Base {
-   public:
-      virtual void someMethod();
-   protected:
-      int mProtectedInt;
-   private:
-      int mPrivate;
+class Base {
+	public:
+		static  int get() { return 1;}
 };
-
-void Base::someMethod() { cout << "This is Base's version of someMethod()" << endl; }
 
 class Derived : public Base {
-public:
-    virtual void someOtherMethod();
-    virtual void someMethod() override;
+	public:
+		static  int get() { return 2;}
 };
 
-void Derived::someMethod() { cout << "This is Derived's version of someMethod()" << endl; }
+int get() { return 3;}
 
-int main(int argc, char **argv)
-{
-	Derived myDerived;
-	myDerived.someMethod();
-	return 0;
+namespace NS {
+    int get() { return 4;}
+
+}
+
+int main() {
+
+	Derived d;
+	
+    
+    auto base1 = std::make_unique<Base>(d);
+    
+    cout << base1->get();
+    cout << " " << d.get();
+    cout << " " << get() << " " << get();
+    cout << " " << NS::get();
+
+    // write code so that the program prints
+
+    // 1 2 3 3 4
+
+    // using only the get() functions.
+
+    // access the global get function in 2 ways.
+
+
+    return 0;
+
 }
 

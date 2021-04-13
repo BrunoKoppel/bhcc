@@ -26,7 +26,7 @@
     <string>CheckBox</string>
    </property>
   </widget>
-  <widget class="QDateTimeEdit" name="dateTimeEdit">
+  <widget class="QDateTimeEdit" name="dueDateTimeBox">
    <property name="geometry">
     <rect>
      <x>250</x>
