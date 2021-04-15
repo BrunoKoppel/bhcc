@@ -2,11 +2,15 @@
 #define CHECKLISTWINDOW_H
 
 #include <QMainWindow>
-#include <QGroupBox>
-#include <QScrollArea>
+#include <QDateTime>
+#include <QString>
+#include <QListWidget>
 #include <QList>
+#include <QListWidgetItem>
+#include <QVector>
+#include <QDebug>
 #include "user.h"
-#include "task.h"
+#include "thewidgetitem.h"
 
 namespace Ui {
 class CheckListWindow;
@@ -24,16 +28,14 @@ public:
 
 private slots:
     void on_addTaskButton_clicked();
-
     void on_taskContentLineEdit_textChanged(const QString &arg1);
-
     void on_taskDateTimeEdit_dateTimeChanged(const QDateTime &dateTime);
 
 private:
     Ui::CheckListWindow *ui;
     QString addTaskContents;
     QDateTime addDateTimeContents;
-    QList<Task> taskList;
+    QVector<TheWidgetItem> taskList;
 };
 
 #endif // CHECKLISTWINDOW_H

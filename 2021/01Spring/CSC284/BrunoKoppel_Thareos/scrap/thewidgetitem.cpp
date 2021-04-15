@@ -1,9 +1,9 @@
-#include "task.h"
-#include "ui_task.h"
+#include "thewidgetitem.h"
+#include "ui_thewidgetitem.h"
 
-Task::Task(QWidget *parent) :
+TheWidgetItem::TheWidgetItem(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Task){
+    ui(new Ui::TheWidgetItem){
     ui->setupUi(this);
     qDebug() << "Empty Task Generated";
 }
@@ -19,29 +19,29 @@ Task::Task(QWidget *parent) :
 //    setInformationInUI(content, dueDateTime);
 //}
 
-Task::~Task()
+TheWidgetItem::~TheWidgetItem()
 {
     delete ui;
 }
 
-void Task::setInformationInUI(QString new_content, QDateTime new_dueDateTime){
+void TheWidgetItem::setInformationInUI(QString new_content, QDateTime new_dueDateTime){
     ui->checkBox->setText(new_content);
     ui->dueDateTimeBox->setDateTime(new_dueDateTime);
 }
 
-void Task::setContent(QString new_content){
+void TheWidgetItem::setContent(QString new_content){
     this->content = new_content;
 }
 
-void Task::setDueDateTime(QDateTime new_dueDateTime){
+void TheWidgetItem::setDueDateTime(QDateTime new_dueDateTime){
     this->dueDateTime = new_dueDateTime;
 }
 
 
-QString Task::getContent(){
+QString TheWidgetItem::getContent(){
     return this->content;
 }
 
-QString Task::getDueDateTime(){
+QString TheWidgetItem::getDueDateTime(){
     return this->dueDateTime.toString();
 }

@@ -7,25 +7,25 @@
 #include <QDebug>
 
 namespace Ui {
-class Task;
+class TheWidgetItem;
 }
 
-class Task : public QWidget
+class TheWidgetItem : public QWidget
 {
     Q_OBJECT
 
 public:
-    Task(QWidget *parent = nullptr);
-//    Task(QWidget *parent = nullptr, QString new_content = "", QDateTime new_dueDateTime = QDateTime::currentDateTime());
+    TheWidgetItem(QWidget *parent = nullptr);
+//    TheWidgetItem(QWidget *parent = nullptr, QString new_content = "", QDateTime new_dueDateTime = QDateTime::currentDateTime());
     QString printInformation();
     QString getContent();
     QString getDueDateTime();
     void setContent(QString new_content);
     void setDueDateTime(QDateTime new_dueDateTime);
-    ~Task();
+    ~TheWidgetItem();
 
 private:
-    Ui::Task *ui;
+    Ui::TheWidgetItem *ui;
     QString content;
     QDateTime dueDateTime;
     void setInformationInUI(QString new_content, QDateTime new_dueDateTime);
