@@ -3,6 +3,7 @@
 
 bool isUserNameFieldPopulated = false;
 bool isPassWordFieldPopulated = false;
+bool errorLabelChanged = false;
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QDialog(parent),
@@ -42,10 +43,9 @@ void LoginWindow::on_passwordLineEdit_textChanged(const QString &arg1){
 void LoginWindow::on_LoginButton_clicked(){
     User newUser = readAccountFromDataFile(ui->usernameLineEdit->text(), ui->passwordLineEdit->text());
     userLoggedIn = newUser.getUserName();
+    errorLabelChanged = false;
     if (userLoggedIn != ""){
         this->close();
-    } else {
-
     }
 }
 
@@ -66,19 +66,26 @@ User LoginWindow::readAccountFromDataFile(QString username, QString password){
     qDebug() << password;
 
     if (inputFile.open(QIODevice::ReadOnly)){
-       qDebug() << "File Found, Reading File Contents";
+       qDebug() << "File Found, Reading File Contents...";
        QTextStream in(&inputFile);
        while (!in.atEnd()){
            QString line = in.readLine();
-           qDebug() << "file contents: \t\t" << line;
+           qDebug() << "File contents: \t\t" << line;
            User newUser = generateUserFromLoginData(line);
-           if (newUser.getUserName() == username && newUser.getPassWord() == password){
-               qDebug() << "user is the same as credentials entered";
-               return newUser;
+           if (newUser.getUserName() == username){
+               if (newUser.getPassWord() == password){
+                   return newUser;
+               } else {
+                   errorLabelChanged = true;
+                   ui->ErrorLabel->setText("Password is incorrect");
+               }
            }
        }
+       if (errorLabelChanged == false){
+            ui->ErrorLabel->setText("User not found!");
+       }
 
-       qDebug() << "No User Found";
+       qDebug() << "Reached end of user search, No User matched credentials";
        inputFile.close();
     } else {
        qDebug() << "File Not Found";

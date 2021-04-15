@@ -15,18 +15,16 @@ QString whichUserIsLoggedIn();
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    userLoggedIn = startLogInProcess();
 
     if (userLoggedIn == ""){
-        userLoggedIn = startLogInProcess();
-        qDebug() << "User in main is: " << userLoggedIn;
+        return 1;
     }
 
-    qDebug() << "Hello from here";
-
+    qDebug() << userLoggedIn << " just logged in!";
     CheckListWindow app;
     app.setUserLoggedIn(userLoggedIn);
     app.show();
-
     return a.exec();
 }
 
