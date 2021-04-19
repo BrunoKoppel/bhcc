@@ -1,6 +1,7 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 
+#include "CreateNewAccountWindow.h"
 #include "user.h"
 #include <QDialog>
 #include <QString>
@@ -24,6 +25,7 @@ public:
 private slots:
     void on_usernameLineEdit_textChanged(const QString &arg1);
     void on_passwordLineEdit_textChanged(const QString &arg1);
+    void on_createAccountButton_clicked();
     void on_LoginButton_clicked();
     User readAccountFromDataFile(QString username, QString password);
     User generateUserFromLoginData(QString lineFromFile);

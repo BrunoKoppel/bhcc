@@ -1,6 +1,7 @@
 package homework;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamsHomeWork {
@@ -22,7 +23,35 @@ public class StreamsHomeWork {
      * @return A sorted List of words in ascending order based on the sum of their character indexes.
      */
     public static List sortCharSum(List collection){
-        return null;
+        Object words[] = collection.toArray();
+        int[] wordsValue = new int[words.length];
+
+        for (int i = 0; i < words.length; i++){
+            wordsValue[i] = turnWordIntoNumber(String.valueOf(words[i]));
+        }
+
+        for (int i = 0; i < words.length; i++){
+            for (int j = i + 1; j < words.length; j++){
+                if (wordsValue[i] > wordsValue[j]){
+                    int tempValue = wordsValue[j];
+                    wordsValue[j] = wordsValue[i];
+                    wordsValue[i] = tempValue;
+                    Object tempObjectValue = words[j];
+                    words[j] = words[i];
+                    words[i] = tempObjectValue;
+                }
+            }
+        }
+
+        return Arrays.asList(words.clone());
+    }
+
+    public static int turnWordIntoNumber(String word){
+        int totalSum = 0;
+        for (int i = 0; i < word.length(); i++){
+            totalSum += Integer.valueOf(word.charAt(i));
+        }
+        return totalSum;
     }
 
     /**
@@ -35,7 +64,7 @@ public class StreamsHomeWork {
      * @return A stream of the collection
      */
     public static Stream getStream(Collection collection){
-        return null;
+        return collection.stream();
     }
 
     /**
@@ -48,7 +77,7 @@ public class StreamsHomeWork {
      * @return A stream of the collection that is parallel
      */
     public static Stream getParallelStream(Collection collection){
-        return null;
+        return collection.parallelStream();
     }
 
     /**
@@ -62,7 +91,7 @@ public class StreamsHomeWork {
      * @return A list of strings
      */
     public static List<String> convertStreamToStrings(Stream<? extends Object> stream){
-        return null;
+        return stream.map(o -> o.toString()).collect(Collectors.toList());
     }
 
     /**
@@ -79,7 +108,7 @@ public class StreamsHomeWork {
      * @return A set of numbers
      */
     public static Set<Integer> powerDivisibleNumbers(int power, int divisor, Stream<Integer> stream){
-        return null;
+        return stream.filter(n->(n % divisor == 0)).map(n->(int)Math.pow(n,power)).collect(Collectors.toSet());
     }
 
     /**
@@ -95,6 +124,9 @@ public class StreamsHomeWork {
      * @return A set of numbers found in the stream sub-lists that are equal to at least one number in the Filter List.
      */
     public static Set<Integer> flatFilteredMap(List<Integer> filterList, Stream<List<Integer>> stream){
+        for (int x : filterList){
+            stream.filter(listObj->listObj.contains(x)).map(listObj->listObj.stream().filter(number->number.equals(x))).collect(Collectors.toSet());
+        }
         return null;
     }
 
@@ -108,9 +140,18 @@ public class StreamsHomeWork {
      * keys
      */
     public static Map<String, String> toMap(Stream<String> stream){
-        return null;
+        return stream.collect(Collectors.toMap(str -> str, str -> reverseString(str)));
     }
 
+    public static String reverseString(String incomingStr){
+        byte[] strAsByteArray = incomingStr.getBytes();
+        byte[] result = new byte[strAsByteArray.length];
+
+        for (int i = 0; i < strAsByteArray.length; i++)
+            result[i] = strAsByteArray[strAsByteArray.length - i - 1];
+
+        return new String(result);
+    }
     /**
      * This function will receive a stream of strings and it will return a sorted list of strings that meet all of the
      * following criteria:
@@ -134,8 +175,26 @@ public class StreamsHomeWork {
      * @return A list of strings that meets the criteria outlined above sorted by their length from small to large
      */
     public static List<String> findWinners(String pattern, int minLength, boolean even, Stream<String> stream){
-        return null;
+        return stream
+                .filter(str->(doesStringHavePattern(str, pattern) && (str.length() >= minLength) && (str.length() % 2 == 0 && even)))
+                .collect(Collectors.toList());
     }
+
+    public static boolean doesStringHavePattern(String original, String pattern){
+        int minimumLength = 0;
+        if (original.length() >= pattern.length()){
+            minimumLength = original.length();
+        } else {
+            minimumLength = pattern.length();
+        }
+
+        for(int i = 0; i < minimumLength; i++){
+            if (original.charAt(i) == pattern.charAt(i))
+                return false;
+        }
+        return true;
+    }
+
 
     /**
      * THIS FUNCTION IS NOT REQUIRED

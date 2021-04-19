@@ -16,6 +16,14 @@ User::User(QString newUsername, QString newPassword, int newUserClass, bool isAd
     this->isAdmin = isAdminSwitch;
 }
 
+User::User(QString newUsername, QString newPassword)
+{
+    this->username = newUsername;
+    this->password = newPassword;
+    this->userClass = 0;
+    this->isAdmin = false;
+}
+
 void User::setUserName(QString newUsername){
     this->username = newUsername;
 }
@@ -51,4 +59,8 @@ void User::debugUser(){
     qDebug() << this->getPassWord();
     qDebug() << this->getUserClass();
     qDebug() << this->getIsAdmin();
+}
+
+QString User::toFileWrite(){
+    return getUserName() + "," + getPassWord() + "," + QString::number(getUserClass()) + "," + QString::number(getIsAdmin());
 }

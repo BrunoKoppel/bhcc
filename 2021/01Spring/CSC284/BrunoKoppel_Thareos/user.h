@@ -9,6 +9,7 @@ class User
 {
 public:
     User();
+    User(QString newUsername, QString newPassword);
     User(QString newUsername, QString newPassword, int newUserClass, bool isAdminSwitch);
 
     void debugUser();
@@ -23,6 +24,7 @@ public:
     int getUserClass();
     bool getIsAdmin();
 
+    QString toFileWrite();
 
 private:
     QString username;

@@ -37,6 +37,9 @@ set(PROJECT_SOURCES
         loginwindow.cpp
         loginwindow.h
         loginwindow.ui
+        CreateNewAccountWindow.cpp
+        CreateNewAccountWindow.h
+        CreateNewAccountWindow.ui
         thewidgetitem.cpp
         thewidgetitem.h
         thewidgetitem.ui

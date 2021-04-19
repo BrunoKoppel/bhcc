@@ -20,6 +20,22 @@ void LoginWindow::setAdminUser(User newAdmin){
     adminUser = newAdmin;
 };
 
+void LoginWindow::on_LoginButton_clicked(){
+    User newUser = readAccountFromDataFile(ui->usernameLineEdit->text(), ui->passwordLineEdit->text());
+    userLoggedIn = newUser.getUserName();
+    errorLabelChanged = false;
+    if (userLoggedIn != ""){
+        this->close();
+    }
+}
+
+void LoginWindow::on_createAccountButton_clicked(){
+    CreateNewAccountWindow newAccountWindow;
+    newAccountWindow.setAdminUser(adminUser);
+    newAccountWindow.setModal(true);
+    newAccountWindow.exec();
+}
+
 void LoginWindow::on_usernameLineEdit_textChanged(const QString &arg1){
     if (arg1 != ""){
             isUserNameFieldPopulated = true;
@@ -40,14 +56,7 @@ void LoginWindow::on_passwordLineEdit_textChanged(const QString &arg1){
         ui->LoginButton->setEnabled(isUserNameFieldPopulated && isPassWordFieldPopulated);
 }
 
-void LoginWindow::on_LoginButton_clicked(){
-    User newUser = readAccountFromDataFile(ui->usernameLineEdit->text(), ui->passwordLineEdit->text());
-    userLoggedIn = newUser.getUserName();
-    errorLabelChanged = false;
-    if (userLoggedIn != ""){
-        this->close();
-    }
-}
+
 
 
 
