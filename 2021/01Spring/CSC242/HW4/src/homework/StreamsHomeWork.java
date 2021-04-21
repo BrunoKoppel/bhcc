@@ -23,7 +23,7 @@ public class StreamsHomeWork {
      * @return A sorted List of words in ascending order based on the sum of their character indexes.
      */
     public static List sortCharSum(List collection){
-        Object words[] = collection.toArray();
+        Object[] words = collection.toArray();
         int[] wordsValue = new int[words.length];
 
         for (int i = 0; i < words.length; i++){
@@ -124,10 +124,18 @@ public class StreamsHomeWork {
      * @return A set of numbers found in the stream sub-lists that are equal to at least one number in the Filter List.
      */
     public static Set<Integer> flatFilteredMap(List<Integer> filterList, Stream<List<Integer>> stream){
-        for (int x : filterList){
-            stream.filter(listObj->listObj.contains(x)).map(listObj->listObj.stream().filter(number->number.equals(x))).collect(Collectors.toSet());
+        Set<Integer> setToReturn = new HashSet<Integer>();
+        List<List> listOfList = stream.collect(Collectors.toList());
+        for (int numberInFilteredList : filterList){
+            for (List list : listOfList){
+                for (Object num : list){
+                    if ((int) num == numberInFilteredList){
+                        setToReturn.add((int)num);
+                    }
+                }
+            }
         }
-        return null;
+        return setToReturn;
     }
 
     /**
@@ -175,25 +183,36 @@ public class StreamsHomeWork {
      * @return A list of strings that meets the criteria outlined above sorted by their length from small to large
      */
     public static List<String> findWinners(String pattern, int minLength, boolean even, Stream<String> stream){
-        return stream
-                .filter(str->(doesStringHavePattern(str, pattern) && (str.length() >= minLength) && (str.length() % 2 == 0 && even)))
-                .collect(Collectors.toList());
-    }
-
-    public static boolean doesStringHavePattern(String original, String pattern){
-        int minimumLength = 0;
-        if (original.length() >= pattern.length()){
-            minimumLength = original.length();
-        } else {
-            minimumLength = pattern.length();
+        List<String> listToReturn = new ArrayList<String>();
+        Object[] arrayOfStr = stream.toArray();
+        for (Object o : arrayOfStr){
+            if (String.valueOf(o).contains(pattern) && (String.valueOf(o).length() >= minLength) && (String.valueOf(o).length() % 2 == 0) == even){
+                listToReturn.add(String.valueOf(o));
+            }
         }
 
-        for(int i = 0; i < minimumLength; i++){
-            if (original.charAt(i) == pattern.charAt(i))
-                return false;
-        }
-        return true;
+//        return stream
+//                .filter(word->(doesStringHavePattern(word, pattern) && (word.length() >= minLength) && ((word.length() % 2 == 0) && even)))
+//                .collect(Collectors.toList());
+
+        return listToReturn;
     }
+//
+//    public static boolean doesStringHavePattern(String original, String pattern){
+//        int minimumLength = 0;
+//        if (original.length() <= pattern.length()){
+//            minimumLength = original.length();
+//        } else {
+//            minimumLength = pattern.length();
+//        }
+//
+////        System.out.println("Minimum Length of string is = " + minimumLength);
+//        for(int i = 0; i < minimumLength; i++){
+//            if (original.charAt(i) != pattern.charAt(i))
+//                return false;
+//        }
+//        return true;
+//    }
 
 
     /**
