@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>602</width>
-    <height>267</height>
+    <width>654</width>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -69,12 +69,12 @@
       <x>124</x>
       <y>81</y>
       <width>471</width>
-      <height>151</height>
+      <height>221</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_2">
+    <layout class="QGridLayout" name="mainGridLayout">
      <item row="2" column="1">
-      <layout class="QGridLayout" name="gridLayout_4">
+      <layout class="QGridLayout" name="instrumentGridLayout_3">
        <item row="0" column="6">
         <widget class="QCheckBox" name="checkBox_25">
          <property name="text">
@@ -286,7 +286,7 @@
       </layout>
      </item>
      <item row="0" column="1">
-      <layout class="QGridLayout" name="gridLayout">
+      <layout class="QGridLayout" name="instrumentGridLayout_1">
        <item row="0" column="6">
         <widget class="QCheckBox" name="checkBox_07">
          <property name="text">
@@ -498,7 +498,7 @@
       </layout>
      </item>
      <item row="3" column="1">
-      <layout class="QGridLayout" name="gridLayout_5">
+      <layout class="QGridLayout" name="instrumentGridLayout_4">
        <item row="0" column="6">
         <widget class="QCheckBox" name="checkBox_41">
          <property name="text">
@@ -710,7 +710,7 @@
       </layout>
      </item>
      <item row="1" column="1">
-      <layout class="QGridLayout" name="gridLayout_3">
+      <layout class="QGridLayout" name="instrumentGridLayout_2">
        <item row="0" column="6">
         <widget class="QCheckBox" name="checkBox_8">
          <property name="text">
@@ -929,7 +929,7 @@
       <x>10</x>
       <y>80</y>
       <width>111</width>
-      <height>151</height>
+      <height>220</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_6">

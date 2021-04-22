@@ -30,5 +30,11 @@ private:
     Ui::MainWindow *ui;
     void keyPressEvent(QKeyEvent *event);
 
+private slots:
+    void on_kickDrumButton_clicked();
+
+    void on_snareButton_clicked();
+
+    void on_hiHatButton_clicked();
 };
 #endif // MAINWINDOW_H
