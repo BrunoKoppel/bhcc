@@ -1,12 +1,17 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 class Item
 {
 public:
-	String itemName;
+	Item();
+	Item(std::string newItemName);
+	~Item();
 
-	string toString();
+	std::string itemName;
+
+	std::string toString();
 };
 

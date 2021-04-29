@@ -2,12 +2,13 @@
 
 #include "Item.h"
 
+
 class Inventory
 {
 public:
 	Inventory();
 
-	Item* itemStack;
+	std::vector <Item> itemStack;
 
 	void addItemToInventory(Item newItem);
 };

@@ -9,7 +9,8 @@
 
 int main()
 {
-    Inventory 
+    std::vector<Item> itemStack;
+    itemStack.push_back(Item("Broom"));
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

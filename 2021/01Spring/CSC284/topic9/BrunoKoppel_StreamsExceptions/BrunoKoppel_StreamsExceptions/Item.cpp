@@ -1,7 +1,21 @@
 #include "Item.h"
 
-string itemName;
+Item::Item()
+{
+	this->itemName = "";
+}
 
-string toString() {
-	return itemName;
+Item::Item(std::string newItemName)
+{
+	this->itemName = newItemName;
+}
+
+Item::~Item()
+{
+}
+
+
+std::string Item::toString()
+{
+	return "Item => " + this->itemName;
 }
