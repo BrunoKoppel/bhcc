@@ -2,15 +2,60 @@
 //
 
 #include <iostream>
+#include <Windows.h>
+#include <filesystem>
+namespace fs = std::filesystem;
 #include "Inventory.h"
 #include "Item.h"
 #include "Admin.h"
 
+std::wstring ExePath() {
+    TCHAR buffer[MAX_PATH] = { 0 };
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    return std::wstring(buffer).substr(0, pos);
+}
 
 int main()
 {
+    //TCHAR pwd[MAX_PATH];
+    //GetCurrentDirectory(MAX_PATH, pwd);
+    //MessageBox(NULL, pwd, pwd, 0);
+
+    for (const auto& entry : fs::directory_iterator(ExePath())) {
+        std::cout << entry.path() << std::endl;
+    }
+        
+
+    const std::string inputFileName = "InventoryList.txt";
+    const std::string outputFileName = "Invoice.txt";
     std::vector<Item> itemStack;
-    itemStack.push_back(Item("Broom"));
+    Admin administrator;
+    
+    try {
+        administrator.addItemsFromInventoryList(inputFileName, itemStack);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cout << "Unable to open file " << inputFileName << std::endl;
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
+    catch (const std::runtime_error& e) {
+        std::cout << "Error reading file " << inputFileName << std::endl;
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
+
+    try {
+        administrator.createInvoiceFromInventory(outputFileName, itemStack);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cout << "Unable to open file " << outputFileName << std::endl;
+
+        return 1;
+    }
+        
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
