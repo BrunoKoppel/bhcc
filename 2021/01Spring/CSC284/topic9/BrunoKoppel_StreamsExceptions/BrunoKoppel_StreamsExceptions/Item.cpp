@@ -12,7 +12,6 @@ Item::Item(std::string newItemName)
 
 Item::~Item()
 {
-	delete this;
 }
 
 

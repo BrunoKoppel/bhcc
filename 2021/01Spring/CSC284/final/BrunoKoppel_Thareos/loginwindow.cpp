@@ -77,19 +77,22 @@ User LoginWindow::readAccountFromDataFile(QString username, QString password){
     if (inputFile.open(QIODevice::ReadOnly)){
        qDebug() << "File Found, Reading File Contents...";
        QTextStream in(&inputFile);
-       while (!in.atEnd()){
-           QString line = in.readLine();
-           qDebug() << "File contents: \t\t" << line;
-           User newUser = generateUserFromLoginData(line);
-           if (newUser.getUserName() == username){
-               if (newUser.getPassWord() == password){
-                   return newUser;
-               } else {
-                   errorLabelChanged = true;
-                   ui->ErrorLabel->setText("Password is incorrect");
-               }
-           }
-       }
+       QString line = QString::fromLatin1(in.readAll().toLatin1());
+       qDebug() << "File contents: \t\t" << line;
+
+//       while (!in.atEnd()){
+//           QString line = in.readLine();
+
+//           User newUser = generateUserFromLoginData(line);
+//           if (newUser.getUserName() == username){
+//               if (newUser.getPassWord() == password){
+//                   return newUser;
+//               } else {
+//                   errorLabelChanged = true;
+//                   ui->ErrorLabel->setText("Password is incorrect");
+//               }
+//           }
+//       }
        if (errorLabelChanged == false){
             ui->ErrorLabel->setText("User not found!");
        }

@@ -61,6 +61,6 @@ void User::debugUser(){
     qDebug() << this->getIsAdmin();
 }
 
-QString User::toFileWrite(){
-    return getUserName() + "," + getPassWord() + "," + QString::number(getUserClass()) + "," + QString::number(getIsAdmin());
+QString User::getStringToSaveUserToFile(){
+    return getUserName() + "," + getPassWord() + "," + QString::number(getUserClass()) + "," + QString::number(getIsAdmin()) + "\n";
 }

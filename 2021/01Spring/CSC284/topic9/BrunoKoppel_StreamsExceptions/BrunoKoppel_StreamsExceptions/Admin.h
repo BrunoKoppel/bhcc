@@ -8,7 +8,7 @@ class Admin
 {
 public:
 	Admin();
-	void addItemsFromInventoryList(std::string, std::vector<Item>);
-	void createInvoiceFromInventory(std::string, std::vector<Item>);
+	std::vector<Item> addItemsFromInventoryList(std::string, std::string);
+	void createInvoiceFromInventory(std::string, std::string, std::vector<Item>);
 	~Admin();
 };

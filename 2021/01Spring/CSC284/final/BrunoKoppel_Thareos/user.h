@@ -24,7 +24,7 @@ public:
     int getUserClass();
     bool getIsAdmin();
 
-    QString toFileWrite();
+    QString getStringToSaveUserToFile();
 
 private:
     QString username;

@@ -29,6 +29,8 @@ private slots:
 
     void testToSetCreateAccountButtonEnable();
 
+    void on_CancelButton_clicked();
+
 private:
     Ui::CreateNewAccountWindow *ui;
     User adminUser;

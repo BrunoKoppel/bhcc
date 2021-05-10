@@ -46,25 +46,36 @@ void CreateNewAccountWindow::on_createAccountButton_clicked()
 {
     QString path = QCoreApplication::applicationDirPath() + QString("/loginData.txt");
     QFile inputFile(path);
+    bool didDataGotWritten = false;
     qDebug() << path;
     qDebug() << "Parameters input by User:";
-    qDebug() << username;
-    qDebug() << password;
-    qDebug() << passwordRepeat;
+    qDebug() << "UserName: " << username;
+    qDebug() << "PassWord: " << password;
+    qDebug() << "PassWord: " << passwordRepeat;
 
     if (inputFile.open(QIODevice::WriteOnly | QIODevice::Append)){
        qDebug() << "File Found, Writing to file";
        if (password == passwordRepeat){
             User newUser = User(username, password);
-            inputFile.Append();
+            qDebug() << QString::fromStdString(newUser.getStringToSaveUserToFile().toStdString());
+            QByteArray userData = QByteArray::fromStdString(newUser.getStringToSaveUserToFile().toStdString());
+            inputFile.write(userData.constData());
+            qDebug() << "Data Written";
+            didDataGotWritten = true;
        } else {
            ui->ErrorLabel->setText("Password is incorrect");
        }
-
-       qDebug() << "Reached end of file writing";
        inputFile.close();
     } else {
        qDebug() << "File Not Found";
-
     }
+
+    if (didDataGotWritten){
+        this->close();
+    }
+}
+
+void CreateNewAccountWindow::on_CancelButton_clicked()
+{
+    this->close();
 }
