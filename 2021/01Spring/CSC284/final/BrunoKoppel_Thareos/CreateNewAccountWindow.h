@@ -2,8 +2,9 @@
 #define CREATENEWACCOUNTWINDOW_H
 
 #include "user.h"
-#include "loginwindow.h"
 #include <QDialog>
+#include <string>
+#include <fstream>
 
 namespace Ui {
 class CreateNewAccountWindow;
@@ -20,15 +21,10 @@ public:
 
 private slots:
     void on_usernameLineEdit_textEdited(const QString &arg1);
-
     void on_passwordLineEdit_textEdited(const QString &arg1);
-
     void on_passwordLineEdit_2_textEdited(const QString &arg1);
-
     void on_createAccountButton_clicked();
-
     void testToSetCreateAccountButtonEnable();
-
     void on_CancelButton_clicked();
 
 private:

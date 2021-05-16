@@ -18,8 +18,11 @@ class LoginWindow : public QDialog
 
 public:
     explicit LoginWindow(QWidget *parent = nullptr);
-    QString userLoggedIn;
     void setAdminUser(User newAdmin);
+    void setLastUserLoggedIn(User lastUser);
+    User getLastUserLoggedIn();
+    void setUserLoggedIn(User newUserLoggedIn);
+    User getUserLoggedIn();
     ~LoginWindow();
 
 private slots:
@@ -27,12 +30,11 @@ private slots:
     void on_passwordLineEdit_textChanged(const QString &arg1);
     void on_createAccountButton_clicked();
     void on_LoginButton_clicked();
-    User readAccountFromDataFile(QString username, QString password);
-    User generateUserFromLoginData(QString lineFromFile);
 
 private:
     Ui::LoginWindow *ui;
     User adminUser;
+    User userLoggedIn;
 };
 
 #endif // LOGINWINDOW_H

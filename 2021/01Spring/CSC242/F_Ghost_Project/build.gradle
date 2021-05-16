@@ -22,7 +22,7 @@ task createJar(type: Jar) {
                 'Implementation-Version': version,
                 'Main-Class': 'studentCode.GhostPlayerMain'
     }
-    baseName = 'your_team_name' //Replace 'your_team_name' with your actual team name. No spaces allowed!
+    baseName = 'GhostLanguage' //Replace 'your_team_name' with your actual team name. No spaces allowed!
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }

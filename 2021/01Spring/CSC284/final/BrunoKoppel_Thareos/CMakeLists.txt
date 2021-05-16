@@ -40,11 +40,10 @@ set(PROJECT_SOURCES
         CreateNewAccountWindow.cpp
         CreateNewAccountWindow.h
         CreateNewAccountWindow.ui
-        thewidgetitem.cpp
-        thewidgetitem.h
-        thewidgetitem.ui
         user.cpp
         user.h
+        taskItem.cpp
+        taskItem.h
         ${TS_FILES}
 )
 

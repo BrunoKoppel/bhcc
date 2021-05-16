@@ -1,8 +1,9 @@
 package studentCode;
 
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import studentCode.GhostPlayerMain.TurnData;
 
@@ -39,14 +40,46 @@ public class GameManager {
 	 * @return An object that contains information about letter and location on the next turn.
 	 */
 	public TurnData onTurn(String fragment) {
-		listOfALlWords.stream().parallel().filter(s -> s.contains(fragment)).forEach();
+//		System.out.println("\nTurn started");
+//		System.out.println("Fragment received => " + fragment);
+
+		AtomicReference<Character> charToReturn = new AtomicReference<>((char) 97);
+		AtomicBoolean addInFront = new AtomicBoolean(false);
+		listOfALlWords = listOfALlWords.stream().parallel().filter(s -> s.contains(fragment)).filter(s -> (s.length()-fragment.length()) % 2 == 0).collect(Collectors.toSet());
+
+//		System.out.println("\nReading All Current Words in the Dictionary");
+//		int i = 0;
+//		for (String s : listOfALlWords){
+//			i++;
+//			System.out.println("Word [" + i + "] => " + s);
+//		}
+
+//		System.out.println("\nPicking Characters to return:");
+		listOfALlWords.stream().parallel().forEach((s) -> {
+//			System.out.println("Analyzing word => " + s);
+			int firstIndexOf = s.indexOf(fragment);
+//			System.out.println("Index => " + firstIndexOf);
+			if (s.length() > firstIndexOf && firstIndexOf != -1){
+				charToReturn.set(s.charAt(firstIndexOf - 1));
+			} else {
+
+			}
+
+			if (s.length() > (firstIndexOf + fragment.length()) && firstIndexOf != -1){
+				charToReturn.set(s.charAt(firstIndexOf + fragment.length()));
+			} else {
+				charToReturn.set
+			}
+		});
+
+		System.out.println("Character returned => " + charToReturn.get());
 
 		/*
 		 * TurnData.create(char, boolean)
 		 * First Parameter (char): a character that you would like to pass to the word fragment.
 		 * Second Parameter (boolean): The location the letter will be added to the word fragment, True = add letter to front, False = add letter to back
 		 */
-		return TurnData.create(null, null);
+		return TurnData.create(charToReturn.get(), addInFront.get());
 	}
 
 }

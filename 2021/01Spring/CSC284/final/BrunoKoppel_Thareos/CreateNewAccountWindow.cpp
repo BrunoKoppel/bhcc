@@ -1,6 +1,8 @@
 #include "CreateNewAccountWindow.h"
 #include "ui_CreateNewAccountWindow.h"
 
+bool Verbose2 = true;
+
 CreateNewAccountWindow::CreateNewAccountWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CreateNewAccountWindow)
@@ -44,30 +46,43 @@ void CreateNewAccountWindow::testToSetCreateAccountButtonEnable(){
 
 void CreateNewAccountWindow::on_createAccountButton_clicked()
 {
-    QString path = QCoreApplication::applicationDirPath() + QString("/loginData.txt");
-    QFile inputFile(path);
+    std::string path = QCoreApplication::applicationDirPath().toStdString() + QString("/TD-UsersLogInData.txt").toStdString();
+    std::ofstream inputFile(path, std::ios::out | std::ios::binary | std::ios::app );
     bool didDataGotWritten = false;
-    qDebug() << path;
-    qDebug() << "Parameters input by User:";
-    qDebug() << "UserName: " << username;
-    qDebug() << "PassWord: " << password;
-    qDebug() << "PassWord: " << passwordRepeat;
 
-    if (inputFile.open(QIODevice::WriteOnly | QIODevice::Append)){
-       qDebug() << "File Found, Writing to file";
-       if (password == passwordRepeat){
+    if (Verbose2){
+        qDebug() << QString::fromStdString(path);
+        qDebug() << "Parameters input by User:";
+        qDebug() << "UserName: " << username;
+        qDebug() << "PassWord: " << password;
+        qDebug() << "PassWord: " << passwordRepeat;
+    }
+
+
+    if (!inputFile.fail()){
+        if (Verbose2){
+            qDebug() << "File Found, Writing to file";
+        }
+
+        if (password == passwordRepeat){
             User newUser = User(username, password);
-            qDebug() << QString::fromStdString(newUser.getStringToSaveUserToFile().toStdString());
-            QByteArray userData = QByteArray::fromStdString(newUser.getStringToSaveUserToFile().toStdString());
-            inputFile.write(userData.constData());
-            qDebug() << "Data Written";
+            std::string objectPrintout = newUser.getUsersStringFormat_toSaveUserToFile().toStdString();
+            inputFile << objectPrintout.c_str();
+
+            if (Verbose2){
+                qDebug() << QString::fromStdString(newUser.getUsersStringFormat_toSaveUserToFile().toStdString()) << ", Size = " << objectPrintout.length();
+                qDebug() << "Data Written";
+            }
+
             didDataGotWritten = true;
-       } else {
-           ui->ErrorLabel->setText("Password is incorrect");
-       }
-       inputFile.close();
+        } else {
+            ui->ErrorLabel->setText("Password is incorrect");
+        }
+        inputFile.close();
     } else {
-       qDebug() << "File Not Found";
+        if (Verbose2){
+            qDebug() << "File Not Found";
+        }
     }
 
     if (didDataGotWritten){

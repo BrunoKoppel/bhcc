@@ -6,7 +6,7 @@
 #include <QString>
 
 User adminUser("SuperAdmin", "#Ko", 10, true);
-QString userLoggedIn = "";
+User userLoggedIn;
 
 QString startLogInProcess();
 QString whichUserIsLoggedIn();
@@ -15,23 +15,53 @@ QString whichUserIsLoggedIn();
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    userLoggedIn = startLogInProcess();
+//    bool MachineState = true;
 
-    if (userLoggedIn == ""){
+    LoginWindow login;
+
+    login.setAdminUser(adminUser);
+    userLoggedIn = login.getUserLoggedIn();
+    if (userLoggedIn.getUserName() == ""){
+        login.exec();
+        userLoggedIn = login.getUserLoggedIn();
+        login.~LoginWindow();
+    }
+
+    if (userLoggedIn.getUserName() == ""){
         return 1;
     }
 
-    qDebug() << userLoggedIn << " just logged in!";
+    qDebug() << userLoggedIn.getUserName() << " just logged in!";
+
     CheckListWindow app;
     app.setUserLoggedIn(userLoggedIn);
     app.show();
-    return a.exec();
-}
+    app.loadAllTasksIntoUIFromUser(userLoggedIn.getUserName());
+    if (app.getIfUserLoggedOut()){
+        login.exec();
+    }
 
-QString startLogInProcess(){
-    LoginWindow login;
-    login.setAdminUser(adminUser);
-    login.setModal(true);
-    login.exec();
-    return login.userLoggedIn;
+
+//    while(MachineState){
+//        LoginWindow login;
+
+//        login.setAdminUser(adminUser);
+//        userLoggedIn = login.userLoggedIn;
+//        if (userLoggedIn == ""){
+//            login.exec();
+//            userLoggedIn = login.userLoggedIn;
+//            login.~LoginWindow();
+//        }
+
+//        if (userLoggedIn == ""){
+//            return 1;
+//        }
+
+//        qDebug() << userLoggedIn << " just logged in!";
+//        CheckListWindow app;
+//        app.setUserLoggedIn(userLoggedIn);
+//        app.show();
+//    }
+
+    return a.exec();
 }

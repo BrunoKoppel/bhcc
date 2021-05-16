@@ -9,8 +9,9 @@
 #include <QListWidgetItem>
 #include <QVector>
 #include <QDebug>
+#include <fstream>
 #include "user.h"
-#include "thewidgetitem.h"
+#include "taskItem.h"
 
 namespace Ui {
 class CheckListWindow;
@@ -22,20 +23,52 @@ class CheckListWindow : public QMainWindow
 
 public:
     explicit CheckListWindow(QWidget *parent = nullptr);
-    void setUserLoggedIn(QString name);
+    void loadAllTasksIntoUIFromUser(QString usernameOnScreen);
+    void loadAllTasksFromAllUsers(User userLoggedIn);
+
+    void setNewAdmin(User newAdmin);
+    void setUserLoggedIn(User newUser);
+    void setLastUserLoggedIn(QString lastUser);
+    void setIfUserLoggedOut(bool condition);
+    void setNewTaskContents(QString contents);
+    void setnewDateTimeContents(QDateTime contents);
+
+    User getUserLoggedIn();
+    QString getLastUserLoggedIn();
+    QString getNewTaskContents();
+    QDateTime getNewDateTimeContents();
+
+    bool getIfUserLoggedOut();
     ~CheckListWindow();
 
 
 private slots:
     void on_addTaskButton_clicked();
-    void on_taskContentLineEdit_textChanged(const QString &arg1);
     void on_taskDateTimeEdit_dateTimeChanged(const QDateTime &dateTime);
+    void on_actionLog_Out_triggered();
+    void on_deleteTaskButton_clicked();
+
+    void on_commandInputEdit_textChanged(const QString &arg1);
+
+    void on_goToUserProfileButton_clicked();
+
+    void on_goToCompanyLevel_clicked();
+
+    void on_goToUserProfileButton_2_clicked();
 
 private:
     Ui::CheckListWindow *ui;
-    QString addTaskContents;
-    QDateTime addDateTimeContents;
-    QVector<TheWidgetItem> taskList;
+    User admin;
+    QString newTaskContents;
+    QDateTime newDateTimeContents;
+    bool didUserLoggedOut;
+    User userLoggedIn;
+    QString userProfileRendered;
+
+    QList<QString> taskData;
+
+    void addTaskToUiManually(bool calledFromFile);
+    QString addTask(QString parent, QStringList list);
 };
 
 #endif // CHECKLISTWINDOW_H
