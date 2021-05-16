@@ -10,6 +10,13 @@
 
 class User
 {
+private:
+    QString username;
+    QString password;
+    int userClass;
+    bool isAdmin;
+    QString errorDescription;
+
 public:
     User();
     User(QString error);
@@ -34,13 +41,13 @@ public:
     QString getUsersStringFormat_toSaveUserToFile();
     User getUserFromLoginDataFile(QString username, QString password);
     QList<User> getAllUsersFromLoginDataFile();
+};
 
+class Admin : public User {
 private:
-    QString username;
-    QString password;
-    int userClass;
-    bool isAdmin;
-    QString errorDescription;
+
+public:
+    Admin(QString newUsername, QString newPassword, int newUserClass, bool isAdminSwitch);
 };
 
 #endif // USER_H

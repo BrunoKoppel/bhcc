@@ -4,6 +4,10 @@
 
 bool Verbose = true;
 
+QString operator^(QString taskList, QString newSegment) {
+   return taskList + newSegment;
+}
+
 CheckListWindow::CheckListWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CheckListWindow){
@@ -141,9 +145,9 @@ void CheckListWindow::loadAllTasksIntoUIFromUser(QString usernameOnScreen){
 
             if (usernameOnScreen == list.at(3)){
                 i++;
-                taskData[0] = taskData[0] + list.at(0) + "     " + list.at(1) + "\n";
-                taskData[1] = taskData[1] + list.at(2) + "\n";
-                taskData[2] = taskData[2] + list.at(3) + "\n";
+                taskData[0] = taskData[0] ^ (list.at(0) + "     " + list.at(1) + "\n");
+                taskData[1] = taskData[1] ^ (list.at(2) + "\n");
+                taskData[2] = taskData[2] ^ (list.at(3) + "\n");
             }
 
 
@@ -215,9 +219,9 @@ void CheckListWindow::loadAllTasksFromAllUsers(User userLoggedIn){
 
             if (userLoggedIn.getUserClass() >= userClass){
                 i++;
-                taskData[0] = taskData[0] + list.at(0) + "     " + list.at(1) + "\n";
-                taskData[1] = taskData[1] + list.at(2) + "\n";
-                taskData[2] = taskData[2] + list.at(3) + "\n";
+                taskData[0] = taskData[0] ^ (list.at(0) + "     " + list.at(1) + "\n");
+                taskData[1] = taskData[1] ^ (list.at(2) + "\n");
+                taskData[2] = taskData[2] ^ (list.at(3) + "\n");
             }
 
 
@@ -474,8 +478,8 @@ void CheckListWindow::on_goToCompanyLevel_clicked(){
     loadAllTasksFromAllUsers(userLoggedIn);
 }
 
-
 void CheckListWindow::on_goToUserProfileButton_2_clicked(){
     loadAllTasksIntoUIFromUser(userLoggedIn.getUserName());
 }
+
 

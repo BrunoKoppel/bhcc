@@ -84,7 +84,6 @@ void User::debugUser(){
     qDebug() << this->getIsAdmin();
 }
 
-
 QString User::getUsersStringFormat_toSaveUserToFile(){
     return getUserName() + "//" + getPassWord() + "//" + QString::number(getUserClass()) + "//" + QString::number(getIsAdmin()) + "\n";
 }
@@ -146,7 +145,6 @@ User User::getUserFromLoginDataFile(QString username, QString password){
     return User(errorDescription);
 }
 
-
 QList<User> User::getAllUsersFromLoginDataFile(){
     QString path = QCoreApplication::applicationDirPath() + QString("/TD-UsersLogInData.txt");
     QFile inputFile(path);
@@ -206,4 +204,11 @@ User User::getUserFromParsedString(QString lineFromFile){
     }
 
     return newUser;
+}
+
+Admin::Admin(QString newUsername, QString newPassword, int newUserClass, bool isAdminSwitch){
+    setUserName(newUsername);
+    setPassWord(newPassword);
+    setUserClass(newUserClass);
+    setIsAdmin(isAdminSwitch);
 }

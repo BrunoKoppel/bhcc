@@ -44,6 +44,7 @@ set(PROJECT_SOURCES
         user.h
         taskItem.cpp
         taskItem.h
+
         ${TS_FILES}
 )
 

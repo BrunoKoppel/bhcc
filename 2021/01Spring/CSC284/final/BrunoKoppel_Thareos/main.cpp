@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QString>
 
-User adminUser("SuperAdmin", "#Ko", 10, true);
+Admin adminUser("SuperAdmin", "#Ko", 10, true);
 User userLoggedIn;
 
 QString startLogInProcess();
@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
 
     CheckListWindow app;
     app.setUserLoggedIn(userLoggedIn);
+    app.setNewAdmin(adminUser);
     app.show();
     app.loadAllTasksIntoUIFromUser(userLoggedIn.getUserName());
     if (app.getIfUserLoggedOut()){

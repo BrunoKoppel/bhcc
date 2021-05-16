@@ -1,0 +1,6 @@
+1//Prepare a dinner buffet for the company//Sat May 15 14:08:20 2021//Bruno
+1//Write the classes for the final project//Sat May 15 14:08:20 2021//Lucas
+1//Giving myself a task to do!//Sat May 15 19:17:28 2021//Tomato
+1//Clean the bathroom//Fri May 21 18:00:44 2021//Yoda
+1//Let's log in as Bruno and see what he's doing//Sun May 16 12:57:25 2021//Thuly
+2//Another Task, because I'm feeling productive//Sun May 16 17:10:58 2021//Yoda
