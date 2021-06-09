@@ -18,7 +18,7 @@ public class CreateSequentialFile extends JFrame {
 		super("Creating a Sequential File of Objects");
 
 		// create instance of reusable user interface
-		userInterface = new BankUI(3); 
+		userInterface = new BankUI(9); 
 		getContentPane().add(userInterface, BorderLayout.CENTER);
 		// get reference to generic task button doTask1 in BankUI
 		// and configure button for use in this program
@@ -168,7 +168,14 @@ public class CreateSequentialFile extends JFrame {
 					// create new record
 					record = new AccountRecord(accountNumber,
 							fieldValues[BankUI.FIRSTNAME],
-							fieldValues[BankUI.LASTNAME]);
+							fieldValues[BankUI.LASTNAME],
+							fieldValues[BankUI.ADDRESS],
+							fieldValues[BankUI.SOCSEC],
+							Double.parseDouble(fieldValues[BankUI.BALANCE]),
+							Double.parseDouble(fieldValues[BankUI.GPA]),
+							fieldValues[BankUI.TITLE],
+							Double.parseDouble(fieldValues[BankUI.TRANSACTION])
+							);
 
 					// output record and flush buffer
 					output.writeObject(record);

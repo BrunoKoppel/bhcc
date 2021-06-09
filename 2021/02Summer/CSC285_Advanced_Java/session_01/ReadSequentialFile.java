@@ -24,10 +24,10 @@ private static final long serialVersionUID = 3417040053089159204L;
       super( "Reading a Sequential File of Objects" );
 
       // create instance of reusable user interface
-      userInterface = new BankUI(3); 
+      userInterface = new BankUI(9); 
       getContentPane().add( 
          userInterface, BorderLayout.CENTER );
-      for(int x = 0; x < 3; x++){
+      for(int x = 0; x < 9; x++){
     	  userInterface.fields[x].setEditable( false );
     	  userInterface.fields[x].setBackground(Color.white);
       }
@@ -165,7 +165,13 @@ private static final long serialVersionUID = 3417040053089159204L;
          String values[] = {
             String.valueOf( record.getAccount() ),
             record.getFirstName(),
-            record.getLastName()
+            record.getLastName(),
+			record.getAddress(),
+			record.getSocialSecurityNumber(),
+			String.valueOf(record.getBalance()),
+			String.valueOf(record.getGPA()),
+			record.getTitle(),
+			String.valueOf(record.getTransactionAmount())
 			};
 
          // display record contents

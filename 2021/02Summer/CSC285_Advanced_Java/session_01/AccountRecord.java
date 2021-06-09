@@ -13,23 +13,31 @@ public class AccountRecord implements Serializable { // if it is interface it
 	private int account;
 	private String firstName;
 	private String lastName;
-	//private String address;
-	//private String socsec;
-	//private double balance;
-	//private double gpa;
-	//private String title;
+	private String address;
+	private String socialSecurityNumber;
+	private double balance;
+	private double gpa;
+	private String title;
+	private double transactionAmount;
 
 	// no-argument constructor calls other constructor with
 	// default values
 	public AccountRecord() {
-		this(0, "", ""); // default way of private variables.
+		this(0, "", "", "", "", 0.0, 0.0, "", 0.0); // default way of private variables.
 	}
 
 	// initialize a record
-	public AccountRecord(int acct, String first, String last) {
+	public AccountRecord(int acct, String first, String last, String addr,
+			String ss, double bal, double gpa, String title, double ta) {
 		setAccount(acct);
 		setFirstName(first);
 		setLastName(last);
+		setAddress(addr);
+		setSocialSecurityNumber(ss);
+		setBalance(bal);
+		setGPA(gpa);
+		setTitle(title);
+		setTransactionAmount(ta);
 		
 	}
 
@@ -63,8 +71,65 @@ public class AccountRecord implements Serializable { // if it is interface it
 		return lastName;
 	}
 	
+	// set address
+	public void setAddress(String addr) {
+		address = addr;
+	}
+
+	// get address
+	public String getAddress() {
+		return address;
+	}
 	
+	// set socialSecurityNumber
+	public void setSocialSecurityNumber(String ss) {
+		socialSecurityNumber = ss;
+	}
+
+	// get socialSecurityNumber
+	public String getSocialSecurityNumber() {
+		return socialSecurityNumber;
+	}
 	
+	// set Balance
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	// get Balance
+	public double getBalance() {
+		return balance;
+	}
+	
+	// set GPA
+	public void setGPA(double GPA) {
+		this.gpa = GPA;
+	}
+
+	// get GPA
+	public double getGPA() {
+		return gpa;
+	}
+	
+	// set Title
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	// get Title
+	public String getTitle() {
+		return title;
+	}
+	
+	// set Transaction Amount
+	public void setTransactionAmount(double ta) {
+		transactionAmount = ta;
+	}
+
+	// get Transaction Amount
+	public double getTransactionAmount() {
+		return transactionAmount;
+	}
 	
 } // end class AccountRecord
 
