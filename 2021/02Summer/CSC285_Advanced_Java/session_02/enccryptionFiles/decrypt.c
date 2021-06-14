@@ -1,16 +1,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main(){
+void main(){
 
 int c;
 
+#ifdef _APPLE__
 system("clear");
+#elsedef
+system("cls");
+#endif
+
 
 while ((c=getchar()) != EOF){
   putchar(--c);
   // printf("%d", c);
   }
   
-return 1;
 }

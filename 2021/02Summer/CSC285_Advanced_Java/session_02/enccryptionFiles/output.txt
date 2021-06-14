@@ -1,4 +1,4 @@
-[H[2J[3JZGZ1IZ2I
+
 // call this Promote.java
 
 class Promote {

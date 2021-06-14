@@ -14,7 +14,6 @@ public class AccountRecord implements Serializable { // if it is interface it
 	private int account;
 	private String firstName;
 	private String lastName;
-	
 	private double balance;
 	
 
@@ -31,9 +30,7 @@ public class AccountRecord implements Serializable { // if it is interface it
 		setAccount(acct);
 		setFirstName(first);
 		setLastName(last);
-		
 		setBalance(bal);
-		
 	}
 	
 	
@@ -67,7 +64,6 @@ public class AccountRecord implements Serializable { // if it is interface it
 	public String getLastName() {
 		return lastName;
 	}
-	
 
 	// set balance
 	public void setBalance(double bal) {
