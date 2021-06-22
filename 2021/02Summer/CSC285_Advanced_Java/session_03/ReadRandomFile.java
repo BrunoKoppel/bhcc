@@ -116,7 +116,7 @@ public class ReadRandomFile extends JFrame {
                 input = new RandomAccessFile(fileName, "r");
                 nextButton.setEnabled(true);
                 openButton.setEnabled(false);
-				long numberOfRecords = (input.length() / (RandomAccessAccountRecord.size() * 100)) - 2;
+				long numberOfRecords = (input.length() / (RandomAccessAccountRecord.size() * 100));
 				System.out.println("Number of Records => " + String.valueOf(numberOfRecords));
             }
 
@@ -138,18 +138,18 @@ public class ReadRandomFile extends JFrame {
 
         // read a record and display
         try {
-            //long numberOfRecords = (input.length() / (record.size() * 100)) - 2;
-			//System.out.println("Number of Records => " + String.valueOf(numberOfRecords));
-			//int recordNumberToAccess = (int)(Math.random() * (numberOfRecords));
-			//System.out.println("Accessing Record Number #" + String.valueOf(recordNumberToAccess));
-			//long addressOfRandomAccess = (record.size() * recordNumberToAccess);
-            //System.out.println("Memory Address in File => " + String.valueOf(addressOfRandomAccess));
-			//input.seek(addressOfRandomAccess);
+            long numberOfRecords = (input.length() / (record.size() * 10));
+			System.out.println("Number of Records => " + String.valueOf(numberOfRecords));
+			int recordNumberToAccess = (int)(Math.random() * (numberOfRecords));
+			System.out.println("Accessing Record Number #" + String.valueOf(recordNumberToAccess));
+			long addressOfRandomAccess = (record.size() * recordNumberToAccess);
+            System.out.println("Memory Address in File => " + String.valueOf(addressOfRandomAccess));
+			input.seek(addressOfRandomAccess);
 			
             //Skip blank records in the file
             do {
                 record.read(input);
-            } while (record.getAccount() == 0);
+            } while (record.getAccount() == 0 && (input.getFilePointer() < (input.length() - record.size())));
 			
 			
 

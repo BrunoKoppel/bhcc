@@ -169,7 +169,7 @@ public class WriteRandomFile extends JFrame {
                 accountNumber =
                         Integer.parseInt(fields[BankUI.ACCOUNT]);
 
-                if (accountNumber > 0 && accountNumber <= 1000) {
+                if (accountNumber > 0 && accountNumber <= 100) {
                     record.setAccount(accountNumber);
                     record.setFirstName(fields[BankUI.FIRSTNAME]);
                     record.setLastName(fields[BankUI.LASTNAME]);
