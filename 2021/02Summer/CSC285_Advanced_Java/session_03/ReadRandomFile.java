@@ -18,6 +18,7 @@ public class ReadRandomFile extends JFrame {
     private BankUI userInterface;
     private RandomAccessFile input;
     private JButton nextButton, openButton;
+    public static long numberOfRecords;
 
     // set up GUI
     public ReadRandomFile() {
@@ -116,8 +117,13 @@ public class ReadRandomFile extends JFrame {
                 input = new RandomAccessFile(fileName, "r");
                 nextButton.setEnabled(true);
                 openButton.setEnabled(false);
-				long numberOfRecords = (input.length() / (RandomAccessAccountRecord.size() * 100));
-				System.out.println("Number of Records => " + String.valueOf(numberOfRecords));
+				numberOfRecords = (input.length() / (196));
+				
+                // Verbose for debugging
+                if (false){
+                    System.out.println("Length of File => " + String.valueOf(input.length()));
+                    System.out.println("Number of Records => " + String.valueOf(numberOfRecords));
+                }
             }
 
             // catch exception while opening file
@@ -138,10 +144,14 @@ public class ReadRandomFile extends JFrame {
 
         // read a record and display
         try {
-            long numberOfRecords = (input.length() / (record.size() * 10));
-			System.out.println("Number of Records => " + String.valueOf(numberOfRecords));
+
+            // Verbose for debugging
+            if (false){
+                System.out.println("Length of Record => " + String.valueOf(record.size()));
+            }
+            
 			int recordNumberToAccess = (int)(Math.random() * (numberOfRecords));
-			System.out.println("Accessing Record Number #" + String.valueOf(recordNumberToAccess));
+			System.out.println("Accessing Record Number #" + String.valueOf(recordNumberToAccess + 1));
 			long addressOfRandomAccess = (record.size() * recordNumberToAccess);
             System.out.println("Memory Address in File => " + String.valueOf(addressOfRandomAccess));
 			input.seek(addressOfRandomAccess);

@@ -131,12 +131,15 @@ public class CreateRandomFile extends JFrame implements Serializable {
                 RandomAccessFile file =
                         new RandomAccessFile(fileName, "rw");
 
-                RandomAccessAccountRecord blankRecord =
-                        new RandomAccessAccountRecord();
+                
 
                 // write 100 blank records
-                for (int count = 0; count < 100; count++)
+                for (int count = 0; count < 100; count++){
+                    RandomAccessAccountRecord blankRecord =
+                        new RandomAccessAccountRecord(count+1, "EMPTY", "EMPTY", "EMPTY", 0, 0.0, 0.0, "EMPTY");
                     blankRecord.write(file);
+                }
+                    
 
                 // close file
                 file.close();
