@@ -1,0 +1,34 @@
+Hi,
+I have had a few questions on how to run the packages example.
+This will make it simple.
+
+download the 2 attached files (Emprec.java   and  Emp_Ex.java)  to a directory that you create called
+c:\packages
+
+Now change to that directory      (   cd \packages  should do the trick)
+
+
+Next set that path to your compiler
+path = "c:\program files\java\jdk1.6.0_23\bin"  (NOTE:You may have a newer compiler !!!!) 
+
+now type
+
+javac   -d     c:\packages     Emprec.java
+
+what just happened is that you created Emprec.class but it was placed in the
+c:\packages\com\jhaley\pk1   directory.  THIS DIRECTORY WAS MADE BY JAVA  NOT BY YOU THE PROGRAMMER. 
+THE ONLY DIRECTORY THAT YOU MADE WAS THE c:\packages   DIRECTORY TO PLACE THE 2 .JAVA FILES IN.  JAVA DID THE REST.
+
+TO TEST THE PACKAGE TYPE
+javac Emp_Ex.java
+java Emp_Ex
+
+Now you will see the output.
+This is the simple way to do packages.  Please note all the times the keywork  "public"  is used.
+
+OK, here is a question.  Why do we need to use "public" in the package code? 
+I will post this on the Discussion Board.
+
+Good luck,
+Jack
+339 222 4247  Call with questions.

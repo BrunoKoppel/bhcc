@@ -1,0 +1,30 @@
+Here is how to do the Package example from a different directory !
+
+CHECK THIS !!!!!!
+javac -d c:\cdf -classpath "c:\cdf"  Customer.java
+
+
+
+1.)  make sure that you make the directory
+c:\cdf    (or which ever directory that you want to make)
+
+2.)
+C:\packages4>javac -d c:\cdf  Emprec.java
+
+C:\packages4>javac -classpath   ".;c:\cdf"    Emp_Ex.java 
+ //PLEASE NOTE: do not make this package tree on both the root and c:\cdf directories 
+ //or it will always go to the root when you make changes to the c:\cdf   This is a common error !!!
+
+C:\packages4>java -classpath  ".;c:\cdf"   Emp_Ex
+  
+
+   The gross salary for Mary Smith is 610.00
+   Calling the method the answer is 610.00
+
+			//Note do Customer with Iface.java as the main program!!!!
+
+C:\packages4>
+
+3.) Make sure that you use the quotes !!!!
+
+ 
