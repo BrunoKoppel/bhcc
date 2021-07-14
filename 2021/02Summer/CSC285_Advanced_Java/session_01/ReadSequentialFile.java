@@ -1,6 +1,9 @@
-
 // This program reads a file of objects sequentially
 // and displays each record.
+
+// Personal generated packages
+import com.bkoppel.bankui;
+import com.bkoppel.accrec;
 
 // Java core packages
 import java.io.*;

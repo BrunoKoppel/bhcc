@@ -1,5 +1,7 @@
+// Personal Generated Packages
+package com.bkoppel.bankui;
 
-
+import com.bkoppel.accrec;
 
 // Java core packages
 import java.awt.*;
@@ -17,7 +19,7 @@ public class BankUI extends JPanel {
 
 	// GUI components; protected for future subclass access
 	protected JLabel labels[];
-	protected JTextField fields[];
+	public JTextField fields[];
 	protected JButton doTask1, doTask2;
 	protected JPanel innerPanelCenter, innerPanelSouth;
 	// number of text fields in GUI

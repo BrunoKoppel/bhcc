@@ -1,8 +1,12 @@
+// Personal Generated Packages
+package com.bkoppel.accrec;
+import com.bkoppel.bankui;
+
+
 // Java core packages
 // @HW@
 // add grade average point GPA
 //
-
 import java.io.Serializable;
 
 public class AccountRecord implements Serializable { // if it is interface it

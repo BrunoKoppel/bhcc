@@ -1,3 +1,7 @@
+// Personal generated packages
+import com.bkoppel.bankui.BankUI;
+import com.bkoppel.accrec.AccountRecord;
+
 // Java core packages
 import java.io.*;
 import java.awt.*;
