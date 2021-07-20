@@ -25,4 +25,4 @@
         strDate = formatter.format(date);  
         System.out.println("Date Format with E, dd MMM yyyy HH:mm:ss z : "+strDate);  
     }  
-    }  
+}  
