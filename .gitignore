@@ -392,3 +392,9 @@ FodyWeavers.xsd
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/2021/02Summer/CSC285_Advanced_Java/session_05/filesForSQL/employeemanager/nbproject/private/
+/2021/02Summer/CSC285_Advanced_Java/session_05/filesForSQL/employeemanager/build/
+/2021/02Summer/CSC285_Advanced_Java/session_05/filesForSQL/employeemanager/dist/
+/2021/02Summer/CSC285_Advanced_Java/session_06/LoanCalculator/LoanCalculator/nbproject/private/
+/2021/02Summer/CSC285_Advanced_Java/session_06/LoanCalculator/LoanCalculator/build/
+/2021/02Summer/CSC285_Advanced_Java/session_06/LoanCalculator/LoanCalculator/dist/
