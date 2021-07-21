@@ -1,7 +1,7 @@
 
 import java.util.*;
 import java.io.*;
-import javax.xml.stream.*;  // StAX API
+import javax.xml.stream.*; // StAX API
 
 public class ProductXMLFile implements ProductDAO {
 
@@ -28,12 +28,10 @@ public class ProductXMLFile implements ProductDAO {
             this.checkFile();
 
             // create XMLStreamWriter object
-            FileWriter fileWriter
-                    = new FileWriter(productsFilename);
-            XMLStreamWriter writer
-                    = outputFactory.createXMLStreamWriter(fileWriter);
+            FileWriter fileWriter = new FileWriter(productsFilename);
+            XMLStreamWriter writer = outputFactory.createXMLStreamWriter(fileWriter);
 
-            //write the products to the file
+            // write the products to the file
             writer.writeStartDocument("1.0");
             writer.writeStartElement("Products");
             for (Product p : products) {
@@ -64,6 +62,11 @@ public class ProductXMLFile implements ProductDAO {
                 writer.writeCharacters(Character.toString(discount));
                 writer.writeEndElement();
 
+                writer.writeStartElement("DiscountAmount");
+                double discountAmount = p.getDiscountAmount();
+                writer.writeCharacters(Double.toString(discountAmount));
+                writer.writeEndElement();
+
                 writer.writeEndElement();
             }
             writer.writeEndElement();
@@ -90,10 +93,8 @@ public class ProductXMLFile implements ProductDAO {
             this.checkFile();
 
             // create a XMLStreamReader object
-            FileReader fileReader
-                    = new FileReader(productsFilename);
-            XMLStreamReader reader
-                    = inputFactory.createXMLStreamReader(fileReader);
+            FileReader fileReader = new FileReader(productsFilename);
+            XMLStreamReader reader = inputFactory.createXMLStreamReader(fileReader);
 
             // read the products from the file
             while (reader.hasNext()) {
@@ -103,7 +104,7 @@ public class ProductXMLFile implements ProductDAO {
                         String elementName = reader.getLocalName();
                         if (elementName.equals("Product")) {
                             p = new Product();
- 
+
                             String code = reader.getAttributeValue(0);
                             p.setCode(code);
                         }
@@ -131,6 +132,11 @@ public class ProductXMLFile implements ProductDAO {
                             String discountString = reader.getElementText();
                             char discount = discountString.charAt(0);
                             p.setDiscount(discount);
+                        }
+                        if (elementName.equals("DiscountAmount")) {
+                            String discountAmountString = reader.getElementText();
+                            double discountAmount = Double.parseDouble(discountAmountString);
+                            p.setDiscountAmount(discountAmount);
                         }
 
                         break;
