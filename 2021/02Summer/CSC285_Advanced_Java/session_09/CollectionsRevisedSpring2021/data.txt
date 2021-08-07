@@ -1,0 +1,22 @@
+Jack Haley
+22 Smith Street
+45
+15
+m
+103
+true
+Mary Jones
+123 Sesame Street
+50
+20
+f
+33
+false
+Charlie White
+44 Elm Street
+35
+25
+m
+45
+false
+exit

@@ -1,0 +1,5 @@
+Bryn Dog%111 Williams St.%12.5%6.75%1%f%t
+Aaron Abbot%88 Vassar Way%40%12.40%0%m%f
+Zoe Zoolander%Maple Dr.%27.5%22.30%2%f%t
+Freddie Mercury%Franklin Ave.%46.0%18.5%4%m%f
+Sam French%54 Main Rd.%78%19.25%1%m%t
