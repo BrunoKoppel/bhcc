@@ -1,4 +1,4 @@
-from admin import Admin
+from admin import *
 from user import User
 # from privileges import Privileges
 import random

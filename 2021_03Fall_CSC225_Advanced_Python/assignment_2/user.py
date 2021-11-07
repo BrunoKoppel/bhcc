@@ -27,10 +27,10 @@ class User:
   def reset_login_attempts(self):
     self.login_attempts = 0
 
-# new = User("Bruno", "Koppel")
-# print(new.describe_user())
-# print(new.greet_user())
-# for i in range(0,5):
-#   new.increment_login_attempts()
+new = User("Bruno", "Koppel")
+print(new.describe_user())
+print(new.greet_user())
+for i in range(0,5):
+  new.increment_login_attempts()
 
-# print(f"{new.get_user_names()} has {new.get_login_attempts()} logins")
+print(f"{new.get_user_names()} has {new.get_login_attempts()} logins")
