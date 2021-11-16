@@ -36,6 +36,3 @@ class Flower:
     print(f'Y: {self.y}')
     print(f'Radius: {self.radius}')
     print(f'Flowers: {self.flowers_bloomed}\n')
-
-
-
