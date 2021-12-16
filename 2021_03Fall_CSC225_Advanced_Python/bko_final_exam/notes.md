@@ -3,9 +3,9 @@ Perform exploratory data analysis for any dataset from https://data.boston.gov/.
 Use pandas and/or in-built Python libraries to read and process the data.
 
 Ideas for data analysis:
+  - [x] Renaming columns
 
   - Identify missing data and filling it with values where appropriate
-  - Renaming columns
   - Grouping data and performing aggregate calculations on one or more columns
   - Creating visualizations using matplotlib, pyplot or other plotting libraries: visualizations could be histograms, bar charts, scatter plots, geographical maps, etc.
   - If using multiple data sources, what common values can they be joined (combined) on?
