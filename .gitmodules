@@ -1,6 +1,3 @@
-[submodule "2021_03Fall_CSC225_Advanced_Python/CSC-225-01-2021FA"]
-	path = 2021_03Fall_CSC225_Advanced_Python/CSC-225-01-2021FA
-	url = git@github.com:dsurraobhcc/CSC-225-01-2021FA.git
 [submodule "2021_03Fall_CSC225_Advanced_Python/2021_03Fall_CSC225_Advanced_Python/class_notes"]
 	path = 2021_03Fall_CSC225_Advanced_Python/2021_03Fall_CSC225_Advanced_Python/class_notes
 	url = git@github.com:dsurraobhcc/CSC-225-01-2021FA.git
